@@ -15,5 +15,28 @@
     "node-inspector": "~0.7.4",
     "qrcode-terminal": "~0.9.4",
     "nclosure": "~0.4.3"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kicumkicum/vknplayer.git"
+  },
+  "keywords": [
+    "mp3",
+    "audio",
+    "music",
+    "vk",
+    "vk.com",
+    "console",
+    "terminal",
+    "player",
+    "radio",
+    "raspberry-pi",
+    "banana-pi"
+  ],
+  "author": "Oleg Akinin <kicumkicum@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kicumkicum/vknplayer/issues"
+  },
+  "homepage": "https://github.com/kicumkicum/vknplayer"
 }
