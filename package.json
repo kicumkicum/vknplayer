@@ -16,6 +16,10 @@
     "qrcode-terminal": "~0.9.4",
     "nclosure": "~0.4.3"
   },
+  "bin": {
+    "vknplayer": "./vknplayer.js"
+  },
+  "main": "./vknplayer.js",
   "repository": {
     "type": "git",
     "url": "git@github.com:kicumkicum/vknplayer.git"
