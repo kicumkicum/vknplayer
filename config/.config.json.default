@@ -1,0 +1,35 @@
+{
+	"app": {
+		"clientId": "4072914",
+		"redirectServer": "http://109.227.206.91:8888"
+	},
+	"api": {
+		"vk": {
+			"enabled": 1,
+			"authServer": "http://109.227.206.91:3000/",
+			"token": ""
+		},
+		"gmusic": {
+			"enabled": 1,
+			"login": "",
+			"password": "",
+			"device-id": "",
+			"host": "localhost",
+			"port": "9999"
+		},
+		"soundcloud": {
+			"enabled": 0,
+			"client-id": "6281bf979c90345347f951597010ef73"
+		}
+	},
+	"ui": {
+		"console": {
+			"enabled": 1,
+			"mode": "full",
+			"__comment": "mode value is full, minimal or daemon"
+		},
+		"web": {
+			"enabled": 0
+		}
+	}
+}

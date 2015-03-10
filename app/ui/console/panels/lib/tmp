@@ -1,0 +1,13 @@
+								Node
+							   ___L___
+							  |       |
+					BasePanel    HomePanel
+					|   	   |
+				AlbumList  ___PlayList______
+						  |		|         |
+					SlaveList MasterList   NewsList
+
+
+
+
+

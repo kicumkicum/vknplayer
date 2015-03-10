@@ -1,0 +1,19 @@
+{
+  "name": "vkNplayer",
+  "version": "0.0.30",
+  "description": "its console vk.com player",
+  "dependencies": {
+    "blessed": "^0.0.49",
+    "request": "2.34.0",
+    "q": "~2.0.0",
+    "lame": "^1.1.2",
+    "speaker": "~0.2.4",
+    "events": "~1.0.1",
+    "util": "~0.10.3",
+    "ws": "~0.4.31",
+    "connect": "~2.19.4",
+    "node-inspector": "~0.7.4",
+    "qrcode-terminal": "~0.9.4",
+    "nclosure": "~0.4.3"
+  }
+}

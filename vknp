@@ -1,0 +1,3 @@
+#!/bin/bash
+
+node --expose-gc vknplayer.js 2>/dev/null
