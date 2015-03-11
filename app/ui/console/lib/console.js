@@ -301,6 +301,19 @@ Console.prototype.append = function(node) {
 
 
 /**
+ * @param {vknp.ui.console.popups} PopUp
+ */
+Console.prototype.openPopUp = function(PopUp, opt_params) {
+	var popup = new PopUp(opt_params);
+
+	popup.focus();
+	this.render();
+
+	return popup;
+};
+
+
+/**
  * @return {Input}
  * @private
  */
@@ -330,9 +343,10 @@ Console.prototype._apiVKErrorHandler = function(errorCode, errorMessage) {
 	}.bind(this);
 
 	if (errorCode === 5 && !this._authPopUp) {
-		this._authPopUp = new vknp.ui.console.popups.Authorization;
-		this._authPopUp.setIndex(-1);
+		this._authPopUp = this.openPopUp(vknp.ui.console.popups.Authorization);
+		//this._authPopUp.setIndex(-1);
 		this._authPopUp.on('close', closeAuthPopUp);
+		setTimeout(this._authPopUp.focus.bind(this._authPopUp), 2000);//dirty hack for set focused
 	}
 };
 
