@@ -1,7 +1,9 @@
 var popups = {
 	Authorization: require('./lib/authorization'),
 	Base: require('./lib/base'),
-	Simple: require('./lib/simple')
+	HardAuth: require('./lib/hard-auth'),
+	Simple: require('./lib/simple'),
+	SimpleAuth: require('./lib/simple-auth')
 };
 
 module.exports = popups;
