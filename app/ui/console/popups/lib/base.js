@@ -5,6 +5,9 @@
 var blessed = require('blessed');
 var events = require('events');
 
+var Node = require('../../lib/node');
+
+
 
 /**
  *
@@ -12,7 +15,7 @@ var events = require('events');
  * @constructor
  */
 var BasePopUp = function(param) {};
-goog.inherits(BasePopUp, events.EventEmitter);
+goog.inherits(BasePopUp, Node);
 
 
 /**
