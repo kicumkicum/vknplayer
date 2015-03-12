@@ -14,10 +14,10 @@ var AuthPopUp = function() {
 	this._init({
 		title: 'Authorization VK.COM',
 		message: '\n{center}Для авторизации выберите один из вариантов{/center}',
-		left: 25,
-		top: 25,
-		width: 50,
-		height: 50
+		left: 5,
+		top: 5,
+		width: 80,
+		height: 80
 	});
 
 	this._addButtons();

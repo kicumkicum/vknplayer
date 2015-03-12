@@ -16,10 +16,10 @@ var SimpleAuth = function() {
 		'2. откойте в браузере ' + app.api.vk.getExternalAuthUrl() + '\n' +
 		'3. получите токен\n' +
 		'4. когда закроется это окно - перезапустите приложение',
-		left: 30,
-		top: 30,
-		width: 50,
-		height: 50
+		left: 15,
+		top: 15,
+		width: 80,
+		height: 80
 	});
 
 	this._addButtons();
