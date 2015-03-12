@@ -46,12 +46,21 @@ Input.prototype.getValue = function() {
 };
 
 
+/**
+ * @return {string}
+ */
+Input.prototype.clearValue = function() {
+	return this._node.clearValue();
+};
+
+
 Input.prototype._createNode = function(params) {
 	return blessed.textarea({
 		parent: params.parent,
 		keys: true,
 		mouse: true,
 		bottom: params.bottom,
+		top: params.top,
 		left: params.left,
 		width: params.width,
 		height: params.height,

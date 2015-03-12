@@ -11,6 +11,7 @@ var util = require('util');
  */
 Console = function(config) {
 	this._config = config;
+	this._openPopUps = [];
 };
 goog.inherits(Console, events.EventEmitter);
 
@@ -301,6 +302,26 @@ Console.prototype.append = function(node) {
 
 
 /**
+ * @param {vknp.ui.console.popups} PopUp
+ */
+Console.prototype.openPopUp = function(PopUp, opt_params) {
+	var popup = new PopUp(opt_params);
+
+	this._openPopUps.push(popup);
+	popup.on('close', function() {
+		this._openPopUps.pop();
+		if (this._openPopUps.length) {
+			this._openPopUps[this._openPopUps.length - 1].focus();
+			this.render();
+		}
+	}.bind(this));
+
+	popup.focus();
+	return popup;
+};
+
+
+/**
  * @return {Input}
  * @private
  */
@@ -330,9 +351,10 @@ Console.prototype._apiVKErrorHandler = function(errorCode, errorMessage) {
 	}.bind(this);
 
 	if (errorCode === 5 && !this._authPopUp) {
-		this._authPopUp = new vknp.ui.console.popups.Authorization;
-		this._authPopUp.setIndex(-1);
+		this._authPopUp = this.openPopUp(vknp.ui.console.popups.Authorization);
+		//this._authPopUp.setIndex(-1);
 		this._authPopUp.on('close', closeAuthPopUp);
+		setTimeout(this._authPopUp.focus.bind(this._authPopUp), 2000);//dirty hack for set focused
 	}
 };
 
@@ -451,6 +473,12 @@ Console.prototype.userId;//todo move to global scope
  * @type {vknp.ui.console.popups.Authorization}
  */
 Console.prototype._authPopUp;
+
+
+/**
+ * @type {Array.<vknp.ui.console.popups>}
+ */
+Console.prototype._openPopUps;
 
 
 
