@@ -37,7 +37,7 @@ BasePopUp.prototype._init = function(param) {
 			this.close();
 		}
 	}.bind(this));
-	this._cancel.on(BlessedConst.event.BUTTON_PRESS, this.close.bind(this));
+	this._cancel.on(BlessedConst.event.BUTTON_PRESS, this.close);
 };
 
 
@@ -58,7 +58,7 @@ BasePopUp.prototype.setIndex = function(value) {
 /**
  */
 BasePopUp.prototype.close = function() {
-	this._cancel.removeListener(BlessedConst.event.BUTTON_PRESS, this.close.bind(this));
+	this._cancel.removeListener(BlessedConst.event.BUTTON_PRESS, this.close);
 	app.ui.console.screen.remove(this._node);
 	app.ui.console.render();
 	this.emit('close', this);

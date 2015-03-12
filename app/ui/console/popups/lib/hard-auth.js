@@ -8,8 +8,9 @@ var SimplePopUp = require('./simple');
 
 var HardAuth = function() {
 	this._init({
-		title: 'Authorization VK.COM',
-		message: '\n{center}Для авторизации на сайте VK.COM пройдите по ссылке{/center}' + '\n\n' + '{center}' + app.api.vk.getAuthUrl(true) + '{/center}',
+		title: 'Hard Authorization VK.COM',
+		message: '{center}Для авторизации на сайте VK.COM{/center}\n1. пройдите по ссылке ' + app.api.vk.getAuthUrl(true) + '\n' +
+		'2. скопируйте содержимое адресной строки браузера в это поле ввода.\n3. нажмите ENTER\n4. перезапустите приложение \n Пусть вас не смущает предуперждение. С теми правами, которое использует это приложение, это не возможно',
 		left: 30,
 		top: 30,
 		width: 50,
@@ -37,7 +38,7 @@ HardAuth.prototype.getNode = function() {
  * @private
  */
 HardAuth.prototype._openFullUrlPopUp = function() {
-	new SimplePopUp({
+	app.ui.console.openPopUp(vknp.ui.console.popups.Simple, {
 		title: 'FULL URL',
 		message: app.api.vk.getAuthUrl(false),
 		left: 2,
@@ -56,10 +57,6 @@ HardAuth.prototype._addButtons = function() {
 		right: 10,
 		bottom: 1
 	});
-	this._qrButton = this._createButton('показать QR-code', {
-		left: 1,
-		bottom: 4
-	});
 	this._showFullUrlButton = this._createButton('показать полный адрес', {
 		left: 1,
 		bottom: 1
@@ -74,7 +71,7 @@ HardAuth.prototype._addButtons = function() {
 HardAuth.prototype._createInput = function() {
 	var input = new Input({
 		parent: this._node,
-		top: 5,
+		bottom: 4,
 		left: 1,
 		width: '98%',
 		height: 3,

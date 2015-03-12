@@ -9,8 +9,9 @@ var SimpleAuth = function() {
 	this._getId = this._getId.bind(this);
 
 	this._init({
-		title: 'Authorization VK.COM',
-		message: '\n{center}Для авторизации выролните эти простые шаги{/center}' + '\n\n' +
+		title: 'Simple Authorization VK.COM',
+		message:'\n{center}Простой способ авторизоваться, но, в силу ограничений VK.COM, доступен не весь функционал.' +
+		'\nДля авторизации выролните эти простые шаги{/center}' + '\n\n' +
 		'1. получите ID\n' +
 		'2. откойте в браузере ' + app.api.vk.getExternalAuthUrl() + '\n' +
 		'3. получите токен\n' +

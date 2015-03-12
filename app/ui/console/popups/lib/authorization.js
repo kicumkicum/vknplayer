@@ -94,7 +94,7 @@ AuthPopUp.prototype._openHardAuth = function() {
 AuthPopUp.prototype._openDirectAuth = function() {
 	app.ui.console.openPopUp(vknp.ui.console.popups.Simple, {
 		title: 'Authorization VK.COM',
-		message: '\n{center}dont use it{/center}',
+		message: '\n{center}здесь могли бы быть поля для ввода логина и пароля. но это не бесопасно. попробуйте другие способы авторизации{/center}',
 		left: 30,
 		top: 30,
 		width: 50,
