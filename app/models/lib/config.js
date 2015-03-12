@@ -13,7 +13,14 @@ Config = function(data) {
 	this.api = {};
 	this.api.vk = {};
 	this.api.vk.enabled = data['api']['vk']['enabled'] || false;
+	this.api.vk.externalAuthServer = data['api']['vk']['externalAuthServer'];
+	this.api.vk.shortAuthUrl = data['api']['vk']['shortAuthUrl'];
 	this.api.vk.authServer = data['api']['vk']['authServer'];
+	this.api.vk.clientId = data['api']['vk']['client_id'];
+	this.api.vk.scope = data['api']['vk']['scope'];
+	this.api.vk.redirectUri = data['api']['vk']['redirect_uri'];
+	this.api.vk.display = data['api']['vk']['display'];
+	this.api.vk.responseType = data['api']['vk']['response_type'];
 	this.api.vk.token = data['api']['vk']['token'];
 
 	this.api.gmusic = {};

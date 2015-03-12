@@ -5,6 +5,9 @@
 var blessed = require('blessed');
 var events = require('events');
 
+var Node = require('../../lib/node');
+
+
 
 /**
  *
@@ -12,7 +15,7 @@ var events = require('events');
  * @constructor
  */
 var BasePopUp = function(param) {};
-goog.inherits(BasePopUp, events.EventEmitter);
+goog.inherits(BasePopUp, Node);
 
 
 /**
@@ -20,7 +23,8 @@ goog.inherits(BasePopUp, events.EventEmitter);
  * @protected
  */
 BasePopUp.prototype._init = function(param) {
-	this.close = this.close.bind(this);
+	this._close = this._close.bind(this);
+	this._keyPressListener = this._keyPressListener.bind(this);
 
 	this._node = this._createNode(param);
 	app.ui.console.append(this._node);
@@ -29,12 +33,8 @@ BasePopUp.prototype._init = function(param) {
 		bottom: 1
 	});
 
-	this._node.on(BlessedConst.event.KEY_PRESS, function(ch, key) {
-		if (key.name === BlessedConst.button.ESCAPE) {
-			this.close();
-		}
-	}.bind(this));
-	this._cancel.on(BlessedConst.event.BUTTON_PRESS, this.close.bind(this));
+	this._node.on(BlessedConst.event.KEY_PRESS, this._keyPressListener);
+	this._cancel.on(BlessedConst.event.BUTTON_PRESS, this._close);
 };
 
 
@@ -55,10 +55,27 @@ BasePopUp.prototype.setIndex = function(value) {
 /**
  */
 BasePopUp.prototype.close = function() {
-	this._cancel.removeListener(BlessedConst.event.BUTTON_PRESS, this.close.bind(this));
+	this._cancel.removeListener(BlessedConst.event.BUTTON_PRESS, this._close);
+	this._cancel.removeListener(BlessedConst.event.BUTTON_PRESS, this._keyPressListener);
 	app.ui.console.screen.remove(this._node);
 	app.ui.console.render();
 	this.emit('close', this);
+};
+
+
+/**
+ */
+BasePopUp.prototype._close = function() {
+	this.close();
+};
+
+
+/**
+ */
+BasePopUp.prototype._keyPressListener = function(ch, key) {
+	if (key.name === BlessedConst.button.ESCAPE) {
+			//this.close();//todo разобраться почему после закрытия попап не дохнет
+		}
 };
 
 

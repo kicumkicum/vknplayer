@@ -7,24 +7,20 @@ var Input = require('../../widgets/lib/universal-input');
 var SimplePopUp = require('./simple');
 
 var AuthPopUp = function() {
-	this._getId = this._getId.bind(this);
+	this._openSimpleAuth = this._openSimpleAuth.bind(this);
+	this._openHardAuth = this._openHardAuth.bind(this);
+	this._openDirectAuth = this._openDirectAuth.bind(this);
 
 	this._init({
 		title: 'Authorization VK.COM',
-		message: '\n{center}Для авторизации выролните эти простые шаги{/center}' + '\n\n' +
-			'1. получите ID\n' +
-			'2. откойте в браузере ' + app.api.vk.getAuthUrl() + '\n' +
-			'3. получите токен\n' +
-			'4. когда закроется это окно - перезапустите приложение',
-		left: 25,
-		top: 25,
-		width: 50,
-		height: 50
+		message: '\n{center}Для авторизации выберите один из вариантов{/center}',
+		left: 5,
+		top: 5,
+		width: 80,
+		height: 80
 	});
 
 	this._addButtons();
-	this._textbox = this._addInfoBox();
-	this._idButton.on(BlessedConst.event.BUTTON_PRESS, this._getId);
 };
 goog.inherits(AuthPopUp, BasePopUp);
 
@@ -66,27 +62,44 @@ AuthPopUp.prototype._getTokenById = function(id) {
 
 
 AuthPopUp.prototype._addButtons = function() {
-	this._idButton = this._createButton('get id', {
+	this._simpleAuthBtn = this._createButton('simple', {
+		left: 1,
+		bottom: 7
+	});
+	this._hardAuthBtn = this._createButton(' hard ', {
+		left: 1,
+		bottom: 4
+	});
+	this._directAuthBtn = this._createButton('direct', {
 		left: 1,
 		bottom: 1
 	});
+
+	this._simpleAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openSimpleAuth);
+	this._hardAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openHardAuth);
+	this._directAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openDirectAuth);
 };
 
 
-AuthPopUp.prototype._addInfoBox = function() {
-	var node = blessed.box({
-		parent: this._node,
-		left: 10,
-		bottom: 1,
-		width: '25%',
-		height: 3,
+AuthPopUp.prototype._openSimpleAuth = function() {
+	app.ui.console.openPopUp(vknp.ui.console.popups.SimpleAuth);
+};
 
-		border: {
-			type: 'line'
-		}
+
+AuthPopUp.prototype._openHardAuth = function() {
+	app.ui.console.openPopUp(vknp.ui.console.popups.HardAuth);
+};
+
+
+AuthPopUp.prototype._openDirectAuth = function() {
+	app.ui.console.openPopUp(vknp.ui.console.popups.Simple, {
+		title: 'Authorization VK.COM',
+		message: '\n{center}здесь могли бы быть поля для ввода логина и пароля. но это не бесопасно. попробуйте другие способы авторизации{/center}',
+		left: 30,
+		top: 30,
+		width: 50,
+		height: 50
 	});
-
-	return node;
 };
 
 

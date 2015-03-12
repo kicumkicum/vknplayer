@@ -59,10 +59,29 @@ VK.prototype.execute = function(exec) {
 
 
 /**
+ * @param {boolean} isShot
  * @return {string}
  */
-VK.prototype.getAuthUrl = function() {
-	return this._config.authServer;
+VK.prototype.getAuthUrl = function(isShot) {
+	var cfg = this._config;
+	if (isShot) {
+		return cfg.shortAuthUrl;
+	} else {
+		return cfg.authServer +
+			'?client_id=' + cfg.clientId +
+			'&scope=' + cfg.scope +
+			'&redirect_uri=' + cfg.redirectUri +
+			'&display=' + cfg.display +
+			'&response_type=' + cfg.responseType;
+	}
+};
+
+
+/**
+ * @return {string}
+ */
+VK.prototype.getExternalAuthUrl = function() {
+	return this._config.externalAuthServer;
 };
 
 
@@ -545,6 +564,18 @@ VK.prototype._getAudioFromNews = function(items) {
 
 
 /**
+ * @type {string}
+ */
+VK.prototype._token;
+
+
+/**
+ * @type {models.Config}
+ */
+VK.prototype._config;
+
+
+/**
  * Fired with: albumId
  * @const {string}
  */
@@ -591,12 +622,6 @@ VK.prototype.EVENT_START_REQUEST = 'start-request';
  * @const {string}
  */
 VK.prototype.EVENT_AUTHORIZATION_FAILED = 'authorization-failed';
-
-
-/**
- * @type {string}
- */
-VK.prototype._token;
 
 
 /**
