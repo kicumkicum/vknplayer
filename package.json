@@ -1,6 +1,6 @@
 {
   "name": "vknplayer",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "its console vk.com player",
   "dependencies": {
     "blessed": "^0.0.49",
