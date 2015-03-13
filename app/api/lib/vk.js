@@ -452,6 +452,15 @@ VK.prototype.deleteAudio = function(ownerId, trackId) {
 
 
 /**
+ * @return {Promise.<number>}
+ */
+VK.prototype.initStats = function() {
+	var body = 'stats.trackVisitor';
+	return this._requestWrapper(body);
+};
+
+
+/**
  * @param {AudioTrack} track
  * @param {number} count
  * @return {Promise.<Array.<*>>}
