@@ -3,7 +3,7 @@
   "version": "0.0.33",
   "description": "its console vk.com player",
   "dependencies": {
-    "blessed": "^0.0.49",
+    "blessed": "0.0.47",
     "request": "2.34.0",
     "q": "~2.0.0",
     "lame": "^1.1.2",
