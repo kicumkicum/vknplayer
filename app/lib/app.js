@@ -13,6 +13,8 @@ var Vknp = function() {
 	this._config = config;
 	this._initApi(config.api);
 	this._initUI(config.ui);
+
+	this.api.vk.initStats();
 };
 
 
