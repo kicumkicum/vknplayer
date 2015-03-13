@@ -41,4 +41,3 @@ vknplayer - это двухпанельный консольный аудио-п
 * добавление веб-интерфейса
 
 [blessed]:https://github.com/chjj/blessed
-k
