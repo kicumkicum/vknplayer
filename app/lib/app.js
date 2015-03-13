@@ -117,7 +117,8 @@ Vknp.prototype.search = function(playlistId, count, query) {
  * @return {Deferred.<number|null>}
  */
 Vknp.prototype.addAudioFromNews = function(playlistId, ownerId, newsId, replace) {
-	return this.api.vk.getAudioFromNews(ownerId, newsId)
+	return this.api.vk
+		.getAudioFromNews(ownerId, newsId)
 		.then(function(tracks) {
 			return this.service.playListManager.add(playlistId, tracks, replace);
 		}.bind(this));
