@@ -1,7 +1,7 @@
 var Console = require('./console');
 
 var ui = {
-	console: require('./console').namespace
+	console: Console.namespace
 };
 
 
@@ -9,9 +9,9 @@ var ui = {
  * @param config
  * @constructor
  */
-var UI = function(config) {
+var UI = function(config, service, api) {
 	if (config.console && config.console.enabled) {
-		this.console = new Console(config.console);
+		this.console = new Console(config.console, service, api);
 	}
 };
 

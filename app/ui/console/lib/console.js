@@ -5,27 +5,31 @@ var events = require('events');
 var util = require('util');
 
 
-
 /**
+ * @param config
+ * @param service
+ * @param api
  * @constructor
  */
-Console = function(config) {
+var Console = function(config, service, api) {
+	this._api = api;
 	this._config = config;
-	this._openPopUps = [];
+	this.player = service.player;
+	this.playlist = service.playlist;
 };
 goog.inherits(Console, events.EventEmitter);
 
 
 /**
- * @param {vknp.service.Player} player
- * @param {vknp.service.PlayListManager} playlist
  */
-Console.prototype.init = function(player, playlist) {
+Console.prototype.init = function() {
+	this._openPopUps = [];
+
 	this.screen = blessed.screen({
 //		grabKeys: true
 	});
-	app.api.vk.on('error', this._apiVKErrorHandler.bind(this));
-	app.api.vk//todo move to app
+	this._api.vk.on('error', this._apiVKErrorHandler.bind(this));
+	this._api.vk//todo move to app
 		.getUserId()
 		.then(function(userId) {
 			this.userId = userId;
@@ -34,8 +38,6 @@ Console.prototype.init = function(player, playlist) {
 	this._visiblePanels = {};
 	this._history = [];
 	this._authPopUp = null;
-	this.player = player;
-	this.playlist = playlist;
 
 	this.input = this._createInput();
 	this.loading = new vknp.ui.console.widgets.Loading;
@@ -65,8 +67,8 @@ Console.prototype.init = function(player, playlist) {
 		}
 	}.bind(this));
 
-	app.api.vk.on(app.api.vk.EVENT_START_REQUEST, this.loading.load.bind(this.loading));
-	app.api.vk.on(app.api.vk.EVENT_STOP_REQUEST, this.loading.stop.bind(this.loading));
+	this._api.vk.on(this._api.vk.EVENT_START_REQUEST, this.loading.load.bind(this.loading));
+	this._api.vk.on(this._api.vk.EVENT_STOP_REQUEST, this.loading.stop.bind(this.loading));
 
 	if (this._authPopUp) {
 		this._authPopUp.setIndex(-1);
@@ -238,14 +240,14 @@ Console.prototype.copy = function() {
 	}
 	if (activePanel === this.friendList && this.friendList.getChild(index) && this.friendList.getChild(index).friend) {
 		var friend = this.friendList.getChildData(index);
-		app.api.vk
+		this._api.vk
 			.getAudio(friend.id, 300)
 			.then(function(tracks) {
 				playlist.addItems(tracks);
 			});
 	}
 	if (activePanel === this.albumList && index === 1 && this.albumList.getChild(index)) {
-		app.api.vk
+		this._api.vk
 			.getAudio(this.albumList.ownerId, 300)
 			.then(function(tracks) {
 				playlist.addItems(tracks);
@@ -253,7 +255,7 @@ Console.prototype.copy = function() {
 	}
 	if (activePanel === this.albumList && this.albumList.getChild(index) && this.albumList.getChild(index).album) {
 		var album = this.albumList.getChildData(index);
-		app.api.vk
+		this._api.vk
 			.getAudio(album.ownerId, null, album.albumId)
 			.then(function(tracks) {
 				playlist.addItems(tracks);
@@ -261,7 +263,7 @@ Console.prototype.copy = function() {
 	}
 	if (activePanel === this.groupList && this.groupList.getChild(index) && this.groupList.getChild(index).group) {
 		var group = this.groupList.getChildData(index);
-		app.api.vk
+		this._api.vk
 			.getAudio(group.id, 300)
 			.then(function(tracks) {
 				playlist.addItems(tracks);

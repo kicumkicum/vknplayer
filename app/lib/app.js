@@ -6,7 +6,10 @@
 /**
  * @constructor
  */
-var Vknp = function() {
+var Vknp = function() {};
+
+
+Vknp.prototype.start = function() {
 	this._initService();
 	var config = this.service.config.getConfig();
 
@@ -186,7 +189,10 @@ Vknp.prototype._initService = function() {
 
 
 Vknp.prototype._initUI = function(config) {
-	this.ui = new vknp.UI(config);
+	this.ui = new vknp.UI(config, this.service, this.api);
+	if (this.ui.console) {
+		this.ui.console.init();
+	}
 };
 
 

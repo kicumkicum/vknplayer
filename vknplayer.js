@@ -14,4 +14,4 @@ var App = require('./app/');
 global.appPath = __dirname;
 global.app = new App;
 
-app.ui.console.init(app.service.player, app.service.playListManager);
+app.start();
