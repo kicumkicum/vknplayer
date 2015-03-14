@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path = require('path');
 
 
 /**
@@ -41,7 +42,7 @@ Config.prototype.getConfigValue = function(prop) {
 
 Config.prototype.saveConfig = function() {
 	//todo. this tmp code
-	var outputFilename = this.CONFIG_DIR + this.CONFIG_FILE;
+	var outputFilename = path.join(this.CONFIG_DIR, this.CONFIG_FILE);
 	fs.writeFile(outputFilename, JSON.stringify(this._config, null, 4), function(err) {
 		if(err) {
 			console.log('error', err);
@@ -57,7 +58,7 @@ Config.prototype.saveConfig = function() {
  * @private
  */
 Config.prototype._configure = function() {
-	var defaultConfig = fs.readFileSync(appPath + '/config/.config.json.default', 'utf-8');
+	var defaultConfig = fs.readFileSync(path.join(appPath, 'config', '.config.json.default'), 'utf-8');
 
 	try {
 		fs.readdirSync(this.CONFIG_DIR);
@@ -77,7 +78,7 @@ Config.prototype._configure = function() {
 	} catch(e) {
 		console.log('not read file', e);
 		try {
-			fs.writeFileSync(this.CONFIG_DIR + this.CONFIG_FILE, defaultConfig);
+			fs.writeFileSync(path.join(this.CONFIG_DIR , this.CONFIG_FILE), defaultConfig);
 			return this._readConfig();
 		} catch(e) {
 			console.log('not write config', e);
@@ -116,7 +117,7 @@ Config.prototype._checkProp = function(obj, props, opt_value) {
  * @private
  */
 Config.prototype._readConfig = function() {
-	var config = fs.readFileSync(this.CONFIG_DIR + this.CONFIG_FILE, 'utf-8');
+	var config = fs.readFileSync(path.join(this.CONFIG_DIR, this.CONFIG_FILE), 'utf-8');
 	return new vknp.models.Config(JSON.parse(config));
 };
 
@@ -130,7 +131,7 @@ Config.prototype._config;
 /**
  * @const {string}
  */
-Config.prototype.CONFIG_DIR = process.env.HOME + '/.config/vknp/';
+Config.prototype.CONFIG_DIR = path.join(process.env.HOME, '.config', 'vknp');
 
 
 /**
