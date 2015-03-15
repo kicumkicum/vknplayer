@@ -390,36 +390,6 @@ Console.prototype.screen;
 
 
 /**
- * @type {Input}
- */
-Console.prototype.input;
-
-
-/**
- * @type {PlayBar}
- */
-Console.prototype.playBar;
-
-
-/**
- * @type {InfoBar}
- */
-Console.prototype.infoBar;
-
-
-/**
- * @type {Loading}
- */
-Console.prototype.loading;
-
-
-/**
- * @type {Controls}
- */
-Console.prototype.controls;
-
-
-/**
  * @type {number}
  */
 Console.prototype.userId;//todo move to global scope
