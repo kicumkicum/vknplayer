@@ -12,6 +12,30 @@ var BasePanel = require('./base-panel');
  * @extends {BasePanel}
  */
 var Home = function() {
+	this.category = {
+		vk: {
+			name: 'VK',
+			type: 'vk',
+			toString: function() {
+				return this.name;
+			}
+		},
+		gmusic: {
+			name: 'GMusic',
+			type: 'gmusic',
+			toString: function() {
+				return this.name;
+			}
+		},
+		radio: {
+			name: 'Радио',
+			type: 'radio',
+			toString: function() {
+				return this.name;
+			}
+		}
+	};
+
 	goog.base(this, {
 		left: 0,
 		top:  2,
@@ -21,7 +45,6 @@ var Home = function() {
 	});
 
 	this._playlist = app.ui.console._panels.slavePL.getPlaylist();
-	this.category = {};
 };
 goog.inherits(Home, BasePanel);
 
@@ -38,13 +61,15 @@ Home.prototype._init = function() {
  * @private
  */
 Home.prototype._loadData = function() {
+	var items = [];
 	if (app.isVkEnabled()) {
-		this.addChild('VK');
+		items.push(this.category.vk);
 	}
 	if (app.isGmusicEnabled()) {
-		this.addChild('GoogleMusic');
+		items.push(this.category.gmusic);
 	}
-	this.addChild('Радио');
+	items.push(this.category.radio);
+	this.setData(items);
 };
 
 
@@ -89,7 +114,8 @@ Home.prototype.showRadio = function() {
  * @private
  */
 Home.prototype._clickHandler = function(eventName, select, selectNumber) {
-	switch (selectNumber) {
+	var item = this._data.itemAt(selectNumber - this._getOffset());
+	switch (item.type) {
 		case Home.Category.GMUSIC:
 			this.showGMusic();
 			break;
@@ -121,9 +147,13 @@ Home.prototype._createTracks = function(playlist) {
 		track.title = artistAndTitle[1];
 
 		track.url = playlist[i + 1];
-		arr.push(new AudioTrack(track));
+		arr.push(new vknp.models.AudioTrack(track));
 	}
 	return arr;
+};
+
+Home.prototype._recoveryDefaultState = function() {
+	this._setOffset(0);
 };
 
 
@@ -143,9 +173,9 @@ Home.prototype._playlist;
  * @enum {number}
  */
 Home.Category = {
-	VK: 0,
-	GMUSIC: 1,
-	RADIO: 2
+	VK: 'vk',
+	GMUSIC: 'gmusic',
+	RADIO: 'radio'
 };
 
 

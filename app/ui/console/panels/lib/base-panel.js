@@ -51,14 +51,14 @@ BasePanel.prototype._init = function() {
 		this._setOffset(1);
 	}
 
-	this._loadData();
-
 	this.on(this.EVENT_ELEMENT_CLICK, this._elementFocusHandler);
 	this.on(this.EVENT_FOCUS, this._focusHandler);
 	this.on(this.EVENT_SELECT, this._clickHandler);
 	this.on(this.EVENT_KEY_PRESS, this._keyPressHandler);
 	this._data.on(this._data.EVENT_ITEMS_ADDED, this._dataChangedHandler);
 	this._data.on(this._data.EVENT_CLEAR, this.clear.bind(this));
+
+	this._loadData();
 };
 
 
@@ -222,7 +222,7 @@ BasePanel.prototype._recoveryDefaultState = function() {
 
 /**
  * @type {?DataList.<*>}
- * @private
+ * @protected
  */
 BasePanel.prototype._data;
 
