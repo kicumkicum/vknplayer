@@ -96,7 +96,7 @@ VK.prototype.category;
  * @private
  */
 VK.prototype._showGroups = function() {
-	var groupList = app.ui.console._panels.groupList;
+	var groupList = app.ui.console._panels.groups;
 	app.ui.console.show(groupList);
 };
 

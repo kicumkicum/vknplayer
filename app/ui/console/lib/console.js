@@ -51,7 +51,7 @@ Console.prototype.init = function() {
 	this.playBar = new vknp.ui.console.widgets.PlayBar;
 	this.infoBar = new vknp.ui.console.widgets.InfoBar;
 	this.controls = new vknp.ui.console.widgets.Controls;
-	this._panels.groupList = new vknp.ui.console.panel.Group;
+	this._panels.groups = new vknp.ui.console.panel.Groups;
 	this._panels.albumList = new vknp.ui.console.panel.Album;
 
 	this._visiblePanels.left = this._panels.mainList;
@@ -262,8 +262,8 @@ Console.prototype.copy = function() {
 				playlist.addItems(tracks);
 			});
 	}
-	if (activePanel === this._panels.groupList && this._panels.groupList.getChild(index) && this._panels.groupList.getChild(index).group) {
-		var group = this._panels.groupList.getChildData(index);
+	if (activePanel === this._panels.groups && this._panels.groups.getChild(index) && this._panels.groups.getChild(index).group) {
+		var group = this._panels.groups.getChildData(index);
 		this._api.vk
 			.getAudio(group.id, 300)
 			.then(function(tracks) {
