@@ -139,7 +139,7 @@ VK.prototype.showMusic = function(ownerId) {
  * @public
  */
 VK.prototype._showNews = function(ownerId) {
-	app.ui.console.show(app.ui.console._panels.newsPanel);
+	app.ui.console.show(app.ui.console._panels.news);
 };
 
 
