@@ -11,16 +11,16 @@ var BasePanel = require('./base-panel');
  * @extends {BasePanel}
  * @constructor
  */
-var GroupList = function() {
+var Groups = function() {
 	goog.base(this);
 };
-goog.inherits(GroupList, BasePanel);
+goog.inherits(Groups, BasePanel);
 
 
 /**
  * @inheritDoc
  */
-GroupList.prototype._loadData = function() {
+Groups.prototype._loadData = function() {
 	app.api.vk
 		.getGroups()
 		.then(function(groups) {
@@ -36,7 +36,7 @@ GroupList.prototype._loadData = function() {
  * @param {Group} group
  * @private
  */
-GroupList.prototype._addGroup = function(group) {
+Groups.prototype._addGroup = function(group) {
 	this.addChild(group.name);
 };
 
@@ -44,7 +44,7 @@ GroupList.prototype._addGroup = function(group) {
 /**
  * @inheritDoc
  */
-GroupList.prototype._click = function(eventName, item, position) {
+Groups.prototype._click = function(eventName, item, position) {
 	if (position === 0) {
 		this._back();
 		return;
@@ -53,7 +53,7 @@ GroupList.prototype._click = function(eventName, item, position) {
 	app.api.vk
 		.getAudioAlbums(ownerId, 100)
 		.then(function(albums) {
-			app.ui.console.albumList.updatePanel(albums, ownerId);
+			app.ui.console._panels.albums.updatePanel(albums, ownerId);
 		});
 };
 
@@ -61,7 +61,7 @@ GroupList.prototype._click = function(eventName, item, position) {
 /**
  *
  */
-GroupList.prototype.id;
+Groups.prototype.id;
 
 
-module.exports = GroupList;
+module.exports = Groups;

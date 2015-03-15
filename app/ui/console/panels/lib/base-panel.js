@@ -37,7 +37,7 @@ goog.inherits(BasePanel, Node);
  * @protected
  */
 BasePanel.prototype._init = function() {
-	if (!(this instanceof require('./home-panel'))) {//workaround - incorrect goog.base
+	if (!(this instanceof require('./home'))) {//workaround - incorrect goog.base
 		this.addChild('/..');
 		this._setOffset(1);
 	}

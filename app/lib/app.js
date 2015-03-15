@@ -6,13 +6,15 @@
 /**
  * @constructor
  */
-var Vknp = function() {
-	this._initService();
-	var config = this.service.config.getConfig();
+var Vknp = function() {};
 
-	this._config = config;
-	this._initApi(config.api);
-	this._initUI(config.ui);
+
+Vknp.prototype.start = function() {
+	this._initService();
+	this._config = this.service.config.getConfig();
+
+	this._initApi(this._config.api);
+	this._initUI(this._config.ui);
 
 	this.api.vk.initStats();
 };
@@ -186,7 +188,8 @@ Vknp.prototype._initService = function() {
 
 
 Vknp.prototype._initUI = function(config) {
-	this.ui = new vknp.UI(config);
+	this.ui = new vknp.UI(config, this.service, this.api);
+	this.ui.init();
 };
 
 

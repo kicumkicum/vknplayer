@@ -1,11 +1,11 @@
-var PlayList = require('./playlist-panel');
+var PlayList = require('./playlist');
 
 
 /**
  * @extends {PlayList}
  * @constructor
  */
-var MasterList = function() {
+var SinglePL = function() {
 	goog.base(this, {
 		left: '50%',
 		top: 2,
@@ -15,7 +15,7 @@ var MasterList = function() {
 	});
 	this._setOffset(0);
 };
-goog.inherits(MasterList, PlayList);
+goog.inherits(SinglePL, PlayList);
 
 
-module.exports = MasterList;
+module.exports = SinglePL;

@@ -2,7 +2,7 @@
  * Created by oleg on 22.08.14.
  */
 var blessed = require('blessed');
-var PlayList = require('./playlist-panel');
+var PlayList = require('./playlist');
 var BasePanel = require('./base-panel');
 
 
@@ -11,7 +11,7 @@ var BasePanel = require('./base-panel');
  * @extends {BasePanel}
  * @constructor
  */
-var NewsList = function() {
+var News = function() {
 	this._newsList = {};
 	goog.base(this, {
 		left: 0,
@@ -21,10 +21,10 @@ var NewsList = function() {
 		hidden: true
 	});
 };
-goog.inherits(NewsList, BasePanel);
+goog.inherits(News, BasePanel);
 
 
-NewsList.prototype._loadData = function() {
+News.prototype._loadData = function() {
 	this.addChild(this.DEFAULT_GROUP_NAME);
 	var offset = this._getOffset();
 	this._setOffset(offset + 1);
@@ -40,7 +40,7 @@ NewsList.prototype._loadData = function() {
 };
 
 
-NewsList.prototype._addTracks = function(tracks) {
+News.prototype._addTracks = function(tracks) {
 	this._playlist.addItems(tracks);
 };
 
@@ -50,7 +50,7 @@ NewsList.prototype._addTracks = function(tracks) {
  * @param {number} selectNumber
  * @protected
  */
-NewsList.prototype._click = function(eventName, select, selectNumber) {
+News.prototype._click = function(eventName, select, selectNumber) {
 	if (selectNumber === 0) {
 		this._back();
 		return;
@@ -73,7 +73,7 @@ NewsList.prototype._click = function(eventName, select, selectNumber) {
 						})
 					}
 				});
-				app.ui.console.slaveList.setContent(tracks);//todo make datalist
+				app.ui.console._panels.slavePL.setContent(tracks);//todo make datalist
 			}.bind(this));
 	}
 	var item = this._getDataItem(selectNumber);
@@ -98,7 +98,7 @@ NewsList.prototype._click = function(eventName, select, selectNumber) {
 					})
 				}
 			});
-			app.ui.console.slaveList.setContent(tracks);//todo make datalist
+			app.ui.console._panels.slavePL.setContent(tracks);//todo make datalist
 		}.bind(this));
 };
 
@@ -109,7 +109,7 @@ NewsList.prototype._click = function(eventName, select, selectNumber) {
  *      id: number
  * }} item
  */
-NewsList.prototype._addItemNews = function(item) {
+News.prototype._addItemNews = function(item) {
 	this.addChild(item.title);
 };
 
@@ -117,19 +117,19 @@ NewsList.prototype._addItemNews = function(item) {
 /**
  * @const {string}
  */
-NewsList.prototype.DEFAULT_GROUP_NAME = 'Основные';
+News.prototype.DEFAULT_GROUP_NAME = 'Основные';
 
 
 /**
  * @type {DataList.<AudioTrack>}
  */
-NewsList.prototype.playlist;
+News.prototype.playlist;
 
 
 /**
  * @type {Object}
  */
-NewsList.prototype._newsList;
+News.prototype._newsList;
 
 
-module.exports = NewsList;
+module.exports = News;

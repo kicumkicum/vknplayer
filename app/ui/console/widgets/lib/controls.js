@@ -95,7 +95,7 @@ var Controls = function() {
 
 	app.ui.console.append(this._node);
 
-	app.ui.console.input.getNode().on('funckey', function(key) {
+	app.ui.console._widgets.input.getNode().on('funckey', function(key) {
 		var index = parseInt(key.name.substr(1), 10);
 		var button = this._node.items[index - 1];
 		if (button) {
