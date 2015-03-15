@@ -11,7 +11,7 @@ var BasePanel = require('./base-panel');
  * @constructor
  * @extends {BasePanel}
  */
-var AlbumList = function() {
+var Albums = function() {
 	goog.base(this);
 	this._playlist = app.ui.console._panels.slaveList.getPlaylist();
 	this._currentOwnerId = NaN;
@@ -23,14 +23,14 @@ var AlbumList = function() {
 		}
 	}.bind(this));
 };
-goog.inherits(AlbumList, BasePanel);
+goog.inherits(Albums, BasePanel);
 
 
 /**
  * @param {Array.<vknp.models.Album>} albums
  * @param {number} ownerId
  */
-AlbumList.prototype.updatePanel = function(albums, ownerId) {
+Albums.prototype.updatePanel = function(albums, ownerId) {
 	goog.base(this, 'updatePanel', arguments);
 	this._currentOwnerId = ownerId;
 
@@ -49,7 +49,7 @@ AlbumList.prototype.updatePanel = function(albums, ownerId) {
 /**
  * @param {vknp.models.Album} album
  */
-AlbumList.prototype._addAlbum = function(album) {
+Albums.prototype._addAlbum = function(album) {
 	this.addChild(album.title);
 };
 
@@ -58,7 +58,7 @@ AlbumList.prototype._addAlbum = function(album) {
 /**
  * @inheritDoc
  */
-AlbumList.prototype._click = function(eventName, item, position) {
+Albums.prototype._click = function(eventName, item, position) {
 	if (position === 0) {
 		this._back();
 		return;
@@ -80,19 +80,19 @@ AlbumList.prototype._click = function(eventName, item, position) {
 /**
  * @type {DataList.<vknp.models.AudioTrack>}
  */
-AlbumList.prototype._playlist;
+Albums.prototype._playlist;
 
 
 /**
  * @type {number}
  */
-AlbumList.prototype._currentOwnerId;
+Albums.prototype._currentOwnerId;
 
 
 /**
  * @type {Object}
  */
-AlbumList.prototype._children;
+Albums.prototype._children;
 
 
-module.exports = AlbumList;
+module.exports = Albums;

@@ -1,5 +1,5 @@
 var panel = {
-	Album: require('./lib/album-panel'),
+	Albums: require('./lib/albums'),
 	Base: require('./lib/base-panel'),
 	Friends: require('./lib/friends'),
 	Groups: require('./lib/groups'),

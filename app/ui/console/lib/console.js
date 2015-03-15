@@ -52,7 +52,7 @@ Console.prototype.init = function() {
 	this.infoBar = new vknp.ui.console.widgets.InfoBar;
 	this.controls = new vknp.ui.console.widgets.Controls;
 	this._panels.groups = new vknp.ui.console.panel.Groups;
-	this._panels.albumList = new vknp.ui.console.panel.Album;
+	this._panels.albums = new vknp.ui.console.panel.Albums;
 
 	this._visiblePanels.left = this._panels.mainList;
 	this._visiblePanels.right = this._panels.masterList;
@@ -247,15 +247,15 @@ Console.prototype.copy = function() {
 				playlist.addItems(tracks);
 			});
 	}
-	if (activePanel === this._panels.albumList && index === 1 && this._panels.albumList.getChild(index)) {
+	if (activePanel === this._panels.albums && index === 1 && this._panels.albums.getChild(index)) {
 		this._api.vk
-			.getAudio(this._panels.albumList.ownerId, 300)
+			.getAudio(this._panels.albums.ownerId, 300)
 			.then(function(tracks) {
 				playlist.addItems(tracks);
 			});
 	}
-	if (activePanel === this._panels.albumList && this._panels.albumList.getChild(index) && this._panels.albumList.getChild(index).album) {
-		var album = this._panels.albumList.getChildData(index);
+	if (activePanel === this._panels.albums && this._panels.albums.getChild(index) && this._panels.albums.getChild(index).album) {
+		var album = this._panels.albums.getChildData(index);
 		this._api.vk
 			.getAudio(album.ownerId, null, album.albumId)
 			.then(function(tracks) {

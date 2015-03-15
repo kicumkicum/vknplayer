@@ -116,7 +116,7 @@ VK.prototype._showFriends = function() {
 VK.prototype._showAlbums = function() {
 	app.api.vk.getAudioAlbums(null, 100)
 		.then(function(albums) {
-			app.ui.console._panels.albumList.updatePanel(albums, app.ui.console.userId);
+			app.ui.console._panels.albums.updatePanel(albums, app.ui.console.userId);
 		});
 };
 
