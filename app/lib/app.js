@@ -189,9 +189,7 @@ Vknp.prototype._initService = function() {
 
 Vknp.prototype._initUI = function(config) {
 	this.ui = new vknp.UI(config, this.service, this.api);
-	if (this.ui.console) {
-		this.ui.console.init();
-	}
+	this.ui.init();
 };
 
 

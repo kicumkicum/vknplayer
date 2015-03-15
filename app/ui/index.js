@@ -6,7 +6,9 @@ var ui = {
 
 
 /**
- * @param config
+ * @param {models.Config} config
+ * @param {vknp.service} service
+ * @param {vknp.api} api
  * @constructor
  */
 var UI = function(config, service, api) {
@@ -14,6 +16,20 @@ var UI = function(config, service, api) {
 		this.console = new Console(config.console, service, api);
 	}
 };
+
+
+UI.prototype.init = function() {
+	if (this.console) {
+		this.console.init();
+	}
+};
+
+
+/**
+ * @type {Console}
+ * @public
+ */
+UI.prototype.console;
 
 
 module.exports = UI;
