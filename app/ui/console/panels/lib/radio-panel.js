@@ -53,7 +53,7 @@ RadioList.prototype._click = function(eventName, item, position) {
 		return;
 	}
 	if (position === 1) {
-		app.ui.console._panels.mainList.showMusic(this.ownerId);
+		app.ui.console._panels.home.showMusic(this.ownerId);
 		return;
 	}
 	var album = this._getDataItem(position);

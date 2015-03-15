@@ -3,7 +3,7 @@ var panel = {
 	Base: require('./lib/base-panel'),
 	Friends: require('./lib/friends'),
 	Groups: require('./lib/groups'),
-	Home: require('./lib/home-panel'),
+	Home: require('./lib/home'),
 	Master: require('./lib/master-panel'),
 	News: require('./lib/news'),
 	PlayList: require('./lib/playlist-panel'),

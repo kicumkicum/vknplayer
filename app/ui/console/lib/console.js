@@ -43,7 +43,7 @@ Console.prototype.init = function() {
 	this.input = this._createInput();
 	this.loading = new vknp.ui.console.widgets.Loading;
 	this._panels.slaveList = new vknp.ui.console.panel.Slave;
-	this._panels.mainList = new vknp.ui.console.panel.Home;
+	this._panels.home = new vknp.ui.console.panel.Home;
 	this._panels.vk = new vknp.ui.console.panel.VK;
 	this._panels.news = new vknp.ui.console.panel.News;
 	this._panels.masterList = new vknp.ui.console.panel.Master;
@@ -54,7 +54,7 @@ Console.prototype.init = function() {
 	this._panels.groups = new vknp.ui.console.panel.Groups;
 	this._panels.albums = new vknp.ui.console.panel.Albums;
 
-	this._visiblePanels.left = this._panels.mainList;
+	this._visiblePanels.left = this._panels.home;
 	this._visiblePanels.right = this._panels.masterList;
 	this.activePanel = this._visiblePanels.left;
 

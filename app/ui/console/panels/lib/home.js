@@ -11,7 +11,7 @@ var BasePanel = require('./base-panel');
  * @constructor
  * @extends {BasePanel}
  */
-var HomePanel = function() {
+var Home = function() {
 	goog.base(this, {
 		left: 0,
 		top:  2,
@@ -23,20 +23,20 @@ var HomePanel = function() {
 	this._playlist = app.ui.console._panels.slaveList.getPlaylist();
 	this.category = {};
 };
-goog.inherits(HomePanel, BasePanel);
+goog.inherits(Home, BasePanel);
 
 
 /**
  * @private
  */
-HomePanel.prototype._init = function() {
+Home.prototype._init = function() {
 	goog.base(this, '_init');
 };
 
 /**
  * @private
  */
-HomePanel.prototype._loadData = function() {
+Home.prototype._loadData = function() {
 	this.addChild('VK');
 	this.addChild('GoogleMusic');
 	this.addChild('Радио');
@@ -45,14 +45,14 @@ HomePanel.prototype._loadData = function() {
 
 /**
  */
-HomePanel.prototype.showVK = function() {
+Home.prototype.showVK = function() {
 	app.ui.console.show(app.ui.console._panels.vk);
 };
 
 
 /**
  */
-HomePanel.prototype.showGMusic = function() {
+Home.prototype.showGMusic = function() {
 	app.api.gmusic
 		.getCollection()
 		.then(function(playlist) {
@@ -66,7 +66,7 @@ HomePanel.prototype.showGMusic = function() {
 /**
  * @public
  */
-HomePanel.prototype.showRadio = function() {
+Home.prototype.showRadio = function() {
 	var stations = pl['playlist'].map(function(station, i) {
 		return new AudioTrack({
 			url: station.Url,
@@ -83,7 +83,7 @@ HomePanel.prototype.showRadio = function() {
  * @param {number} selectNumber
  * @private
  */
-HomePanel.prototype._click = function(eventName, select, selectNumber) {
+Home.prototype._click = function(eventName, select, selectNumber) {
 	switch (selectNumber) {
 		case this.CategoryType.GMUSIC:
 			this.showGMusic();
@@ -103,7 +103,7 @@ HomePanel.prototype._click = function(eventName, select, selectNumber) {
  * @return {Array.<vknp.models.AudioTrack>}
  * @private
  */
-HomePanel.prototype._createTracks = function(playlist) {
+Home.prototype._createTracks = function(playlist) {
 	var arr = [];
 	for (var i = 1, track, length = playlist.length, str, endPos, artistAndTitle; i < length; i += 2) {
 		track = {};
@@ -125,23 +125,23 @@ HomePanel.prototype._createTracks = function(playlist) {
 /**
  * @type {Object.<Box>}
  */
-HomePanel.prototype.category;
+Home.prototype.category;
 
 
 /**
  * @type {DataList.<vknp.models.AudioTrack>}
  */
-HomePanel.prototype._playlist;
+Home.prototype._playlist;
 
 
 /**
  * @enum {number}
  */
-HomePanel.prototype.CategoryType = {
+Home.prototype.CategoryType = {
 	VK: 0,
 	GMUSIC: 1,
 	RADIO: 2
 };
 
 
-module.exports = HomePanel;
+module.exports = Home;
