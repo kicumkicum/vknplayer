@@ -6,7 +6,7 @@ var panel = {
 	Home: require('./lib/home'),
 	Master: require('./lib/master-panel'),
 	News: require('./lib/news'),
-	PlayList: require('./lib/playlist-panel'),
+	PlayList: require('./lib/playlist'),
 	Radio: require('./lib/radio-panel'),
 	Slave: require('./lib/slave-panel'),
 	VK: require('./lib/vk')

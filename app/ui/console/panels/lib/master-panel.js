@@ -1,4 +1,4 @@
-var PlayList = require('./playlist-panel');
+var PlayList = require('./playlist');
 
 
 /**

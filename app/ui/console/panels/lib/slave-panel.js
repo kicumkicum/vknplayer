@@ -1,7 +1,7 @@
 /**
  * Created by oleg on 01.06.14.
  */
-var PlayList = require('./playlist-panel');
+var PlayList = require('./playlist');
 
 /**
  * @extends {PlayList}
