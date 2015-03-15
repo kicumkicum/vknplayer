@@ -200,14 +200,14 @@ PlayList.prototype._updatePlayList = function() {
 	this.clear();
 	var tracks = this.getPlaylist().toArray();
 	var offset = 0;
-	if (this === app.ui.console.slaveList) {//todo mb instance of ?
+	if (this === app.ui.console._panels.slaveList) {//todo mb instance of ?
 		this.addChild(this.ROOT_ELEMENT);
 		offset = 1;
 	}
 	tracks.forEach(function(track, index) {
 		var artist = track.artist || '';
 		var title = track.title || '';
-		if (this === app.ui.console.masterList) {
+		if (this === app.ui.console._panels.masterList) {
 			var duration = track.duration.toString() || '';
 		} else {
 			duration = '';

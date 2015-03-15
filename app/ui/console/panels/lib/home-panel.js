@@ -20,7 +20,7 @@ var HomePanel = function() {
 		hidden: false
 	});
 
-	this._playlist = app.ui.console.slaveList.getPlaylist();
+	this._playlist = app.ui.console._panels.slaveList.getPlaylist();
 	this.category = {};
 };
 goog.inherits(HomePanel, BasePanel);
@@ -46,7 +46,7 @@ HomePanel.prototype._loadData = function() {
 /**
  */
 HomePanel.prototype.showVK = function() {
-	app.ui.console.setActivePanel(app.ui.console.vkList);
+	app.ui.console.setActivePanel(app.ui.console._panels.vkList);
 };
 
 
@@ -58,7 +58,7 @@ HomePanel.prototype.showGMusic = function() {
 		.then(function(playlist) {
 			playlist = playlist.split('\n');
 			var arr = this._createTracks(playlist);
-			app.ui.console.slaveList.setContent(tracks);
+			app.ui.console._panels.slaveList.setContent(tracks);
 		}.bind(this));
 };
 
@@ -74,7 +74,7 @@ HomePanel.prototype.showRadio = function() {
 			duration: 0
 		});
 	});
-	app.ui.console.slaveList.setContent(stations);
+	app.ui.console._panels.slaveList.setContent(stations);
 };
 
 

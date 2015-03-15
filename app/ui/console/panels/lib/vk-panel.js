@@ -96,7 +96,7 @@ VKList.prototype.category;
  * @private
  */
 VKList.prototype._showGroups = function() {
-	var groupList = app.ui.console.groupList;
+	var groupList = app.ui.console._panels.groupList;
 	app.ui.console.setActivePanel(groupList);
 };
 
@@ -105,7 +105,7 @@ VKList.prototype._showGroups = function() {
  * @private
  */
 VKList.prototype._showFriends = function() {
-	var friendList = app.ui.console.friendList;
+	var friendList = app.ui.console._panels.friendList;
 	app.ui.console.setActivePanel(friendList);
 };
 
@@ -116,7 +116,7 @@ VKList.prototype._showFriends = function() {
 VKList.prototype._showAlbums = function() {
 	app.api.vk.getAudioAlbums(null, 100)
 		.then(function(albums) {
-			app.ui.console.albumList.updatePanel(albums, app.ui.console.userId);
+			app.ui.console._panels.albumList.updatePanel(albums, app.ui.console.userId);
 		});
 };
 
@@ -129,7 +129,7 @@ VKList.prototype.showMusic = function(ownerId) {
 	app.api.vk
 		.getAudio(ownerId, 300)
 		.then(function(tracks) {
-			app.ui.console.slaveList.setContent(tracks);
+			app.ui.console._panels.slaveList.setContent(tracks);
 		}.bind(this));
 };
 
@@ -139,7 +139,7 @@ VKList.prototype.showMusic = function(ownerId) {
  * @public
  */
 VKList.prototype._showNews = function(ownerId) {
-	app.ui.console.setActivePanel(app.ui.console.newsPanel);
+	app.ui.console.setActivePanel(app.ui.console._panels.newsPanel);
 };
 
 
@@ -163,7 +163,7 @@ VKList.prototype._showBookmarks = function() {
 					})
 				}
 			});
-			app.ui.console.slaveList.setContent(tracks);
+			app.ui.console._panels.slaveList.setContent(tracks);
 
 		})
 };

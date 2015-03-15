@@ -14,11 +14,11 @@ var BasePanel = require('./base-panel');
  */
 var RadioList = function() {
 	goog.base(this);
-	this._playlist = app.ui.console.slaveList.getPlaylist();
+	this._playlist = app.ui.console._panels.slaveList.getPlaylist();
 	this.ownerId = {};
 
 	app.ui.console.on(app.ui.console.EVENT_SET_TOP, function(newPanel, oldPanel) {
-		if (newPanel === this && oldPanel !== app.ui.console.slaveList) {
+		if (newPanel === this && oldPanel !== app.ui.console._panels.slaveList) {
 			this.backPanel = oldPanel;
 		}
 	}.bind(this));
@@ -53,13 +53,13 @@ RadioList.prototype._click = function(eventName, item, position) {
 		return;
 	}
 	if (position === 1) {
-		app.ui.console.mainList.showMusic(this.ownerId);
+		app.ui.console._panels.mainList.showMusic(this.ownerId);
 		return;
 	}
 	var album = this._getDataItem(position);
 	app.api.vk.getAudio(album.ownerId, 300, album.albumId)
 		.then(function(tracks) {
-			app.ui.console.slaveList.setContent(tracks);
+			app.ui.console._panels.slaveList.setContent(tracks);
 		}.bind(this));
 };
 

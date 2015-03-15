@@ -73,7 +73,7 @@ NewsList.prototype._click = function(eventName, select, selectNumber) {
 						})
 					}
 				});
-				app.ui.console.slaveList.setContent(tracks);//todo make datalist
+				app.ui.console._panels.slaveList.setContent(tracks);//todo make datalist
 			}.bind(this));
 	}
 	var item = this._getDataItem(selectNumber);
@@ -98,7 +98,7 @@ NewsList.prototype._click = function(eventName, select, selectNumber) {
 					})
 				}
 			});
-			app.ui.console.slaveList.setContent(tracks);//todo make datalist
+			app.ui.console._panels.slaveList.setContent(tracks);//todo make datalist
 		}.bind(this));
 };
 

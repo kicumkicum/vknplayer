@@ -59,7 +59,7 @@ FriendList.prototype._click = function(eventName, item, position) {
 	app.api.vk
 		.getAudioAlbums(ownerId, 100)
 		.then(function(albums) {
-			app.ui.console.albumList.updatePanel(albums, ownerId);
+			app.ui.console._panels.albumList.updatePanel(albums, ownerId);
 		});
 };
 
