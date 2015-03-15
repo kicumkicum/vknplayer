@@ -47,7 +47,7 @@ Console.prototype.init = function() {
 	this._panels.vkList = new vknp.ui.console.panel.VK;
 	this._panels.newsPanel = new vknp.ui.console.panel.News;
 	this._panels.masterList = new vknp.ui.console.panel.Master;
-	this._panels.friendList = new vknp.ui.console.panel.Friend;
+	this._panels.friends = new vknp.ui.console.panel.Friends;
 	this.playBar = new vknp.ui.console.widgets.PlayBar;
 	this.infoBar = new vknp.ui.console.widgets.InfoBar;
 	this.controls = new vknp.ui.console.widgets.Controls;
@@ -239,8 +239,8 @@ Console.prototype.copy = function() {
 	if (activePanel === this._panels.slaveList && item) {
 		playlist.addItems([new vknp.models.AudioTrack(item)]);
 	}
-	if (activePanel === this._panels.friendList && this._panels.friendList.getChild(index) && this._panels.friendList.getChild(index).friend) {
-		var friend = this._panels.friendList.getChildData(index);
+	if (activePanel === this._panels.friends && this._panels.friends.getChild(index) && this._panels.friends.getChild(index).friend) {
+		var friend = this._panels.friends.getChildData(index);
 		this._api.vk
 			.getAudio(friend.id, 300)
 			.then(function(tracks) {

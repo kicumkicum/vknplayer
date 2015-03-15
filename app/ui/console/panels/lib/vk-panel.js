@@ -105,7 +105,7 @@ VKList.prototype._showGroups = function() {
  * @private
  */
 VKList.prototype._showFriends = function() {
-	var friendList = app.ui.console._panels.friendList;
+	var friendList = app.ui.console._panels.friends;
 	app.ui.console.show(friendList);
 };
 
