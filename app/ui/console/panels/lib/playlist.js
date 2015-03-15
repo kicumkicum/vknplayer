@@ -207,7 +207,7 @@ PlayList.prototype._updatePlayList = function() {
 	tracks.forEach(function(track, index) {
 		var artist = track.artist || '';
 		var title = track.title || '';
-		if (this === app.ui.console._panels.masterList) {
+		if (this === app.ui.console._panels.singlePL) {
 			var duration = track.duration.toString() || '';
 		} else {
 			duration = '';
