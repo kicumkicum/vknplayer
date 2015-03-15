@@ -200,10 +200,7 @@ PlayList.prototype._updatePlayList = function() {
 	this.clear();
 	var tracks = this.getPlaylist().toArray();
 	var offset = 0;
-	if (this === app.ui.console._panels.slavePL) {//todo mb instance of ?
-		this.addChild(this.ROOT_ELEMENT);
-		offset = 1;
-	}
+
 	tracks.forEach(function(track, index) {
 		var artist = track.artist || '';
 		var title = track.title || '';

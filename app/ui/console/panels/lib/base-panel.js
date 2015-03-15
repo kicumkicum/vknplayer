@@ -47,7 +47,7 @@ goog.inherits(BasePanel, Node);
  */
 BasePanel.prototype._init = function() {
 	if (!(this instanceof require('./home'))) {//workaround - incorrect goog.base
-		this.addChild('/..');
+		this.addChild(this.ROOT_ELEMENT);
 		this._setOffset(1);
 	}
 
@@ -66,7 +66,7 @@ BasePanel.prototype._init = function() {
  * @deprecated
  */
 BasePanel.prototype.updatePanel = function() {
-	this.addChild('/..');
+	this.addChild(this.ROOT_ELEMENT);
 	this._setOffset(1);
 };
 
@@ -215,7 +215,7 @@ BasePanel.prototype._keyPressHandler = function(eventName, ch, key) {
  * @protected
  */
 BasePanel.prototype._recoveryDefaultState = function() {
-	this.addChild('/..');
+	this.addChild(this.ROOT_ELEMENT);
 	this._setOffset(1);
 };
 

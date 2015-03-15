@@ -31,17 +31,10 @@ goog.inherits(Albums, BasePanel);
  * @param {number} ownerId
  */
 Albums.prototype.updatePanel = function(albums, ownerId) {
-	goog.base(this, 'updatePanel', arguments);
+	this._recoveryDefaultState();
 	this._currentOwnerId = ownerId;
 
-	this.addChild('Вся музыка');
-	var offset = this._getOffset();
-	this._setOffset(offset + 1);
-
 	this.setData(albums);
-	albums.forEach(function(album) {
-		this._addAlbum(album);
-	}.bind(this));
 	app.ui.console.show(this);
 };
 
