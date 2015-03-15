@@ -4,7 +4,7 @@ var panel = {
 	Friends: require('./lib/friends'),
 	Groups: require('./lib/groups'),
 	Home: require('./lib/home'),
-	SinglePL: require('./lib/single-pl'),
+	MainPL: require('./lib/single-pl'),
 	News: require('./lib/news'),
 	PlayList: require('./lib/playlist'),
 	Radio: require('./lib/radio-panel'),

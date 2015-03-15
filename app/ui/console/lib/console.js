@@ -46,7 +46,7 @@ Console.prototype.init = function() {
 	this._panels.home = new vknp.ui.console.panel.Home;
 	this._panels.vk = new vknp.ui.console.panel.VK;
 	this._panels.news = new vknp.ui.console.panel.News;
-	this._panels.singlePL = new vknp.ui.console.panel.SinglePL;
+	this._panels.mainPL = new vknp.ui.console.panel.MainPL;
 	this._panels.friends = new vknp.ui.console.panel.Friends;
 	this.playBar = new vknp.ui.console.widgets.PlayBar;
 	this.infoBar = new vknp.ui.console.widgets.InfoBar;
@@ -55,7 +55,7 @@ Console.prototype.init = function() {
 	this._panels.albums = new vknp.ui.console.panel.Albums;
 
 	this._visiblePanels.left = this._panels.home;
-	this._visiblePanels.right = this._panels.singlePL;
+	this._visiblePanels.right = this._panels.mainPL;
 	this.activePanel = this._visiblePanels.left;
 
 	this.screen.key(['tab'], this.changeFocusPanel.bind(this));
@@ -110,7 +110,7 @@ Console.prototype._show = function(panel) {
 		this._setTopPanel(panel);
 	} else {
 		this.activePanel = panel;
-		if (panel !== this._panels.singlePL) {
+		if (panel !== this._panels.mainPL) {
 			this._visiblePanels.left = panel;
 		}
 		panel.focus();
@@ -183,7 +183,7 @@ Console.prototype.exec = function(cmd) {
 			this.help();
 			break;
 		case commandList.play:
-			app.play(this._panels.singlePL.getPlaylistId(), 300, args);
+			app.play(this._panels.mainPL.getPlaylistId(), 300, args);
 			break;
 		case commandList.pause:
 			app.pause();
@@ -192,13 +192,13 @@ Console.prototype.exec = function(cmd) {
 			app.stop();
 			break;
 		case commandList.search:
-			app.search(this._panels.singlePL.getPlaylistId(), 300, args);
+			app.search(this._panels.mainPL.getPlaylistId(), 300, args);
 			break;
 		case commandList.next:
 			app.next();
 			break;
 		case commandList.radio:
-			app.radio(this._panels.singlePL.getPlaylistId(), 300, args);
+			app.radio(this._panels.mainPL.getPlaylistId(), 300, args);
 			break;
 		case commandList.exit:
 			process.exit(0);
@@ -234,7 +234,7 @@ Console.prototype.copy = function() {
 	var activePanel = this.activePanel;
 	var index = activePanel.getNode().selected;
 	var item = activePanel.getChildData(index);
-	var playlist = this._panels.singlePL.getPlaylist();
+	var playlist = this._panels.mainPL.getPlaylist();
 
 	if (activePanel === this._panels.slavePL && item) {
 		playlist.addItems([new vknp.models.AudioTrack(item)]);
@@ -276,7 +276,7 @@ Console.prototype.copy = function() {
 /**
 */
 Console.prototype.remove = function() {
-	if (this.activePanel === this._panels.singlePL) {
+	if (this.activePanel === this._panels.mainPL) {
 		var index = this.activePanel.getNode().selected;
 		var child = this.activePanel.getChild(index);
 		if (child) {

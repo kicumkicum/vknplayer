@@ -13,7 +13,7 @@ var Node = require('../../lib/node');
  * @constructor
  */
 var InfoBar = function() {
-	this._playlist = app.ui.console._panels.singlePL.playlist;
+	this._playlist = app.ui.console._panels.mainPL.playlist;
 
 	this._node = blessed.box({
 		left: 0,
