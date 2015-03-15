@@ -40,7 +40,7 @@ RadioList.prototype.updatePanel = function(albums, ownerId) {
 	albums.forEach(function(album) {
 		this.addChild(album.toString());
 	}.bind(this));
-	app.ui.console.setActivePanel(this);
+	app.ui.console.show(this);
 };
 
 
@@ -65,7 +65,7 @@ RadioList.prototype._click = function(eventName, item, position) {
 
 
 RadioList.prototype._show = function() {
-	app.ui.console.setActivePanel(this.backPanel);
+	app.ui.console.show(this.backPanel);
 };
 
 

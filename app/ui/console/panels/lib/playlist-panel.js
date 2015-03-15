@@ -48,7 +48,7 @@ goog.inherits(PlayList, BasePanel);
 PlayList.prototype.setContent = function(tracks) {
 	this.getPlaylist().clear();
 	this.getPlaylist().addItems(tracks);
-	app.ui.console.setActivePanel(this);
+	app.ui.console.show(this);
 };
 
 

@@ -84,9 +84,9 @@ Console.prototype.init = function() {
  */
 Console.prototype.changeFocusPanel = function() {
 	if (this.activePanel === this._visiblePanels.left) {
-		this.setActivePanel(this._visiblePanels.right);
+		this.show(this._visiblePanels.right);
 	} else {
-		this.setActivePanel(this._visiblePanels.left);
+		this.show(this._visiblePanels.left);
 	}
 };
 
@@ -94,18 +94,18 @@ Console.prototype.changeFocusPanel = function() {
 /**
  * @param {Object} panel
  */
-Console.prototype.setActivePanel = function(panel) {
+Console.prototype.show = function(panel) {
 	if (panel.isHidden()) {
 		this._addToHistory(this.activePanel);
 	}
-	this._setActivePanel(panel);
+	this._show(panel);
 };
 
 
 /**
  * @param {Object} panel
  */
-Console.prototype._setActivePanel = function(panel) {
+Console.prototype._show = function(panel) {
 	if (panel.isHidden()) {
 		this._setTopPanel(panel);
 	} else {
@@ -146,7 +146,7 @@ Console.prototype._addToHistory = function(panel) {
  */
 Console.prototype.back = function() {
 	var panel = this._history.pop();
-	this._setActivePanel(panel);
+	this._show(panel);
 };
 
 
@@ -154,7 +154,7 @@ Console.prototype.back = function() {
  * @param {string} cmd
  */
 Console.prototype.exec = function(cmd) {
-	var commandList = {
+	var commandList = {//todo add clear
 		help: ['help', 'h'],
 		play: ['play'],
 		pause: ['pause', 'p'],//todo not supported stupid-player

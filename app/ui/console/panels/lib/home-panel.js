@@ -46,7 +46,7 @@ HomePanel.prototype._loadData = function() {
 /**
  */
 HomePanel.prototype.showVK = function() {
-	app.ui.console.setActivePanel(app.ui.console._panels.vkList);
+	app.ui.console.show(app.ui.console._panels.vkList);
 };
 
 

@@ -97,7 +97,7 @@ VKList.prototype.category;
  */
 VKList.prototype._showGroups = function() {
 	var groupList = app.ui.console._panels.groupList;
-	app.ui.console.setActivePanel(groupList);
+	app.ui.console.show(groupList);
 };
 
 
@@ -106,7 +106,7 @@ VKList.prototype._showGroups = function() {
  */
 VKList.prototype._showFriends = function() {
 	var friendList = app.ui.console._panels.friendList;
-	app.ui.console.setActivePanel(friendList);
+	app.ui.console.show(friendList);
 };
 
 
@@ -139,7 +139,7 @@ VKList.prototype.showMusic = function(ownerId) {
  * @public
  */
 VKList.prototype._showNews = function(ownerId) {
-	app.ui.console.setActivePanel(app.ui.console._panels.newsPanel);
+	app.ui.console.show(app.ui.console._panels.newsPanel);
 };
 
 

@@ -42,7 +42,7 @@ AlbumList.prototype.updatePanel = function(albums, ownerId) {
 	albums.forEach(function(album) {
 		this._addAlbum(album);
 	}.bind(this));
-	app.ui.console.setActivePanel(this);
+	app.ui.console.show(this);
 };
 
 
