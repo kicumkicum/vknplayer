@@ -32,7 +32,7 @@ News.prototype._loadData = function() {
 	return app.api.vk
 		.getListNews()
 		.then(function(list) {
-			this._setData(list);
+			this.setData(list);
 			list.forEach(function(item) {
 				this.addChild(item.title);
 			}, this);

@@ -25,7 +25,7 @@ Friends.prototype._loadData = function() {
 	app.api.vk
 		.getFriends(30)
 		.then(function(friends) {
-			this._setData(friends);
+			this.setData(friends);
 			friends.forEach(function(friend) {
 				this._addFriend(friend);
 			}, this);

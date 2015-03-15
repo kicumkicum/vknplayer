@@ -38,7 +38,7 @@ Albums.prototype.updatePanel = function(albums, ownerId) {
 	var offset = this._getOffset();
 	this._setOffset(offset + 1);
 
-	this._setData(albums);
+	this.setData(albums);
 	albums.forEach(function(album) {
 		this._addAlbum(album);
 	}.bind(this));

@@ -23,7 +23,7 @@ var BasePanel = function(params) {
 		width: '50%',
 		hidden: true
 	});
-	this._data = null;
+	this._data = new DataList;
 	app.ui.console.on(app.ui.console.EVENT_SET_TOP, function(newPanel, oldPanel) {
 		if (newPanel === this) {
 			this._prevPanel = oldPanel;
@@ -63,14 +63,6 @@ BasePanel.prototype._loadData = function() {};
 
 
 /**
- * @param item
- * @param position
- * @protected
- */
-BasePanel.prototype._clickHandler = function(eventName, item, position) {};
-
-
-/**
  * @param {*} data
  */
 BasePanel.prototype.updatePanel = function(data) {
@@ -93,7 +85,7 @@ BasePanel.prototype._back = function() {
  * @protected
  */
 BasePanel.prototype._getDataItem = function(index) {
-	return this._data.itemAt(index - this._offset);
+	return this._data.itemAt(index - this._offset);//todo move offset to data-list
 };
 
 
@@ -110,8 +102,8 @@ BasePanel.prototype._getData = function() {
  * @param {?Array.<*>} data
  * @protected
  */
-BasePanel.prototype._setData = function(data) {
-	this._data = new DataList(data);
+BasePanel.prototype.setData = function(data) {
+	this._data.setItems(data);
 };
 
 
@@ -138,6 +130,15 @@ BasePanel.prototype._getOffset = function() {
 BasePanel.prototype._elementFocusHandler = function() {
 	this.focus();
 };
+
+
+/**
+ * @param {string} eventName
+ * @param {*} item
+ * @param {number} position
+ * @protected
+ */
+BasePanel.prototype._clickHandler = function(eventName, item, position) {};
 
 
 /**

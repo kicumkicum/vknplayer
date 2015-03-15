@@ -24,7 +24,7 @@ Groups.prototype._loadData = function() {
 	app.api.vk
 		.getGroups()
 		.then(function(groups) {
-			this._setData(groups);
+			this.setData(groups);
 			groups.forEach(function(group) {
 				this._addGroup(group);
 			}, this);
