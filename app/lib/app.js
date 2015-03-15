@@ -11,11 +11,10 @@ var Vknp = function() {};
 
 Vknp.prototype.start = function() {
 	this._initService();
-	var config = this.service.config.getConfig();
+	this._config = this.service.config.getConfig();
 
-	this._config = config;
-	this._initApi(config.api);
-	this._initUI(config.ui);
+	this._initApi(this._config.api);
+	this._initUI(this._config.ui);
 
 	this.api.vk.initStats();
 };
