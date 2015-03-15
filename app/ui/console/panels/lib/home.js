@@ -20,7 +20,7 @@ var Home = function() {
 		hidden: false
 	});
 
-	this._playlist = app.ui.console._panels.slaveList.getPlaylist();
+	this._playlist = app.ui.console._panels.slavePL.getPlaylist();
 	this.category = {};
 };
 goog.inherits(Home, BasePanel);
@@ -58,7 +58,7 @@ Home.prototype.showGMusic = function() {
 		.then(function(playlist) {
 			playlist = playlist.split('\n');
 			var arr = this._createTracks(playlist);
-			app.ui.console._panels.slaveList.setContent(tracks);
+			app.ui.console._panels.slavePL.setContent(tracks);
 		}.bind(this));
 };
 
@@ -74,7 +74,7 @@ Home.prototype.showRadio = function() {
 			duration: 0
 		});
 	});
-	app.ui.console._panels.slaveList.setContent(stations);
+	app.ui.console._panels.slavePL.setContent(stations);
 };
 
 

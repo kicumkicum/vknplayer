@@ -129,7 +129,7 @@ VK.prototype.showMusic = function(ownerId) {
 	app.api.vk
 		.getAudio(ownerId, 300)
 		.then(function(tracks) {
-			app.ui.console._panels.slaveList.setContent(tracks);
+			app.ui.console._panels.slavePL.setContent(tracks);
 		}.bind(this));
 };
 
@@ -163,7 +163,7 @@ VK.prototype._showBookmarks = function() {
 					})
 				}
 			});
-			app.ui.console._panels.slaveList.setContent(tracks);
+			app.ui.console._panels.slavePL.setContent(tracks);
 
 		})
 };

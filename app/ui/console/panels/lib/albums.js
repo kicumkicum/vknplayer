@@ -13,12 +13,12 @@ var BasePanel = require('./base-panel');
  */
 var Albums = function() {
 	goog.base(this);
-	this._playlist = app.ui.console._panels.slaveList.getPlaylist();
+	this._playlist = app.ui.console._panels.slavePL.getPlaylist();
 	this._currentOwnerId = NaN;
 	this._children = {};
 
 	app.ui.console.on(app.ui.console.EVENT_SET_TOP, function(newPanel, oldPanel) {
-		if (newPanel === this && oldPanel !== app.ui.console._panels.slaveList) {
+		if (newPanel === this && oldPanel !== app.ui.console._panels.slavePL) {
 			this.backPanel = oldPanel;
 		}
 	}.bind(this));
@@ -71,7 +71,7 @@ Albums.prototype._click = function(eventName, item, position) {
 		app.api.vk
 			.getAudio(album.ownerId, 300, album.albumId)
 			.then(function(tracks) {
-				app.ui.console._panels.slaveList.setContent(tracks);
+				app.ui.console._panels.slavePL.setContent(tracks);
 			}.bind(this));
 	}
 };

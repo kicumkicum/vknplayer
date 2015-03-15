@@ -8,7 +8,7 @@ var panel = {
 	News: require('./lib/news'),
 	PlayList: require('./lib/playlist'),
 	Radio: require('./lib/radio-panel'),
-	Slave: require('./lib/slave-panel'),
+	SlavePL: require('./lib/multi-pl'),
 	VK: require('./lib/vk')
 };
 

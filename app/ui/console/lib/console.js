@@ -42,7 +42,7 @@ Console.prototype.init = function() {
 
 	this.input = this._createInput();
 	this.loading = new vknp.ui.console.widgets.Loading;
-	this._panels.slaveList = new vknp.ui.console.panel.Slave;
+	this._panels.slavePL = new vknp.ui.console.panel.SlavePL;
 	this._panels.home = new vknp.ui.console.panel.Home;
 	this._panels.vk = new vknp.ui.console.panel.VK;
 	this._panels.news = new vknp.ui.console.panel.News;
@@ -236,7 +236,7 @@ Console.prototype.copy = function() {
 	var item = activePanel.getChildData(index);
 	var playlist = this._panels.singlePL.getPlaylist();
 
-	if (activePanel === this._panels.slaveList && item) {
+	if (activePanel === this._panels.slavePL && item) {
 		playlist.addItems([new vknp.models.AudioTrack(item)]);
 	}
 	if (activePanel === this._panels.friends && this._panels.friends.getChild(index) && this._panels.friends.getChild(index).friend) {

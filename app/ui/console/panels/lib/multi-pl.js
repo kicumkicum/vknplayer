@@ -7,7 +7,7 @@ var PlayList = require('./playlist');
  * @extends {PlayList}
  * @constructor
  */
-var SlaveList = function() {
+var MultiPL = function() {
 	this._playlistPack = [];
 
 	goog.base(this, {
@@ -21,11 +21,11 @@ var SlaveList = function() {
 	this._playedPlaylistId = this._playlistId;
 	this._openPlaylistId = this._playlistId;
 };
-goog.inherits(SlaveList, PlayList);
+goog.inherits(MultiPL, PlayList);
 
 
 /** @inheritDoc */
-SlaveList.prototype.setContent = function(tracks) {
+MultiPL.prototype.setContent = function(tracks) {
 	if (this._playedPlaylistId === this._playlistPack[0]) {
 		this._playlistId = this._playlistPack[1];
 	} else {
@@ -39,7 +39,7 @@ SlaveList.prototype.setContent = function(tracks) {
 
 
 /** @inheritDoc */
-SlaveList.prototype._loadData = function() {
+MultiPL.prototype._loadData = function() {
 	goog.base(this, '_loadData');
 	this._playlistPack.push(this._playlistId);
 
@@ -52,7 +52,7 @@ SlaveList.prototype._loadData = function() {
 
 
 /** @inheritDoc */
-SlaveList.prototype._click = function(eventName, select, selectNumber) {
+MultiPL.prototype._click = function(eventName, select, selectNumber) {
 	if (selectNumber === 0) {
 		this._back();
 		return;
@@ -67,25 +67,25 @@ SlaveList.prototype._click = function(eventName, select, selectNumber) {
 /**
  *
  */
-SlaveList.prototype.backPanel;
+MultiPL.prototype.backPanel;
 
 
 /**
  * @type {Array.<number>}
  */
-SlaveList.prototype._playlistPack;
+MultiPL.prototype._playlistPack;
 
 
 /**
  * @type {number}
  */
-SlaveList.prototype._openPlaylistId;
+MultiPL.prototype._openPlaylistId;
 
 
 /**
  * @type {number}
  */
-SlaveList.prototype._playedPlaylistId;
+MultiPL.prototype._playedPlaylistId;
 
 
-module.exports = SlaveList;
+module.exports = MultiPL;
