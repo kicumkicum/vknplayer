@@ -13,6 +13,7 @@ var Node = require('../../lib/node');
 /**
  * @constructor
  * @extends {Node}
+ * @template ItemType
  */
 var BasePanel = function(params) {
 	this._setOffset(0);
@@ -34,6 +35,7 @@ var BasePanel = function(params) {
 	this._focusHandler = this._focusHandler.bind(this);
 	this._clickHandler = this._clickHandler.bind(this);
 	this._keyPressHandler = this._keyPressHandler.bind(this);
+	this._dataChangedHandler = this._dataChangedHandler.bind(this);
 };
 goog.inherits(BasePanel, Node);
 
@@ -53,6 +55,7 @@ BasePanel.prototype._init = function() {
 	this.on(this.EVENT_FOCUS, this._focusHandler);
 	this.on(this.EVENT_SELECT, this._clickHandler);
 	this.on(this.EVENT_KEY_PRESS, this._keyPressHandler);
+	this._data.on(this._data.EVENT_ITEMS_CHANGED, this._dataChangedHandler)
 };
 
 
@@ -145,6 +148,14 @@ BasePanel.prototype._clickHandler = function(eventName, item, position) {};
  * @protected
  */
 BasePanel.prototype._focusHandler = function() {};
+
+
+/**
+ * @param {string} eventName
+ * @param {Array.<!ItemType>} data
+ * @protected
+ */
+BasePanel.prototype._dataChangedHandler = function(eventName, data) {};
 
 
 /**
