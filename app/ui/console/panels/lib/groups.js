@@ -44,7 +44,7 @@ Groups.prototype._addGroup = function(group) {
 /**
  * @inheritDoc
  */
-Groups.prototype._click = function(eventName, item, position) {
+Groups.prototype._clickHandler = function(eventName, item, position) {
 	if (position === 0) {
 		this._back();
 		return;

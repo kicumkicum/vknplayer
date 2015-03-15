@@ -164,6 +164,22 @@ Vknp.prototype.reward = function() {};
 Vknp.prototype.help = function() {};
 
 
+/**
+ * @return {boolean}
+ */
+Vknp.prototype.isVkEnabled = function() {
+	return !!this._config.api.vk.enabled;
+};
+
+
+/**
+ * @return {boolean}
+ */
+Vknp.prototype.isGmusicEnabled = function() {
+	return !!this._config.api.gmusic.enabled;
+};
+
+
 Vknp.prototype._initApi = function(config) {
 	this.api = {};
 	if (config.vk.enabled) {

@@ -96,7 +96,7 @@ PlayList.prototype._loadData = function() {
  * @param {number} selectNumber
  * @protected
  */
-PlayList.prototype._click = function(eventName, select, selectNumber) {
+PlayList.prototype._clickHandler = function(eventName, select, selectNumber) {
 	if (selectNumber === 0 && select === this.ROOT_ELEMENT) {
 		this._back();
 		return;

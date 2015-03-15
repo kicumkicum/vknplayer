@@ -59,7 +59,7 @@ VK.prototype._init = function() {
  * @param {number} selectNumber
  * @private
  */
-VK.prototype._click = function(eventName, select, selectNumber) {
+VK.prototype._clickHandler = function(eventName, select, selectNumber) {
 	var index = selectNumber - this._getOffset();
 	switch (index) {
 		case this.CategoryType.GROUPS:

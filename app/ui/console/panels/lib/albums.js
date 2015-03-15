@@ -58,7 +58,7 @@ Albums.prototype._addAlbum = function(album) {
 /**
  * @inheritDoc
  */
-Albums.prototype._click = function(eventName, item, position) {
+Albums.prototype._clickHandler = function(eventName, item, position) {
 	if (position === 0) {
 		this._back();
 		return;

@@ -50,7 +50,7 @@ News.prototype._addTracks = function(tracks) {
  * @param {number} selectNumber
  * @protected
  */
-News.prototype._click = function(eventName, select, selectNumber) {
+News.prototype._clickHandler = function(eventName, select, selectNumber) {
 	if (selectNumber === 0) {
 		this._back();
 		return;

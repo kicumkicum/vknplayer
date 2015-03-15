@@ -44,7 +44,7 @@ Friends.prototype._addFriend = function(friend) {
 /**
  * @inheritDoc
  */
-Friends.prototype._click = function(eventName, item, position) {
+Friends.prototype._clickHandler = function(eventName, item, position) {
 	if (position === 0) {
 		this._back();
 		return;

@@ -29,6 +29,11 @@ var BasePanel = function(params) {
 			this._prevPanel = oldPanel;
 		}
 	}.bind(this));
+
+	this._elementFocusHandler = this._elementFocusHandler.bind(this);
+	this._focusHandler = this._focusHandler.bind(this);
+	this._clickHandler = this._clickHandler.bind(this);
+	this._keyPressHandler = this._keyPressHandler.bind(this);
 };
 goog.inherits(BasePanel, Node);
 
@@ -43,23 +48,11 @@ BasePanel.prototype._init = function() {
 	}
 
 	this._loadData();
-	this.on(this.EVENT_ELEMENT_CLICK, this.focus.bind(this));
-	this.on(this.EVENT_FOCUS, function(eventName) {
-//		app.ui.console.activePanel = this;
-	}.bind(this));
-	this.on(this.EVENT_SELECT, this._click.bind(this));
-	this.on(this.EVENT_KEY_PRESS, function(eventName, ch, key) {
-		if (key.name === BlessedConst.button.ESCAPE) {
-			this._back();
-		}
-		if (key.name === BlessedConst.button.HOME) {
-			this.selectElement(0);
-		}
-		if (key.name === BlessedConst.button.END) {
-			this.selectElement(this.getChildrenLength() - 1);
-		}
-		app.ui.console.render();//todo not often
-	}.bind(this));
+
+	this.on(this.EVENT_ELEMENT_CLICK, this._elementFocusHandler);
+	this.on(this.EVENT_FOCUS, this._focusHandler);
+	this.on(this.EVENT_SELECT, this._clickHandler);
+	this.on(this.EVENT_KEY_PRESS, this._keyPressHandler);
 };
 
 
@@ -74,7 +67,7 @@ BasePanel.prototype._loadData = function() {};
  * @param position
  * @protected
  */
-BasePanel.prototype._click = function(eventName, item, position) {};
+BasePanel.prototype._clickHandler = function(eventName, item, position) {};
 
 
 /**
@@ -136,6 +129,49 @@ BasePanel.prototype._setOffset = function(value) {
  */
 BasePanel.prototype._getOffset = function() {
 	return this._offset;
+};
+
+
+/**
+ * @protected
+ */
+BasePanel.prototype._elementFocusHandler = function() {
+	this.focus();
+};
+
+
+/**
+ * @protected
+ */
+BasePanel.prototype._focusHandler = function() {};
+
+
+/**
+ * @param eventName
+ * @param ch
+ * @param key
+ * @protected
+ */
+BasePanel.prototype._keyPressHandler = function(eventName, ch, key) {
+	var handled = false;
+	switch (key.name) {
+		case BlessedConst.button.ESCAPE:
+			this._back();
+			handled = true;
+			break;
+		case BlessedConst.button.HOME:
+			this.selectElement(0);
+			handled = true;
+			break;
+		case BlessedConst.button.END:
+			this.selectElement(this.getChildrenLength() - 1);
+			handled = true;
+			break;
+
+	}
+	if (handled) {
+		app.ui.console.render();
+	}
 };
 
 
