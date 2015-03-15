@@ -17,6 +17,14 @@ var Node = require('../../lib/node');
  */
 var BasePanel = function(params) {
 	this._setOffset(0);
+	this._data = new DataList;
+
+	this._elementFocusHandler = this._elementFocusHandler.bind(this);
+	this._focusHandler = this._focusHandler.bind(this);
+	this._clickHandler = this._clickHandler.bind(this);
+	this._keyPressHandler = this._keyPressHandler.bind(this);
+	this._dataChangedHandler = this._dataChangedHandler.bind(this);
+
 	goog.base(this, params || {
 		left: 0,
 		top:  2,
@@ -24,18 +32,12 @@ var BasePanel = function(params) {
 		width: '50%',
 		hidden: true
 	});
-	this._data = new DataList;
+
 	app.ui.console.on(app.ui.console.EVENT_SET_TOP, function(newPanel, oldPanel) {
 		if (newPanel === this) {
 			this._prevPanel = oldPanel;
 		}
 	}.bind(this));
-
-	this._elementFocusHandler = this._elementFocusHandler.bind(this);
-	this._focusHandler = this._focusHandler.bind(this);
-	this._clickHandler = this._clickHandler.bind(this);
-	this._keyPressHandler = this._keyPressHandler.bind(this);
-	this._dataChangedHandler = this._dataChangedHandler.bind(this);
 };
 goog.inherits(BasePanel, Node);
 
@@ -55,7 +57,27 @@ BasePanel.prototype._init = function() {
 	this.on(this.EVENT_FOCUS, this._focusHandler);
 	this.on(this.EVENT_SELECT, this._clickHandler);
 	this.on(this.EVENT_KEY_PRESS, this._keyPressHandler);
-	this._data.on(this._data.EVENT_ITEMS_CHANGED, this._dataChangedHandler)
+	this._data.on(this._data.EVENT_ITEMS_ADDED, this._dataChangedHandler);
+	this._data.on(this._data.EVENT_CLEAR, this.clear.bind(this));
+};
+
+
+/**
+ * @deprecated
+ */
+BasePanel.prototype.updatePanel = function() {
+	this.addChild('/..');
+	this._setOffset(1);
+};
+
+
+/**
+ * @param {string} eventName
+ * @protected
+ */
+BasePanel.prototype.clear = function(eventName) {
+	goog.base(this, 'clear');
+	this._recoveryDefaultState();
 };
 
 
@@ -63,16 +85,6 @@ BasePanel.prototype._init = function() {
  * @protected
  */
 BasePanel.prototype._loadData = function() {};
-
-
-/**
- * @param {*} data
- */
-BasePanel.prototype.updatePanel = function(data) {
-	this.clear();
-	this.addChild('/..');
-	this._setOffset(1);
-};
 
 
 /**
@@ -130,6 +142,16 @@ BasePanel.prototype._getOffset = function() {
 /**
  * @protected
  */
+BasePanel.prototype._update = function() {
+	this._data.toArray().forEach(function(item) {
+		this.addChild(item.toString())
+	}, this);
+};
+
+
+/**
+ * @protected
+ */
 BasePanel.prototype._elementFocusHandler = function() {
 	this.focus();
 };
@@ -155,7 +177,9 @@ BasePanel.prototype._focusHandler = function() {};
  * @param {Array.<!ItemType>} data
  * @protected
  */
-BasePanel.prototype._dataChangedHandler = function(eventName, data) {};
+BasePanel.prototype._dataChangedHandler = function(eventName, data) {
+	this._update();
+};
 
 
 /**
@@ -184,6 +208,15 @@ BasePanel.prototype._keyPressHandler = function(eventName, ch, key) {
 	if (handled) {
 		app.ui.console.render();
 	}
+};
+
+
+/**
+ * @protected
+ */
+BasePanel.prototype._recoveryDefaultState = function() {
+	this.addChild('/..');
+	this._setOffset(1);
 };
 
 
