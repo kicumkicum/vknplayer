@@ -9,7 +9,7 @@ var panel = {
 	PlayList: require('./lib/playlist-panel'),
 	Radio: require('./lib/radio-panel'),
 	Slave: require('./lib/slave-panel'),
-	VK: require('./lib/vk-panel')
+	VK: require('./lib/vk')
 };
 
 module.exports = panel;

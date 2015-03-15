@@ -64,7 +64,7 @@ AlbumList.prototype._click = function(eventName, item, position) {
 		return;
 	}
 	if (position === 1) {
-		app.ui.console._panels.vkList.showMusic(this._currentOwnerId);
+		app.ui.console._panels.vk.showMusic(this._currentOwnerId);
 	}
 	var album = this._getDataItem(position);
 	if (album instanceof vknp.models.Album) {

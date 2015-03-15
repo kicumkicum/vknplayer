@@ -1,7 +1,7 @@
 /**
  * Created by oleg on 08.06.14.
  */
-goog.provide('VKList');
+goog.provide('VK');
 //goog.require('Node');
 var Node = require('../../lib/node');//todo for inherits. check it
 
@@ -13,7 +13,7 @@ var BasePanel = require('./base-panel');
  * @constructor
  * @extends {BasePanel}
  */
-var VKList = function() {
+var VK = function() {
 	this._catalog = {};
 	goog.base(this, {
 		mouse: true,
@@ -37,13 +37,13 @@ var VKList = function() {
 		}
 	});
 };
-goog.inherits(VKList, BasePanel);
+goog.inherits(VK, BasePanel);
 
 
 /**
  * @private
  */
-VKList.prototype._init = function() {
+VK.prototype._init = function() {
 	goog.base(this, '_init');
 	this.addChild(this.CategoryName.GROUPS);
 	this.addChild(this.CategoryName.FRIENDS);
@@ -59,7 +59,7 @@ VKList.prototype._init = function() {
  * @param {number} selectNumber
  * @private
  */
-VKList.prototype._click = function(eventName, select, selectNumber) {
+VK.prototype._click = function(eventName, select, selectNumber) {
 	var index = selectNumber - this._getOffset();
 	switch (index) {
 		case this.CategoryType.GROUPS:
@@ -89,13 +89,13 @@ VKList.prototype._click = function(eventName, select, selectNumber) {
 /**
  * @type {Object.<Box>}
  */
-VKList.prototype.category;
+VK.prototype.category;
 
 
 /**
  * @private
  */
-VKList.prototype._showGroups = function() {
+VK.prototype._showGroups = function() {
 	var groupList = app.ui.console._panels.groupList;
 	app.ui.console.show(groupList);
 };
@@ -104,7 +104,7 @@ VKList.prototype._showGroups = function() {
 /**
  * @private
  */
-VKList.prototype._showFriends = function() {
+VK.prototype._showFriends = function() {
 	var friendList = app.ui.console._panels.friends;
 	app.ui.console.show(friendList);
 };
@@ -113,7 +113,7 @@ VKList.prototype._showFriends = function() {
 /**
  * @private
  */
-VKList.prototype._showAlbums = function() {
+VK.prototype._showAlbums = function() {
 	app.api.vk.getAudioAlbums(null, 100)
 		.then(function(albums) {
 			app.ui.console._panels.albumList.updatePanel(albums, app.ui.console.userId);
@@ -125,7 +125,7 @@ VKList.prototype._showAlbums = function() {
  * @param {number} ownerId
  * @public
  */
-VKList.prototype.showMusic = function(ownerId) {
+VK.prototype.showMusic = function(ownerId) {
 	app.api.vk
 		.getAudio(ownerId, 300)
 		.then(function(tracks) {
@@ -138,7 +138,7 @@ VKList.prototype.showMusic = function(ownerId) {
  * @param {number} ownerId
  * @public
  */
-VKList.prototype._showNews = function(ownerId) {
+VK.prototype._showNews = function(ownerId) {
 	app.ui.console.show(app.ui.console._panels.newsPanel);
 };
 
@@ -146,7 +146,7 @@ VKList.prototype._showNews = function(ownerId) {
 /**
  * @public
  */
-VKList.prototype._showBookmarks = function() {
+VK.prototype._showBookmarks = function() {
 	app.api.vk
 		.getListNewsFeed({
 			count: 100
@@ -172,7 +172,7 @@ VKList.prototype._showBookmarks = function() {
 /**
  * @enum {number}
  */
-VKList.prototype.CategoryType = {
+VK.prototype.CategoryType = {
 	GROUPS: 0,
 	FRIENDS: 1,
 	ALBUMS: 2,
@@ -185,7 +185,7 @@ VKList.prototype.CategoryType = {
 /**
  * @enum {string}
  */
-VKList.prototype.CategoryName = {
+VK.prototype.CategoryName = {
 	GROUPS: 'Группы',
 	FRIENDS: 'Друзья',
 	ALBUMS: 'Альбомы',
@@ -195,4 +195,4 @@ VKList.prototype.CategoryName = {
 };
 
 
-module.exports = VKList;
+module.exports = VK;
