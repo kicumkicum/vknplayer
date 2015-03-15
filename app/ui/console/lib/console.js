@@ -383,12 +383,6 @@ Console.prototype.activePanel;
 
 
 /**
- * @type {vknp.service.PlayListManager}
- */
-Console.prototype.playlist;
-
-
-/**
  * @type {Screen}
  */
 Console.prototype.screen;
@@ -398,48 +392,6 @@ Console.prototype.screen;
  * @type {Input}
  */
 Console.prototype.input;
-
-
-/**
- * @type {vknp.ui.console.panel.Master}
- */
-Console.prototype.masterList;
-
-
-/**
- * @type {vknp.ui.console.panel.Slave}
- */
-Console.prototype.slaveList;
-
-
-/**
- * @type {vknp.ui.console.panel.Home}
- */
-Console.prototype.mainList;
-
-
-/**
- * @type {vknp.ui.console.panel.VK}
- */
-Console.prototype.vkList;
-
-
-/**
- * @type {vknp.ui.console.panel.Album}
- */
-Console.prototype.albumList;
-
-
-/**
- * @type {vknp.ui.console.panel.Group}
- */
-Console.prototype.groupList;
-
-
-/**
- * @type {vknp.ui.console.panel.Friend}
- */
-Console.prototype.friendList;
 
 
 /**
