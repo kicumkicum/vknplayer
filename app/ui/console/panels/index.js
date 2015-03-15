@@ -1,4 +1,4 @@
-var panel = {
+var panels = {
 	Albums: require('./lib/albums'),
 	Base: require('./lib/base-panel'),
 	Friends: require('./lib/friends'),
@@ -12,4 +12,4 @@ var panel = {
 	VK: require('./lib/vk')
 };
 
-module.exports = panel;
+module.exports = panels;
