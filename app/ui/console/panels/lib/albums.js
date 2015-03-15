@@ -77,6 +77,13 @@ Albums.prototype._clickHandler = function(eventName, item, position) {
 };
 
 
+Albums.prototype._recoveryDefaultState = function() {
+	goog.base(this, '_recoveryDefaultState');
+	this.addChild('Вся музыка');
+	var offset = this._getOffset();
+	this._setOffset(offset + 1);
+};
+
 /**
  * @type {DataList.<vknp.models.AudioTrack>}
  */

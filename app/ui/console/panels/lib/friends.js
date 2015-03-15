@@ -26,18 +26,7 @@ Friends.prototype._loadData = function() {
 		.getFriends(30)
 		.then(function(friends) {
 			this.setData(friends);
-			friends.forEach(function(friend) {
-				this._addFriend(friend);
-			}, this);
 		}.bind(this));
-};
-
-
-/**
- * @param {vknp.models.Friend} friend
- */
-Friends.prototype._addFriend = function(friend) {
-	this.addChild(friend.toString());
 };
 
 
