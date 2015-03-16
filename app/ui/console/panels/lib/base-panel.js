@@ -46,10 +46,7 @@ goog.inherits(BasePanel, Node);
  * @protected
  */
 BasePanel.prototype._init = function() {
-	if (!(this instanceof require('./home'))) {//workaround - incorrect goog.base
-		this.addChild(this.ROOT_ELEMENT);
-		this._setOffset(1);
-	}
+	this._recoveryDefaultState();
 
 	this.on(this.EVENT_ELEMENT_CLICK, this._elementFocusHandler);
 	this.on(this.EVENT_FOCUS, this._focusHandler);
