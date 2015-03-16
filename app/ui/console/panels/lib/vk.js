@@ -114,7 +114,8 @@ VK.prototype._showFriends = function() {
  * @private
  */
 VK.prototype._showAlbums = function() {
-	app.api.vk.getAudioAlbums(null, 100)
+	app.api.vk
+		.getAudioAlbums(null, 100)
 		.then(function(albums) {
 			app.ui.console._panels.albums.updatePanel(albums, app.ui.console.userId);
 		});
@@ -186,12 +187,12 @@ VK.prototype.CategoryType = {
  * @enum {string}
  */
 VK.prototype.CategoryName = {
-	GROUPS: 'Группы',
-	FRIENDS: 'Друзья',
-	ALBUMS: 'Альбомы',
-	NEWS: 'Музыкальные новости',
+	ALBUMS: 'Плейлисты',
 	BOOKMARKS: 'Закладки',
-	MUSIC: 'Вся музыка'
+	FRIENDS: 'Друзья',
+	GROUPS: 'Сообщества',
+	MUSIC: 'Вся музыка',
+	NEWS: 'Новости'
 };
 
 
