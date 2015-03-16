@@ -40,15 +40,6 @@ Albums.prototype.updatePanel = function(albums, ownerId) {
 
 
 /**
- * @param {vknp.models.Album} album
- */
-Albums.prototype._addAlbum = function(album) {
-	this.addChild(album.title);
-};
-
-
-
-/**
  * @inheritDoc
  */
 Albums.prototype._clickHandler = function(eventName, item, position) {
@@ -76,6 +67,7 @@ Albums.prototype._recoveryDefaultState = function() {
 	var offset = this._getOffset();
 	this._setOffset(offset + 1);
 };
+
 
 /**
  * @type {DataList.<vknp.models.AudioTrack>}
