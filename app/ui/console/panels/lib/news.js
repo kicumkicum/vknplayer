@@ -39,11 +39,6 @@ News.prototype._loadData = function() {
 };
 
 
-News.prototype._addTracks = function(tracks) {
-	this._playlist.addItems(tracks);
-};
-
-
 /**
  * @param select
  * @param {number} selectNumber
@@ -55,34 +50,11 @@ News.prototype._clickHandler = function(eventName, select, selectNumber) {
 		return;
 	}
 
-	if (selectNumber === 1) {
-		return app.api.vk
-			.getNews({
-				filter: 'post',
-				count: '100'
-			})
-			.then(function(items) {
-				var tracks = [];
-				items.news.forEach(function(item) {
-					if (item.attachments) {
-						item.attachments.forEach(function(attachment) {
-							if (attachment.audio) {
-								tracks.push(attachment.audio);
-							}
-						})
-					}
-				});
-				app.ui.console._panels.slavePL.setContent(tracks);//todo make datalist
-			}.bind(this));
-	}
 	var item = this._getDataItem(selectNumber);
-	if (!item) {
-		return;
-	}
 
 	app.api.vk
 		.getNews({
-			listIds: item.id,
+			listIds: item ? item.id : '',
 			filter: 'post',
 			count: '100'
 		})
@@ -99,17 +71,6 @@ News.prototype._clickHandler = function(eventName, select, selectNumber) {
 			});
 			app.ui.console._panels.slavePL.setContent(tracks);//todo make datalist
 		}.bind(this));
-};
-
-
-/**
- * @param {{
- *      title: string,
- *      id: number
- * }} item
- */
-News.prototype._addItemNews = function(item) {
-	this.addChild(item.title);
 };
 
 
