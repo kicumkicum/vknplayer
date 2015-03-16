@@ -1,5 +1,5 @@
 var console = {
-	panel: require('./panels/index'),
+	panels: require('./panels/index'),
 	popups: require('./popups/index'),
 	widgets: require('./widgets/index')
 };

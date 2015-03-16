@@ -166,6 +166,25 @@ Node.prototype.selectElement = function(index) {
 };
 
 
+/**
+ * @param {*} value
+ */
+Node.prototype.setData = function(value) {
+	this._data = value;
+};
+
+
+/**
+ * @return {*}
+ */
+Node.prototype.getData = function() {
+	return this._data;
+};
+
+
+/**
+ * @private
+ */
 Node.prototype._eventsForwarding = function() {
 	this._node.on(BlessedConst.event.ELEMENT_CLICK, this._handler.bind(this, this.EVENT_ELEMENT_CLICK));
 	this._node.on(BlessedConst.event.BUTTON_PRESS, this._handler.bind(this, this.EVENT_BUTTON_PRESS));
@@ -175,6 +194,7 @@ Node.prototype._eventsForwarding = function() {
 	this._node.on(BlessedConst.event.SELECT, this._handler.bind(this, this.EVENT_SELECT));
 
 };
+
 
 /**
  * @param {string} event
@@ -203,6 +223,13 @@ Node.prototype._convertArguments = function(args, event) {
  * @protected
  */
 Node.prototype._node;
+
+
+/**
+ * @type {*}
+ * @protected
+ */
+Node.prototype._data;
 
 
 /**

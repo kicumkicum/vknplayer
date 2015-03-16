@@ -1,15 +1,14 @@
-var panel = {
-	Album: require('./lib/album-panel'),
+var panels = {
+	Albums: require('./lib/albums'),
 	Base: require('./lib/base-panel'),
-	Friend: require('./lib/friend-panel'),
-	Group: require('./lib/group-panel'),
-	Home: require('./lib/home-panel'),
-	Master: require('./lib/master-panel'),
-	News: require('./lib/news-panel'),
-	PlayList: require('./lib/playlist-panel'),
-	Radio: require('./lib/radio-panel'),
-	Slave: require('./lib/slave-panel'),
-	VK: require('./lib/vk-panel')
+	Friends: require('./lib/friends'),
+	Groups: require('./lib/groups'),
+	Home: require('./lib/home'),
+	MainPL: require('./lib/single-pl'),
+	News: require('./lib/news'),
+	PlayList: require('./lib/playlist'),
+	SlavePL: require('./lib/multi-pl'),
+	VK: require('./lib/vk')
 };
 
-module.exports = panel;
+module.exports = panels;

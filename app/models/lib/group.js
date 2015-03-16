@@ -40,4 +40,12 @@ Group = function(data) {
 Group.prototype.position;
 
 
+/**
+ * @return {string}
+ */
+Group.prototype.toString = function() {
+	return this.name;
+};
+
+
 module.exports = Group;

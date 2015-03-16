@@ -12,39 +12,28 @@ var BasePanel = require('./base-panel');
  * @extends {BasePanel}
  * @constructor
  */
-var FriendList = function() {
+var Friends = function() {
 	goog.base(this);
 };
-goog.inherits(FriendList, BasePanel);
+goog.inherits(Friends, BasePanel);
 
 
 /**
  * @inheritDoc
  */
-FriendList.prototype._loadData = function() {
+Friends.prototype._loadData = function() {
 	app.api.vk
 		.getFriends(30)
 		.then(function(friends) {
-			this._setData(friends);
-			friends.forEach(function(friend) {
-				this._addFriend(friend);
-			}, this);
+			this.setData(friends);
 		}.bind(this));
 };
 
 
 /**
- * @param {vknp.models.Friend} friend
- */
-FriendList.prototype._addFriend = function(friend) {
-	this.addChild(friend.toString());
-};
-
-
-/**
  * @inheritDoc
  */
-FriendList.prototype._click = function(eventName, item, position) {
+Friends.prototype._clickHandler = function(eventName, item, position) {
 	if (position === 0) {
 		this._back();
 		return;
@@ -59,9 +48,9 @@ FriendList.prototype._click = function(eventName, item, position) {
 	app.api.vk
 		.getAudioAlbums(ownerId, 100)
 		.then(function(albums) {
-			app.ui.console.albumList.updatePanel(albums, ownerId);
+			app.ui.console._panels.albums.updatePanel(albums, ownerId);
 		});
 };
 
 
-module.exports = FriendList;
+module.exports = Friends;

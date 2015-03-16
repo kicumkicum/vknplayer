@@ -48,7 +48,7 @@ goog.inherits(PlayList, BasePanel);
 PlayList.prototype.setContent = function(tracks) {
 	this.getPlaylist().clear();
 	this.getPlaylist().addItems(tracks);
-	app.ui.console.setActivePanel(this);
+	app.ui.console.show(this);
 };
 
 
@@ -96,7 +96,7 @@ PlayList.prototype._loadData = function() {
  * @param {number} selectNumber
  * @protected
  */
-PlayList.prototype._click = function(eventName, select, selectNumber) {
+PlayList.prototype._clickHandler = function(eventName, select, selectNumber) {
 	if (selectNumber === 0 && select === this.ROOT_ELEMENT) {
 		this._back();
 		return;
@@ -200,14 +200,11 @@ PlayList.prototype._updatePlayList = function() {
 	this.clear();
 	var tracks = this.getPlaylist().toArray();
 	var offset = 0;
-	if (this === app.ui.console.slaveList) {//todo mb instance of ?
-		this.addChild(this.ROOT_ELEMENT);
-		offset = 1;
-	}
+
 	tracks.forEach(function(track, index) {
 		var artist = track.artist || '';
 		var title = track.title || '';
-		if (this === app.ui.console.masterList) {
+		if (this === app.ui.console._panels.mainPL) {
 			var duration = track.duration.toString() || '';
 		} else {
 			duration = '';

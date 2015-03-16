@@ -6,6 +6,7 @@
 /**
  * @param {Object} data
  * @constructor
+ * @class {models.Config}
  */
 Config = function(data) {
 	data = data || {};

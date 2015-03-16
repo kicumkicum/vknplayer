@@ -33,7 +33,7 @@ var Input = function(params) {
 	}.bind(this));
 
 	this._node.key(BlessedConst.button.ESCAPE, function(ch, key) {
-		app.ui.console.setActivePanel(app.ui.console.activePanel);
+		app.ui.console.show(app.ui.console.activePanel);
 	});
 
 	this._node.on(BlessedConst.event.FOCUS, function() {
