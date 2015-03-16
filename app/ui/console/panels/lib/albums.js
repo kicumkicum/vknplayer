@@ -31,34 +31,18 @@ goog.inherits(Albums, BasePanel);
  * @param {number} ownerId
  */
 Albums.prototype.updatePanel = function(albums, ownerId) {
-	goog.base(this, 'updatePanel', arguments);
+	this._recoveryDefaultState();
 	this._currentOwnerId = ownerId;
 
-	this.addChild('Вся музыка');
-	var offset = this._getOffset();
-	this._setOffset(offset + 1);
-
-	this._setData(albums);
-	albums.forEach(function(album) {
-		this._addAlbum(album);
-	}.bind(this));
+	this.setData(albums);
 	app.ui.console.show(this);
 };
 
 
 /**
- * @param {vknp.models.Album} album
- */
-Albums.prototype._addAlbum = function(album) {
-	this.addChild(album.title);
-};
-
-
-
-/**
  * @inheritDoc
  */
-Albums.prototype._click = function(eventName, item, position) {
+Albums.prototype._clickHandler = function(eventName, item, position) {
 	if (position === 0) {
 		this._back();
 		return;
@@ -74,6 +58,14 @@ Albums.prototype._click = function(eventName, item, position) {
 				app.ui.console._panels.slavePL.setContent(tracks);
 			}.bind(this));
 	}
+};
+
+
+Albums.prototype._recoveryDefaultState = function() {
+	goog.base(this, '_recoveryDefaultState');
+	this.addChild('Вся музыка');
+	var offset = this._getOffset();
+	this._setOffset(offset + 1);
 };
 
 

@@ -18,4 +18,8 @@ var SinglePL = function() {
 goog.inherits(SinglePL, PlayList);
 
 
+/** @inheritDoc */
+SinglePL.prototype._recoveryDefaultState = function() {};
+
+
 module.exports = SinglePL;

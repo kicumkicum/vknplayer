@@ -361,10 +361,4 @@ DataList.prototype.EVENT_ITEM_REMOVED = 'item-removed';
 DataList.prototype.EVENT_ITEMS_REMOVED = 'items-removed';
 
 
-/**
- * @const Fired with args: Array.<!ItemType>
- */
-DataList.prototype.EVENT_ITEMS_CHANGED = 'items-changed';
-
-
 module.exports = DataList;

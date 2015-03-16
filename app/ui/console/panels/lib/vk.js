@@ -14,7 +14,7 @@ var BasePanel = require('./base-panel');
  * @extends {BasePanel}
  */
 var VK = function() {
-	this._catalog = {};
+	this._category = [];
 	goog.base(this, {
 		mouse: true,
 		keys: true,
@@ -45,12 +45,12 @@ goog.inherits(VK, BasePanel);
  */
 VK.prototype._init = function() {
 	goog.base(this, '_init');
-	this.addChild(this.CategoryName.GROUPS);
-	this.addChild(this.CategoryName.FRIENDS);
-	this.addChild(this.CategoryName.ALBUMS);
-	this.addChild(this.CategoryName.NEWS);
-	this.addChild(this.CategoryName.MUSIC);
-	this.addChild(this.CategoryName.BOOKMARKS);
+
+	for (var i in VK.Category) {
+		this._category.push(VK.Category[i]);
+	}
+
+	this.setData(this._category);
 };
 
 
@@ -59,26 +59,31 @@ VK.prototype._init = function() {
  * @param {number} selectNumber
  * @private
  */
-VK.prototype._click = function(eventName, select, selectNumber) {
-	var index = selectNumber - this._getOffset();
-	switch (index) {
-		case this.CategoryType.GROUPS:
+VK.prototype._clickHandler = function(eventName, select, selectNumber) {
+	if (selectNumber === 0) {
+		this._back();
+		return;
+	}
+
+	var item = this._getDataItem(selectNumber);
+	if (!item) {
+		return;
+	}
+	switch (item.toString()) {
+		case VK.Category.GROUPS:
 			this._showGroups();
 			break;
-		case this.CategoryType.FRIENDS:
+		case VK.Category.FRIENDS:
 			this._showFriends();
 			break;
-		case this.CategoryType.ALBUMS:
+		case VK.Category.ALBUMS:
 			this._showAlbums();
 			break;
-		case this.CategoryType.NEWS:
+		case VK.Category.NEWS:
 			this._showNews(null);
 			break;
-		case this.CategoryType.BOOKMARKS:
+		case VK.Category.BOOKMARKS:
 			this._showBookmarks();
-			break;
-		case this.CategoryType.MUSIC:
-			this.showMusic(null);
 			break;
 		default :
 			this._back();
@@ -114,7 +119,8 @@ VK.prototype._showFriends = function() {
  * @private
  */
 VK.prototype._showAlbums = function() {
-	app.api.vk.getAudioAlbums(null, 100)
+	app.api.vk
+		.getAudioAlbums(null, 100)
 		.then(function(albums) {
 			app.ui.console._panels.albums.updatePanel(albums, app.ui.console.userId);
 		});
@@ -170,28 +176,20 @@ VK.prototype._showBookmarks = function() {
 
 
 /**
- * @enum {number}
+ * @type {Array.<VK.Category>}
  */
-VK.prototype.CategoryType = {
-	GROUPS: 0,
-	FRIENDS: 1,
-	ALBUMS: 2,
-	NEWS: 3,
-	BOOKMARKS: 5,
-	MUSIC: 4
-};
+VK.prototype._category;
 
 
 /**
  * @enum {string}
  */
-VK.prototype.CategoryName = {
-	GROUPS: 'Группы',
+VK.Category = {
+	ALBUMS: 'Плейлисты',
 	FRIENDS: 'Друзья',
-	ALBUMS: 'Альбомы',
-	NEWS: 'Музыкальные новости',
-	BOOKMARKS: 'Закладки',
-	MUSIC: 'Вся музыка'
+	GROUPS: 'Сообщества',
+	NEWS: 'Новости',
+	BOOKMARKS: 'Закладки'
 };
 
 

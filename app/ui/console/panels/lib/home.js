@@ -12,6 +12,30 @@ var BasePanel = require('./base-panel');
  * @extends {BasePanel}
  */
 var Home = function() {
+	this.category = {
+		vk: {
+			name: 'VK',
+			type: 'vk',
+			toString: function() {
+				return this.name;
+			}
+		},
+		gmusic: {
+			name: 'GMusic',
+			type: 'gmusic',
+			toString: function() {
+				return this.name;
+			}
+		},
+		radio: {
+			name: 'Радио',
+			type: 'radio',
+			toString: function() {
+				return this.name;
+			}
+		}
+	};
+
 	goog.base(this, {
 		left: 0,
 		top:  2,
@@ -21,7 +45,6 @@ var Home = function() {
 	});
 
 	this._playlist = app.ui.console._panels.slavePL.getPlaylist();
-	this.category = {};
 };
 goog.inherits(Home, BasePanel);
 
@@ -33,13 +56,20 @@ Home.prototype._init = function() {
 	goog.base(this, '_init');
 };
 
+
 /**
  * @private
  */
 Home.prototype._loadData = function() {
-	this.addChild('VK');
-	this.addChild('GoogleMusic');
-	this.addChild('Радио');
+	var items = [];
+	if (app.isVkEnabled()) {
+		items.push(this.category.vk);
+	}
+	if (app.isGmusicEnabled()) {
+		items.push(this.category.gmusic);
+	}
+	items.push(this.category.radio);
+	this.setData(items);
 };
 
 
@@ -68,7 +98,7 @@ Home.prototype.showGMusic = function() {
  */
 Home.prototype.showRadio = function() {
 	var stations = pl['playlist'].map(function(station, i) {
-		return new AudioTrack({
+		return new vknp.models.AudioTrack({
 			url: station.Url,
 			title: station.Title,
 			duration: 0
@@ -83,15 +113,16 @@ Home.prototype.showRadio = function() {
  * @param {number} selectNumber
  * @private
  */
-Home.prototype._click = function(eventName, select, selectNumber) {
-	switch (selectNumber) {
-		case this.CategoryType.GMUSIC:
+Home.prototype._clickHandler = function(eventName, select, selectNumber) {
+	var item = this._data.itemAt(selectNumber - this._getOffset());
+	switch (item.type) {
+		case Home.Category.GMUSIC:
 			this.showGMusic();
 			break;
-		case this.CategoryType.RADIO:
+		case Home.Category.RADIO:
 			this.showRadio();
 			break;
-		case this.CategoryType.VK:
+		case Home.Category.VK:
 			this.showVK();
 			break;
 	}
@@ -116,9 +147,13 @@ Home.prototype._createTracks = function(playlist) {
 		track.title = artistAndTitle[1];
 
 		track.url = playlist[i + 1];
-		arr.push(new AudioTrack(track));
+		arr.push(new vknp.models.AudioTrack(track));
 	}
 	return arr;
+};
+
+Home.prototype._recoveryDefaultState = function() {
+	this._setOffset(0);
 };
 
 
@@ -137,10 +172,10 @@ Home.prototype._playlist;
 /**
  * @enum {number}
  */
-Home.prototype.CategoryType = {
-	VK: 0,
-	GMUSIC: 1,
-	RADIO: 2
+Home.Category = {
+	VK: 'vk',
+	GMUSIC: 'gmusic',
+	RADIO: 'radio'
 };
 
 

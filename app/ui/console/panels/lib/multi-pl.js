@@ -52,7 +52,7 @@ MultiPL.prototype._loadData = function() {
 
 
 /** @inheritDoc */
-MultiPL.prototype._click = function(eventName, select, selectNumber) {
+MultiPL.prototype._clickHandler = function(eventName, select, selectNumber) {
 	if (selectNumber === 0) {
 		this._back();
 		return;
@@ -60,7 +60,7 @@ MultiPL.prototype._click = function(eventName, select, selectNumber) {
 
 	this._playlistId = this._openPlaylistId;
 	this._playedPlaylistId = this._playlistId;
-	goog.base(this, '_click', eventName, select, selectNumber);
+	goog.base(this, '_clickHandler', eventName, select, selectNumber);
 };
 
 

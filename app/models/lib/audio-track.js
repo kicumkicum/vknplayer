@@ -10,7 +10,7 @@
  * @param {Object} data
  * @constructor
  */
-AudioTrack = function(data) {
+var AudioTrack = function(data) {
 	data = data || {};
 	/** @type {}*/
 	this.id = data['id'];

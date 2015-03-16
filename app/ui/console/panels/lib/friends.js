@@ -25,26 +25,15 @@ Friends.prototype._loadData = function() {
 	app.api.vk
 		.getFriends(30)
 		.then(function(friends) {
-			this._setData(friends);
-			friends.forEach(function(friend) {
-				this._addFriend(friend);
-			}, this);
+			this.setData(friends);
 		}.bind(this));
-};
-
-
-/**
- * @param {vknp.models.Friend} friend
- */
-Friends.prototype._addFriend = function(friend) {
-	this.addChild(friend.toString());
 };
 
 
 /**
  * @inheritDoc
  */
-Friends.prototype._click = function(eventName, item, position) {
+Friends.prototype._clickHandler = function(eventName, item, position) {
 	if (position === 0) {
 		this._back();
 		return;
