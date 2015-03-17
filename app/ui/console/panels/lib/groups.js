@@ -25,9 +25,6 @@ Groups.prototype._loadData = function() {
 		.getGroups()
 		.then(function(groups) {
 			this.setData(groups);
-			groups.forEach(function(group) {
-				this._addGroup(group);
-			}, this);
 		}.bind(this));
 };
 
