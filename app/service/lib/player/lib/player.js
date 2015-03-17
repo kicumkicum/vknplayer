@@ -14,7 +14,7 @@ var util = require('util');
  * @constructor
  */
 Player = function() {
-	this._player = {};
+	this._player = null;
 	this._state = this.state.STOP;
 	this._realStop = false;
 };
@@ -150,6 +150,9 @@ Player.prototype._play = function() {
     if (!track) {
         return;
     }
+	if (this._player) {
+		this._player.deinit();
+	}
 	this._player = new p(track.url);
 	this._state = this.state.PLAY;
 	this.emit(this.EVENT_PLAY, {

@@ -18,6 +18,7 @@ StupidPlayer = function(urlOrPath) {
 	this._stopBinded = this.stop.bind(this);
 	this.decoder = null;
 	this.speaker = null;
+	this._request = null;
 	this._src = urlOrPath;
 	this.play(urlOrPath);
 	events.EventEmitter.call(this);
@@ -41,8 +42,8 @@ StupidPlayer.prototype.play = function(src) {
  */
 StupidPlayer.prototype.playStream = function(url) {
 	var request = url.indexOf('https') === 0 ? https : http;
-	var r = request.get(url, this._makeDecoder.bind(this));
-	r.on('error', function(error) {
+	this._request = request.get(url, this._makeDecoder.bind(this));
+	this._request.on('error', function(error) {
 		this._emit('error', error);
 	}.bind(this));
 };
@@ -70,6 +71,7 @@ StupidPlayer.prototype.stop = function() {
 
 
 StupidPlayer.prototype.deinit = function() {
+	this.closeConnection();
 	if (this.speaker instanceof Speaker) {
 		this.decoder.removeListener('format', this._playBinded);
 		this.decoder.pipe(this.speaker).removeListener('close', this._stopBinded);
@@ -78,6 +80,15 @@ StupidPlayer.prototype.deinit = function() {
 		this.speaker = null;
 	}
 };
+
+
+StupidPlayer.prototype.closeConnection = function() {
+	if (this._request) {
+		this._request.destroy();
+		this._request = null;
+	}
+};
+
 
 
 StupidPlayer.prototype._isStream = function() {
@@ -92,7 +103,7 @@ StupidPlayer.prototype._makeDecoder = function(res) {
 		res.pipe(this.decoder);
 		this.decoder.on('format', this._playBinded);
 		this.decoder.on('error', function(error) {
-			this._emit(this.EVENT_ERROR, error)
+			this._emit(this.EVENT_ERROR, error);
 		}.bind(this));
 	} else {
 		this._state = this.state.STOP;
@@ -132,6 +143,13 @@ StupidPlayer.prototype._checkConnect = function(res, callback) {
  */
 StupidPlayer.prototype._emit = function(event, opt_data) {
 //	console.log('stupid-player emit', event);
+	if (event === this.EVENT_ERROR) {
+		if (this._request) {
+			this._request = null;
+		} else {
+			return;
+		}
+	}
 	this.emit(event, opt_data);
 };
 
@@ -152,6 +170,12 @@ StupidPlayer.prototype.speaker;
  * @type {string}
  */
 StupidPlayer.prototype._src;
+
+
+/**
+ * @type {ClientRequest}
+ */
+StupidPlayer.prototype._request;
 
 
 /**
