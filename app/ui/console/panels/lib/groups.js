@@ -49,11 +49,16 @@ Groups.prototype._clickHandler = function(eventName, item, position) {
 		this._back();
 		return;
 	}
-	var ownerId = this._getDataItem(position).id;
+	var group = this._getDataItem(position);
+	if (!group) {
+		return;
+	}
+
+	var id = group.id;
 	app.api.vk
-		.getAudioAlbums(ownerId, 100)
+		.getAudioAlbums(id, 100)
 		.then(function(albums) {
-			app.ui.console._panels.albums.updatePanel(albums, ownerId);
+			app.ui.console._panels.albums.updatePanel(albums, id);
 		});
 };
 
