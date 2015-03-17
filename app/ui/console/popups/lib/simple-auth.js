@@ -38,7 +38,7 @@ SimpleAuth.prototype.getNode = function() {
 
 
 SimpleAuth.prototype._getId = function() {
-	var url = app.api.vk.getAuthUrl();
+	var url = app.api.vk.getExternalAuthUrl();
 	request(url + 'id', function(err, res, body) {
 		var id = body;
 		this._textbox.setText('You id ' + id);
