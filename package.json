@@ -4,17 +4,18 @@
   "description": "its console vk.com player",
   "dependencies": {
     "blessed": "0.0.47",
-    "request": "2.34.0",
-    "q": "~2.0.0",
-    "lame": "^1.1.2",
-    "speaker": "~0.2.4",
-    "events": "~1.0.1",
-    "util": "~0.10.3",
-    "ws": "~0.4.31",
     "connect": "~2.19.4",
+    "events": "~1.0.1",
+    "lame": "^1.1.2",
+    "m3u8": "0.0.6",
+    "nclosure": "~0.4.3",
     "node-inspector": "~0.7.4",
+    "q": "~2.0.0",
     "qrcode-terminal": "~0.9.4",
-    "nclosure": "~0.4.3"
+    "request": "2.34.0",
+    "speaker": "~0.2.4",
+    "util": "~0.10.3",
+    "ws": "~0.4.31"
   },
   "bin": {
     "vknplayer": "./vknplayer.js"

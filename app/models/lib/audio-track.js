@@ -23,15 +23,13 @@ var AudioTrack = function(data) {
 	/** @type {}*/
 	this.duration = data['duration'] || 0;
 	/** @type {}*/
-	this.url = data['url'];
+	this.url = data['url'] || data['uri'];
 	/** @type {}*/
 	this.lyricsId = data['lyrics_id'];
 	/** @type {}*/
 	this.albumId = data['album_id'];
 	/** @type {AudioTrack.genreType}*/
 	this.genreId = data['genre_id'];
-
-	return this;
 };
 
 
@@ -39,7 +37,7 @@ var AudioTrack = function(data) {
  * @return {string}
  */
 AudioTrack.prototype.toString = function() {
-	return this.artist + ' - ' + this.title;
+	return (this.artist ? this.artist + ' - ' : '' ) + this.title;
 };
 
 
