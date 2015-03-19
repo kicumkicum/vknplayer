@@ -10,18 +10,14 @@ var Radio = function() {
 
 Radio.prototype.parse = function(pathOrUrl) {
 	return new Promise(function(resolve, reject) {
-		if (!this._isStream(pathOrUrl)) {
-			var parser = m3u8.createStream();
-			var file = fs.createReadStream(pathOrUrl);
-			file.pipe(parser);
+		var parser = m3u8.createStream();
 
-			parser.on('m3u', function(m3u) {
-				var arr = m3u['items']['PlaylistItem'].map(function(item) {
-					return new vknp.models.AudioTrack(item.properties);
-				});
-				resolve(arr);
-			});
+		if (!this._isStream(pathOrUrl)) {
+			var readStream = fs.createReadStream(pathOrUrl);
 		}
+
+		readStream.pipe(parser);
+		parser.on('m3u', this._makeAudioTracks.bind(null, resolve));
 	}.bind(this));
 };
 
@@ -33,6 +29,14 @@ Radio.prototype.parse = function(pathOrUrl) {
  */
 Radio.prototype._isStream = function(pathOrUrl) {
 	return pathOrUrl.indexOf('http://') === 0 || pathOrUrl.indexOf('https://') === 0;
+};
+
+
+Radio.prototype._makeAudioTracks = function(resolve, m3u) {
+	var audioTracks = m3u['items']['PlaylistItem'].map(function(item) {
+		return new vknp.models.AudioTrack(item.properties);
+	});
+	resolve(audioTracks);
 };
 
 

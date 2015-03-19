@@ -10,6 +10,7 @@
     "m3u8": "0.0.6",
     "nclosure": "~0.4.3",
     "node-inspector": "~0.7.4",
+    "promise-polyfill": "^2.0.0",
     "q": "~2.0.0",
     "qrcode-terminal": "~0.9.4",
     "request": "2.34.0",
