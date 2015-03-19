@@ -1,5 +1,6 @@
 var m3u8 = require('m3u8');
 var fs   = require('fs');
+var Promise = require('promise-polyfill');
 
 
 var Radio = function() {
@@ -8,18 +9,20 @@ var Radio = function() {
 
 
 Radio.prototype.parse = function(pathOrUrl) {
-	if (!this._isStream(pathOrUrl)) {
-		var parser = m3u8.createStream();
-		var file   = fs.createReadStream(pathOrUrl);
-		file.pipe(parser);
+	return new Promise(function(resolve, reject) {
+		if (!this._isStream(pathOrUrl)) {
+			var parser = m3u8.createStream();
+			var file = fs.createReadStream(pathOrUrl);
+			file.pipe(parser);
 
-		parser.on('m3u', function(m3u) {
-			var arr = m3u['items']['PlaylistItem'].map(function(item) {
-				return new vknp.models.AudioTrack(item.properties);
+			parser.on('m3u', function(m3u) {
+				var arr = m3u['items']['PlaylistItem'].map(function(item) {
+					return new vknp.models.AudioTrack(item.properties);
+				});
+				resolve(arr);
 			});
-			console.log(arr)
-		});
-	}
+		}
+	}.bind(this));
 };
 
 
