@@ -159,8 +159,8 @@ Console.prototype.exec = function(cmd) {
 		help: ['help', 'h'],
 		play: ['play'],
 		pause: ['pause', 'p'],//todo not supported stupid-player
-		stop: ['stop', 's'],
-		search: ['search'],
+		stop: ['stop'],
+		search: ['search', 's'],
 		next: ['next'],
 		prev: ['prev'],
 		forward: ['forward', 'fwd'],//todo not supported stupid-player
