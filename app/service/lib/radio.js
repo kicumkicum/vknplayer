@@ -1,23 +1,36 @@
-var m3u8 = require('m3u8');
 var fs   = require('fs');
+var http = require('http');
+var https = require('https');
 var Promise = require('promise-polyfill');
 
-
-var Radio = function() {
-	this.parse('/home/oleg/Projects/rest/vknplayer/app/service/lib/playlist.m3u8');
-};
+var Parser = require('../../../helper/parser');
+var parser = Parser.createM3u8();
 
 
+
+/**
+ * @constructor
+ */
+var Radio = function() {};
+
+
+/**
+ * @param {string} pathOrUrl
+ * @return {Promise}
+ */
 Radio.prototype.parse = function(pathOrUrl) {
 	return new Promise(function(resolve, reject) {
-		var parser = m3u8.createStream();
+		var readStream = null;
 
 		if (!this._isStream(pathOrUrl)) {
-			var readStream = fs.createReadStream(pathOrUrl);
+			readStream = fs.createReadStream(pathOrUrl);
+			this._parse(resolve, reject, readStream);
+		} else {
+			var request = pathOrUrl.indexOf('https') === 0 ? https : http;
+			request.get(pathOrUrl, function(res) {
+				this._parse(resolve, reject, res);
+			}.bind(this));
 		}
-
-		readStream.pipe(parser);
-		parser.on('m3u', this._makeAudioTracks.bind(null, resolve));
 	}.bind(this));
 };
 
@@ -29,6 +42,15 @@ Radio.prototype.parse = function(pathOrUrl) {
  */
 Radio.prototype._isStream = function(pathOrUrl) {
 	return pathOrUrl.indexOf('http://') === 0 || pathOrUrl.indexOf('https://') === 0;
+};
+
+
+Radio.prototype._parse = function(resolve, reject, readStream) {
+	readStream.pipe(parser);
+	parser.on('m3u', this._makeAudioTracks.bind(null, resolve));
+	parser.on('error', function(err) {
+		reject(err);
+	});
 };
 
 
