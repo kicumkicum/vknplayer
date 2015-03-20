@@ -196,9 +196,10 @@ Vknp.prototype._initApi = function(config) {
 
 Vknp.prototype._initService = function() {
 	this.service = {
+		config: new vknp.service.Config,
 		player: new vknp.service.Player,
 		playListManager: new vknp.service.PlayListManager,
-		config: new vknp.service.Config
+		radio: new vknp.service.Radio
 	};
 };
 
