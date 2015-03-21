@@ -12,24 +12,24 @@
  */
 var AudioTrack = function(data) {
 	data = data || {};
-	/** @type {}*/
-	this.id = data['id'];
-	/** @type {}*/
-	this.ownerId = data['owner_id'];
-	/** @type {}*/
-	this.artist = data['artist'];
-	/** @type {string}*/
-	this.title = data['title'];
-	/** @type {}*/
+	/** @type {?number} */
+	this.id = data['id'] || null;
+	/** @type {?number} */
+	this.ownerId = data['owner_id'] || null;
+	/** @type {string} */
+	this.artist = data['artist'] || '';
+	/** @type {string} */
+	this.title = data['title'] || '';
+	/** @type {string} */
 	this.duration = data['duration'] || 0;
-	/** @type {}*/
-	this.url = data['url'] || data['uri'];
-	/** @type {}*/
-	this.lyricsId = data['lyrics_id'];
-	/** @type {}*/
-	this.albumId = data['album_id'];
-	/** @type {AudioTrack.genreType}*/
-	this.genreId = data['genre_id'];
+	/** @type {string} */
+	this.url = data['url'] || data['uri'] || '';
+	/** @type {string} */
+	this.lyricsId = data['lyrics_id'] || null;
+	/** @type {?number} */
+	this.albumId = data['album_id'] || null;
+	/** @type {AudioTrack.genreType} */
+	this.genreId = data['genre_id'] || null;
 };
 
 
