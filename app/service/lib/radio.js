@@ -47,15 +47,13 @@ Radio.prototype._isStream = function(pathOrUrl) {
 
 Radio.prototype._parse = function(resolve, reject, readStream) {
 	readStream.pipe(parser);
-	parser.on('m3u', this._makeAudioTracks.bind(null, resolve));
-	parser.on('error', function(err) {
-		reject(err);
-	});
+	parser.on(Parser.EVENT_DONE, this._makeAudioTracks.bind(null, resolve));
+	parser.on('error', reject);
 };
 
 
-Radio.prototype._makeAudioTracks = function(resolve, m3u) {
-	var audioTracks = m3u['items']['PlaylistItem'].map(function(item) {
+Radio.prototype._makeAudioTracks = function(resolve, m3uItems) {
+	var audioTracks = m3uItems['PlaylistItem'].map(function(item) {
 		return new vknp.models.AudioTrack(item.properties);
 	});
 	resolve(audioTracks);
