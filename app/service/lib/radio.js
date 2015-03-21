@@ -1,25 +1,37 @@
-var m3u8 = require('m3u8');
 var fs   = require('fs');
+var http = require('http');
+var https = require('https');
+var Promise = require('promise-polyfill');
+
+var Parser = require('../../../helper/parser');
+var parser = Parser.createM3u8();
 
 
-var Radio = function() {
-	this.parse('/home/oleg/Projects/rest/vknplayer/app/service/lib/playlist.m3u8');
-};
+
+/**
+ * @constructor
+ */
+var Radio = function() {};
 
 
+/**
+ * @param {string} pathOrUrl
+ * @return {Promise}
+ */
 Radio.prototype.parse = function(pathOrUrl) {
-	if (!this._isStream(pathOrUrl)) {
-		var parser = m3u8.createStream();
-		var file   = fs.createReadStream(pathOrUrl);
-		file.pipe(parser);
+	return new Promise(function(resolve, reject) {
+		var readStream = null;
 
-		parser.on('m3u', function(m3u) {
-			var arr = m3u['items']['PlaylistItem'].map(function(item) {
-				return new vknp.models.AudioTrack(item.properties);
-			});
-			console.log(arr)
-		});
-	}
+		if (!this._isStream(pathOrUrl)) {
+			readStream = fs.createReadStream(pathOrUrl);
+			this._parse(resolve, reject, readStream);
+		} else {
+			var request = pathOrUrl.indexOf('https') === 0 ? https : http;
+			request.get(pathOrUrl, function(res) {
+				this._parse(resolve, reject, res);
+			}.bind(this));
+		}
+	}.bind(this));
 };
 
 
@@ -30,6 +42,21 @@ Radio.prototype.parse = function(pathOrUrl) {
  */
 Radio.prototype._isStream = function(pathOrUrl) {
 	return pathOrUrl.indexOf('http://') === 0 || pathOrUrl.indexOf('https://') === 0;
+};
+
+
+Radio.prototype._parse = function(resolve, reject, readStream) {
+	readStream.pipe(parser);
+	parser.on(Parser.EVENT_DONE, this._makeAudioTracks.bind(null, resolve));
+	parser.on('error', reject);
+};
+
+
+Radio.prototype._makeAudioTracks = function(resolve, m3uItems) {
+	var audioTracks = m3uItems['PlaylistItem'].map(function(item) {
+		return new vknp.models.AudioTrack(item.properties);
+	});
+	resolve(audioTracks);
 };
 
 

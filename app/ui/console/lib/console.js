@@ -156,17 +156,18 @@ Console.prototype.back = function() {
  */
 Console.prototype.exec = function(cmd) {
 	var commandList = {//todo add clear
-		help: ['help', 'h'],
-		play: ['play'],
-		pause: ['pause', 'p'],//todo not supported stupid-player
-		stop: ['stop'],
-		search: ['search', 's'],
-		next: ['next'],
-		prev: ['prev'],
+		clear: ['clear'],
+		exit: ['exit', 'quit', 'q'],
 		forward: ['forward', 'fwd'],//todo not supported stupid-player
-		reward: ['reward', 'rwd'],//todo not supported stupid-player
+		help: ['help', 'h'],
+		next: ['next'],
+		pause: ['pause', 'p'],//todo not supported stupid-player
+		play: ['play'],
 		radio: ['radio', 'r'],
-		exit: ['exit', 'quit', 'q']
+		reward: ['reward', 'rwd'],//todo not supported stupid-player
+		prev: ['prev'],
+		search: ['search', 's'],
+		stop: ['stop']
 	};
 
 	if (cmd.indexOf('\n') > -1) {
@@ -180,6 +181,10 @@ Console.prototype.exec = function(cmd) {
 	var currentCommand = this._searchCommand(commandList, command);
 
 	switch (currentCommand) {
+		case commandList.clear:
+			this._visiblePanels.right.clear();
+			this.render();
+			break;
 		case commandList.help:
 			this.help();
 			break;
