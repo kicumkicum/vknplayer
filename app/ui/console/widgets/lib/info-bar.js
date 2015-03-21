@@ -28,12 +28,8 @@ var InfoBar = function() {
 	app.ui.console.append(this._node);
 
 	app.service.player.on('play', function(currentTrack) {
-		this._node.setText(currentTrack.position
-			+ '. '
-			+ currentTrack.track.artist
-			+ ' - '
-			+ currentTrack.track.title
-		);
+		var message = currentTrack.position + '. ' + currentTrack.track.toString();
+		this._node.setText(message);
 		app.ui.console.render();
 	}.bind(this));
 };
