@@ -256,7 +256,12 @@ PlayListManager.prototype._prevNext = function(playlist, isNext) {
 	//	var track = playlist.removeFromQueue(0);
 	//	return this._setTrackActive(playlist, track);
 	//}
-	isNext ? playlist.selectNextItem() : playlist.selectPrevItem();
+	if (playlist.currentIndex() !== playlist.size() - 1) {
+		isNext ? playlist.selectNextItem() : playlist.selectPrevItem();
+	} else {
+		playlist.selectAt(0);
+	}
+
 	return playlist.current();
 };
 
