@@ -46,9 +46,11 @@ goog.inherits(PlayList, BasePanel);
  * @param {DataList.<AudioTrack>} tracks
  */
 PlayList.prototype.setContent = function(tracks) {
-	this.getPlaylist().clear();
-	this.getPlaylist().addItems(tracks);
-	app.ui.console.show(this);
+	var playlist = this.getPlaylist();
+	if (playlist) {
+		playlist.setItems(tracks);
+		app.ui.console.show(this);
+	}
 };
 
 
@@ -94,29 +96,19 @@ PlayList.prototype._loadData = function() {
 /**
  * @protected
  */
-PlayList.prototype._updatePlayList = function() {
-	this._clear();
-	var tracks = this.getPlaylist().toArray();
-	var offset = 0;
-
-	tracks.forEach(function(track, index) {
-		var artist = track.artist || '';
-		var title = track.title || '';
-		if (this === app.ui.console._panels.mainPL) {
-			var duration = track.duration.toString() || '';
-		} else {
-			duration = '';
-		}
-
-		/** @type {Element} */
-		var node = this._node;
-		var space = this._makeSpace(node, track, index.toString());
-		this.addChild(index + '. ' + (artist ? artist + '-' : '') + title + space + duration);
-		this.getChild(index + offset).style.inverse = this._inverseColor.bind(this.getChild(index));
-		this.getChild(index + offset).marker = this._markering[index + offset];
-	}, this);
-	this.selectElement(this.getPlaylist().currentIndex());
+PlayList.prototype._updatePlayList = function(tracks) {
+	this.setData(tracks);
 	app.ui.console.render();
+};
+
+
+/**
+ * @protected
+ */
+PlayList.prototype._update = function() {
+	this._data.toArray().forEach(function(item, i) {
+		this.addChild(i + '. ' + item.toString())
+	}, this);
 };
 
 
