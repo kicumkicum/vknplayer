@@ -197,7 +197,7 @@ PlayList.prototype._isActivePlaylist = function(child, track) {
  * @protected
  */
 PlayList.prototype._updatePlayList = function() {
-	this.clear();
+	this._clear();
 	var tracks = this.getPlaylist().toArray();
 	var offset = 0;
 
