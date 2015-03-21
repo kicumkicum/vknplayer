@@ -156,6 +156,7 @@ Console.prototype.back = function() {
  */
 Console.prototype.exec = function(cmd) {
 	var commandList = {//todo add clear
+		clear: ['clear'],
 		exit: ['exit', 'quit', 'q'],
 		forward: ['forward', 'fwd'],//todo not supported stupid-player
 		help: ['help', 'h'],
@@ -180,6 +181,10 @@ Console.prototype.exec = function(cmd) {
 	var currentCommand = this._searchCommand(commandList, command);
 
 	switch (currentCommand) {
+		case commandList.clear:
+			this._visiblePanels.right.clear();
+			this.render();
+			break;
 		case commandList.help:
 			this.help();
 			break;
