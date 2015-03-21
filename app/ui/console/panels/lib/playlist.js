@@ -92,33 +92,31 @@ PlayList.prototype._loadData = function() {
 
 
 /**
- * @param select
- * @param {number} selectNumber
  * @protected
  */
-PlayList.prototype._clickHandler = function(eventName, select, selectNumber) {
-	if (selectNumber === 0 && select === this.ROOT_ELEMENT) {
-		this._back();
-		return;
-	}
-	var offset = this._getOffset();
-	app.service.player.playPosition(this._playlistId, selectNumber - offset);
-};
+PlayList.prototype._updatePlayList = function() {
+	this._clear();
+	var tracks = this.getPlaylist().toArray();
+	var offset = 0;
 
+	tracks.forEach(function(track, index) {
+		var artist = track.artist || '';
+		var title = track.title || '';
+		if (this === app.ui.console._panels.mainPL) {
+			var duration = track.duration.toString() || '';
+		} else {
+			duration = '';
+		}
 
-PlayList.prototype.highlight = function() {
-	var index = this._node.selected;
-	this.highlightList.chunk.push(index);
-	this.highlightList.offset = 0;
-	this._node.marker = this._node.items[index];
-	this.selectElement(index + 1);
+		/** @type {Element} */
+		var node = this._node;
+		var space = this._makeSpace(node, track, index.toString());
+		this.addChild(index + '. ' + (artist ? artist + '-' : '') + title + space + duration);
+		this.getChild(index + offset).style.inverse = this._inverseColor.bind(this.getChild(index));
+		this.getChild(index + offset).marker = this._markering[index + offset];
+	}, this);
+	this.selectElement(this.getPlaylist().currentIndex());
 	app.ui.console.render();
-	return index;
-};
-
-
-PlayList.prototype.inverseColor = function() {
-	return this._marker;
 };
 
 
@@ -134,6 +132,95 @@ PlayList.prototype._afterPlay = function(currentTrack) {
 	var position = currentTrack.position + this._getOffset();
 	this._colorizePlayingTrack(track, position);
 	app.ui.console.render();
+};
+
+
+/**
+ * @param select
+ * @param {number} selectNumber
+ * @protected
+ */
+PlayList.prototype._clickHandler = function(eventName, select, selectNumber) {
+	if (selectNumber === 0 && select === this.ROOT_ELEMENT) {
+		this._back();
+		return;
+	}
+	var offset = this._getOffset();
+	app.service.player.playPosition(this._playlistId, selectNumber - offset);
+};
+
+
+/**
+ * @param ch
+ * @param key
+ * @private
+ */
+PlayList.prototype._keyPressListener = function(ch, key) {
+	if (key.name === 'mouse') {
+		return;
+	}
+	var chunk = {
+		start: this.highlightList.chunk[0],
+		howMany: this.highlightList.chunk.length
+	};
+	chunk.end = this.highlightList.chunk[chunk.howMany - 1];
+
+	if (key.name === BlessedConst.button.UP && key.ctrl && (chunk.start - this.highlightList.offset) >= 0) {
+		this._move(chunk.start, chunk.howMany, this.highlightList.offset, true);
+		this.highlightList.offset++;
+		return;
+	}
+
+	if (key.name === BlessedConst.button.DOWN && key.ctrl && (chunk.end + this.highlightList.offset) < this._node.children.length) {
+		this._move(chunk.start, chunk.howMany, this.highlightList.offset, false);
+		this.highlightList.offset--;
+		return;
+	}
+
+	if (key.name === BlessedConst.button.INSERT) {
+		var index = this._highlight();
+		var element = this._node.children[index];
+		element.marker = true;
+		this._markering[index] = true;
+		app.ui.console.render();
+		return;
+	}
+
+	this._node.children.forEach(function(child) {
+		child.marker = false;
+	});
+	this.highlightList = {
+		chunk: [],
+		offset: 0
+	};
+	this._markering = {};
+
+};
+
+
+/**
+ * @return {number}
+ * @private
+ */
+PlayList.prototype._highlight = function() {
+	var index = this._node.selected;
+
+	this.highlightList.chunk.push(index);
+	this.highlightList.offset = 0;
+	this._node.marker = this._node.items[index];
+	this.selectElement(index + 1);
+
+	app.ui.console.render();
+	return index;
+};
+
+
+/**
+ * @return {*}
+ * @private
+ */
+PlayList.prototype._inverseColor = function() {
+	return this._marker;
 };
 
 
@@ -165,6 +252,7 @@ PlayList.prototype._move = function(chunkStart, chunkHowMany, offset, goUp) {
 
 /**
  * @param track
+ * @param {number} position
  * @protected
  */
 PlayList.prototype._colorizePlayingTrack = function(track, position) {
@@ -179,89 +267,6 @@ PlayList.prototype._colorizePlayingTrack = function(track, position) {
 		child.style.fg = this.activeTrackColor;
 		this.selectElement(position);
 	}
-};
-
-
-/**
- * @param {Object} child
- * @param {AudioTrack} track
- * @return {boolean}
- * @private
- */
-PlayList.prototype._isActivePlaylist = function(child, track) {
-	//todo is huewiy check. need good check
-	return child.content.indexOf(track.artist) > -1 && child.content.indexOf(track.title) > -1;
-};
-
-/**
- * @protected
- */
-PlayList.prototype._updatePlayList = function() {
-	this._clear();
-	var tracks = this.getPlaylist().toArray();
-	var offset = 0;
-
-	tracks.forEach(function(track, index) {
-		var artist = track.artist || '';
-		var title = track.title || '';
-		if (this === app.ui.console._panels.mainPL) {
-			var duration = track.duration.toString() || '';
-		} else {
-			duration = '';
-		}
-
-		/** @type {Element} */
-		var node = this._node;
-		var space = this._makeSpace(node, track, index.toString());
-		this.addChild(index + '. ' + (artist ? artist + '-' : '') + title + space + duration);
-		this.getChild(index + offset).style.inverse = this.inverseColor.bind(this.getChild(index));
-		this.getChild(index + offset).marker = this._markering[index + offset];
-	}, this);
-	this.selectElement(this.getPlaylist().currentIndex());
-	app.ui.console.render();
-};
-
-
-PlayList.prototype._keyPressListener = function(ch, key) {
-	if (key.name === 'mouse') {
-		return;
-	}
-	var chunk = {
-		start: this.highlightList.chunk[0],
-		howMany: this.highlightList.chunk.length
-	};
-	chunk.end = this.highlightList.chunk[chunk.howMany - 1];
-
-	if (key.name === BlessedConst.button.UP && key.ctrl && (chunk.start - this.highlightList.offset) >= 0) {
-		this._move(chunk.start, chunk.howMany, this.highlightList.offset, true);
-		this.highlightList.offset++;
-		return;
-	}
-
-	if (key.name === BlessedConst.button.DOWN && key.ctrl && (chunk.end + this.highlightList.offset) < this._node.children.length) {
-		this._move(chunk.start, chunk.howMany, this.highlightList.offset, false);
-		this.highlightList.offset--;
-		return;
-	}
-
-	if (key.name === BlessedConst.button.INSERT) {
-		var index = this.highlight();
-		var element = this._node.children[index];
-		element.marker = true;
-		this._markering[index] = true;
-		app.ui.console.render();
-		return;
-	}
-
-	this._node.children.forEach(function(child) {
-		child.marker = false;
-	});
-	this.highlightList = {
-		chunk: [],
-		offset: 0
-	};
-	this._markering = {};
-
 };
 
 
@@ -284,6 +289,18 @@ PlayList.prototype._makeSpace = function(node, track, index) {
 		space = space + ' ';
 	}
 	return space;
+};
+
+
+/**
+ * @param {Object} child
+ * @param {AudioTrack} track
+ * @return {boolean}
+ * @private
+ */
+PlayList.prototype._isActivePlaylist = function(child, track) {
+	//todo is huewiy check. need good check
+	return child.content.indexOf(track.artist) > -1 && child.content.indexOf(track.title) > -1;
 };
 
 
