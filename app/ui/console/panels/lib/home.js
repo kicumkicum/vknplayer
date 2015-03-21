@@ -97,14 +97,11 @@ Home.prototype.showGMusic = function() {
  * @public
  */
 Home.prototype.showRadio = function() {
-	var stations = pl['playlist'].map(function(station, i) {
-		return new vknp.models.AudioTrack({
-			url: station.Url,
-			title: station.Title,
-			duration: 0
-		});
-	});
-	app.ui.console._panels.slavePL.setContent(stations);
+	app.service.radio
+		.parse('http://2kom.tv/channels/radio.m3u')
+		.then(function(stations) {
+			app.ui.console._panels.slavePL.setContent(stations);
+		})
 };
 
 

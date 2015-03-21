@@ -53,7 +53,7 @@ BasePanel.prototype._init = function() {
 	this.on(this.EVENT_SELECT, this._clickHandler);
 	this.on(this.EVENT_KEY_PRESS, this._keyPressHandler);
 	this._data.on(this._data.EVENT_ITEMS_ADDED, this._dataChangedHandler);
-	this._data.on(this._data.EVENT_CLEAR, this.clear.bind(this));
+	this._data.on(this._data.EVENT_CLEAR, this._clear.bind(this));
 
 	this._loadData();
 };
@@ -73,7 +73,16 @@ BasePanel.prototype.updatePanel = function() {
  * @protected
  */
 BasePanel.prototype.clear = function(eventName) {
-	goog.base(this, 'clear');
+	this._data.clear();
+};
+
+
+/**
+ * @param {string} eventName
+ * @protected
+ */
+BasePanel.prototype._clear = function(eventName) {
+	goog.base(this, '_clear');
 	this._recoveryDefaultState();
 };
 

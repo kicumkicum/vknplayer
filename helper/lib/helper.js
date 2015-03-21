@@ -31,7 +31,7 @@ Helper.prototype.clone = function(item) {
 			result = [];
 			item.forEach(function(child, index, array) {
 				result[index] = this.clone(child);
-			});
+			}, this);
 		} else if (typeof item == 'object') {
 			// testing that this is DOM
 			if (item.nodeType && typeof item.cloneNode == 'function') {

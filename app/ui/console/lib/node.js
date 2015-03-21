@@ -109,7 +109,7 @@ Node.prototype.removeChild = function(child) {
 
 /**
  */
-Node.prototype.clear = function() {
+Node.prototype._clear = function() {
 	var size = this.getChildrenLength();
 	while (size) {
 		this._node.removeItem(size - 1);
