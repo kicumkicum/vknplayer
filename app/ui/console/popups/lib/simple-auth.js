@@ -51,11 +51,11 @@ SimpleAuth.prototype._getId = function() {
 
 
 SimpleAuth.prototype._getTokenById = function(id) {
-	var url = app.api.vk.getAuthUrl();
+	var url = app.api.vk.getExternalAuthUrl();
 	var interval = setInterval(function() {
 		request(url + 'token-by-id/' + id, function(err, res, body) {
 			var token = body;
-			if (token && token.indexOf('\n') === -1) {
+			if (token && token.indexOf('\n') === -1 && token.indexOf('error') === -1) {
 				clearInterval(interval);
 				app.setConfig(['api', 'vk', 'token'], token);
 				this.close();
