@@ -9,7 +9,6 @@ var SimplePopUp = require('./simple');
 var AuthPopUp = function() {
 	this._openSimpleAuth = this._openSimpleAuth.bind(this);
 	this._openHardAuth = this._openHardAuth.bind(this);
-	this._openDirectAuth = this._openDirectAuth.bind(this);
 
 	this._init({
 		title: 'Authorization VK.COM',
@@ -70,14 +69,9 @@ AuthPopUp.prototype._addButtons = function() {
 		left: 1,
 		bottom: 4
 	});
-	this._directAuthBtn = this._createButton('direct', {
-		left: 1,
-		bottom: 1
-	});
 
 	this._simpleAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openSimpleAuth);
 	this._hardAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openHardAuth);
-	this._directAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openDirectAuth);
 };
 
 
@@ -88,18 +82,6 @@ AuthPopUp.prototype._openSimpleAuth = function() {
 
 AuthPopUp.prototype._openHardAuth = function() {
 	app.ui.console.openPopUp(vknp.ui.console.popups.HardAuth);
-};
-
-
-AuthPopUp.prototype._openDirectAuth = function() {
-	app.ui.console.openPopUp(vknp.ui.console.popups.Simple, {
-		title: 'Authorization VK.COM',
-		message: '\n{center}здесь могли бы быть поля для ввода логина и пароля. но это не бесопасно. попробуйте другие способы авторизации{/center}',
-		left: 30,
-		top: 30,
-		width: 50,
-		height: 50
-	});
 };
 
 
