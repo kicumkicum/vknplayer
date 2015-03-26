@@ -61,13 +61,19 @@ AuthPopUp.prototype._getTokenById = function(id) {
 
 
 AuthPopUp.prototype._addButtons = function() {
-	this._simpleAuthBtn = this._createButton('simple', {
-		left: 1,
-		bottom: 7
+	var simpleMessage = 'Simple\nПростая авторизация. Требует минимум усилий,\nно часть функционала не доступно';
+	var hardMessage = '{center}Hard\nЧуть более сложный способ,\nно доступен весь функционал приложения{/center}';
+	this._simpleAuthBtn = this._createButton(simpleMessage, {
+		left: 3,
+		bottom: 7,
+		width: '40%',
+		height: '40%'
 	});
-	this._hardAuthBtn = this._createButton(' hard ', {
-		left: 1,
-		bottom: 4
+	this._hardAuthBtn = this._createButton(hardMessage, {
+		right: 3,
+		bottom: 7,
+		width: '40%',
+		height: '40%'
 	});
 
 	this._simpleAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openSimpleAuth);
