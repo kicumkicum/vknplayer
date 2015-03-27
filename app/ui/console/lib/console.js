@@ -96,6 +96,9 @@ Console.prototype.changeFocusPanel = function() {
  * @param {Object} panel
  */
 Console.prototype.show = function(panel) {
+	if (!panel) {
+		return;
+	}
 	if (panel.isHidden()) {
 		this._addToHistory(this.activePanel);
 	}
@@ -107,6 +110,9 @@ Console.prototype.show = function(panel) {
  * @param {Object} panel
  */
 Console.prototype._show = function(panel) {
+	if (!panel) {
+		return;
+	}
 	if (panel.isHidden()) {
 		this._setTopPanel(panel);
 	} else {
