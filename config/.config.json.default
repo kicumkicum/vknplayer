@@ -7,7 +7,7 @@
 		"vk": {
 			"enabled": 1,
 			"externalAuthServer": "http://109.227.206.91:3000/",
-			"shortAuthUrl": "http://vk.cc/3yMxJ9",
+			"shortAuthUrl": "https://vk.cc/41nQks",
 			"authServer": "https://oauth.vk.com/authorize",
 			"client_id": 4072914,
 			"scope": "audio,offline,wall,friends",
