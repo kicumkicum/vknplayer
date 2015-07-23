@@ -129,6 +129,15 @@ BasePanel.prototype.setData = function(data) {
 
 
 /**
+ * @param {?Array.<*>} data
+ * @protected
+ */
+BasePanel.prototype.addItems = function(data) {
+	this._data.addItems(data);
+};
+
+
+/**
  * @param {number} value
  * @protected
  */

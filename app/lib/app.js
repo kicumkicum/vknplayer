@@ -87,6 +87,7 @@ Vknp.prototype.radio = function(playListId, count, opt_artist) {
 	} else {
 		return this.api.vk.getRecomendationMusic(this.MAX_AUDIO_COUNT)
 			.then(function(tracks) {
+				this.service.playListManager.clear(playlistId);
 				return this.service.playListManager.addItems(playListId, tracks, true);
 			}.bind(this));
 	}
@@ -106,7 +107,8 @@ Vknp.prototype.search = function(playlistId, count, query) {
 	return this.api.vk.audioSearch(query, count)
 		.then(function(tracks) {
 			tracks = this._scythe(tracks, query);
-			return this.service.playListManager.addItems(playlistId, tracks, true);
+			this.service.playListManager.clear(playlistId);
+			return this.service.playListManager.addItems(playlistId, tracks, true);//todo mb setItems
 		}.bind(this));
 };
 
