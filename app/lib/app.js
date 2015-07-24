@@ -177,6 +177,14 @@ Vknp.prototype.isVkEnabled = function() {
 /**
  * @return {boolean}
  */
+Vknp.prototype.isYandexMusicEnabled = function() {
+	return !!this._config.api.yandexMusic.enable;
+};
+
+
+/**
+ * @return {boolean}
+ */
 Vknp.prototype.isGmusicEnabled = function() {
 	return !!this._config.api.gmusic.enabled;
 };
