@@ -24,6 +24,11 @@ Config = function(data) {
 	this.api.vk.responseType = data['api']['vk']['response_type'];
 	this.api.vk.token = data['api']['vk']['token'];
 
+	this.api.yandexMusic = {};
+	this.api.yandexMusic.enable = data['api']['yandex-music']['enable'];
+	this.api.yandexMusic.login = data['api']['yandex-music']['login'];
+	this.api.yandexMusic.password = data['api']['yandex-music']['password'];
+
 	this.api.gmusic = {};
 	this.api.gmusic.enabled = data['api']['gmusic']['enabled'] || 0;
 	this.api.gmusic.login = data['api']['gmusic']['login'] || '';

@@ -5,12 +5,13 @@ var util = require('util');
 
 
 var YandexMusic = function() {
+	goog.base(this);
 	this.init({username: 'kicumkicum@yandex.ru', password: '11zhlm5a'}).then(function() {
 		// place code here
 	});
 
 };
-util.inherits(YandexMusic, YandexMusicApi);
+goog.inherits(YandexMusic, YandexMusicApi);
 
 
 /**

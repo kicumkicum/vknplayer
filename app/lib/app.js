@@ -193,9 +193,9 @@ Vknp.prototype._initApi = function(config) {
 	if (config.soundcloud.enabled) {
 		//todo add soundcloud api
 	}
-	if (config['yandex-music']['enable']) {
+	if (config.yandexMusic.enable) {
 		//todo add yandex-music api
-		this.api.yaMusic = vknp.api.YaMusic;
+		this.api.yaMusic = vknp.api.YaMusic(config.yandexMusic);
 	}
 
 };
