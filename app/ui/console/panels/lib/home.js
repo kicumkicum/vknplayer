@@ -27,6 +27,13 @@ var Home = function() {
 				return this.name;
 			}
 		},
+		yaMusic: {
+			name: 'yaMusic',
+			type: 'yaMusic',
+			toString: function() {
+				return this.name;
+			}
+		},
 		radio: {
 			name: 'Радио',
 			type: 'radio',
@@ -64,6 +71,9 @@ Home.prototype._loadData = function() {
 	var items = [];
 	if (app.isVkEnabled()) {
 		items.push(this.category.vk);
+	}
+	if (app.isYandexMusicEnabled()) {
+		items.push(this.category.yaMusic);
 	}
 	if (app.isGmusicEnabled()) {
 		items.push(this.category.gmusic);
@@ -172,6 +182,7 @@ Home.prototype._playlist;
 Home.Category = {
 	VK: 'vk',
 	GMUSIC: 'gmusic',
+	YAMUSIC: 'yaMusic',
 	RADIO: 'radio'
 };
 
