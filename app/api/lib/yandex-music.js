@@ -4,11 +4,15 @@ var events = require('events');
 
 
 /**
+ * @params {{
+ *      login: string,
+ *      password: string
+ * }}
  * @constructor
  */
-var YandexMusic = function() {
+var YandexMusic = function(params) {
 	this._api = new YandexMusicApi;
-	this.init({username: 'kicumkicum@yandex.ru', password: '11zhlm5a'}).then(function() {
+	this.init({username: params.login, password: params.password}).then(function() {
 		// place code here
 	});
 };
