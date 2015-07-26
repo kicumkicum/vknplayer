@@ -192,6 +192,7 @@ Vknp.prototype.isGmusicEnabled = function() {
 
 Vknp.prototype._initApi = function(config) {
 	this.api = {};
+
 	if (config.vk.enabled) {
 		this.api.vk = new vknp.api.VK(config.vk)
 	}
@@ -202,8 +203,7 @@ Vknp.prototype._initApi = function(config) {
 		//todo add soundcloud api
 	}
 	if (config.yandexMusic.enable) {
-		//todo add yandex-music api
-		this.api.yaMusic = vknp.api.YaMusic(config.yandexMusic);
+		this.api.yandexMusic = new vknp.api.YaMusic(config.yandexMusic);
 	}
 
 };
