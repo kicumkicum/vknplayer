@@ -18,6 +18,11 @@ var YandexMusic = function(params) {
 	this.init({username: params.login, password: params.password}).then(function() {
 		// place code here
 	});
+
+	this._getMagicScript()
+		.then(function(func) {
+			eval(this.getMagicHash.functionName + ' = ' + func);
+		}.bind(this));
 };
 goog.inherits(YandexMusic, AbstractApi);
 
@@ -252,6 +257,18 @@ YandexMusic.prototype.getTrackUrl = function(track) {
 			return 'http://'+ host + '/get-mp3/' + token + '/' + ts + path + '?track-id=' + track.id + '&play=false';
 		}.bind(this));
 };
+
+
+/**
+ * @param {string} path
+ */
+YandexMusic.prototype.getMagicHash = function(path) {};
+
+
+/**
+ * @type {string}
+ */
+YandexMusic.prototype.getMagicHash.functionName = 'YandexMusic.prototype.getMagicHash';
 
 
 /**
