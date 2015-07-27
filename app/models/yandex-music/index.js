@@ -9,6 +9,7 @@ var yandexMusicModels = {
 	Playlist: require('./lib/playlist'),
 	SearchResults: require('./lib/search-results'),
 	Subscription: require('./lib/subscription'),
+	Track: require('./lib/track'),
 	Tracks: require('./lib/tracks')
 };
 

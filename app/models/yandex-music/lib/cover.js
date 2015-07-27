@@ -3,6 +3,7 @@
  * @constructor
  */
 var Cover = function(data) {
+	data = data || {};
 	/** @type {string} */
 	this.prefix = data['prefix'];
 
