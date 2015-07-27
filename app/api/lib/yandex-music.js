@@ -252,9 +252,13 @@ YandexMusic.prototype.getTrackUrl = function(track) {
 			var path = childs[1].childs[0];
 			var ts = childs[2].childs[0];
 			var s = childs[4].childs[0];
-			var token = this._hash(path.substr(1) + s);
+			var token = this.getMagicHash(path.substr(1) + s);
 
-			return 'http://'+ host + '/get-mp3/' + token + '/' + ts + path + '?track-id=' + track.id + '&play=false';
+			if (token) {
+				return 'http://'+ host + '/get-mp3/' + token + '/' + ts + path + '?track-id=' + track.id + '&play=false';
+			} else {
+				return null;
+			}
 		}.bind(this));
 };
 
