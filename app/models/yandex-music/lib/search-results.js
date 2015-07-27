@@ -1,54 +1,34 @@
-var Album = require('./album');
-var Artist = require('./artist');
-
-
-
-/**
- * @param {*} data
- * @constructor
- */
 var SearchResults = function(data) {
-	/** @type {yandexMusicModels.Album} */
-	this.album = new Album(data['album']);
+	data = data || {};
 
-	/** @type {Array.<yandexMusicModels.Album>} */
-	this.albums = (data['albums'] || []).map(function(album) {
-		return new Album(album);
-	});
+	/** @type {} */
+	this.albums = data['albums']['results'];
 
-	/** @type {Array.<yandexMusicModels.Artist>} */
-	this.artists = (data['artists'] || []).map(function(artist) {
-		return new Artist(artist);
-	});
+	/** @type {} */
+	this.artists = data['artists']['results'];
+
+	/** @type {} */
+	this.best = data['best']['result'];
 
 	/** @type {boolean} */
-	this.available = data['available'];
+	this.misspellCorrected = data['misspellCorrected'];
 
-	/** @type {Array.<SearchResults>|undefined} */
-	this.duplicates = (data['duplicates'] || []).map(function(duplicat) {
-		return new SearchResults(duplicat);
+	/** @type {} */
+	this.nocorrect = data['nocorrect'];
+
+	/** @type {} */
+	this.playlists = data['playlists']['results'];
+
+	/** @type {string} */
+	this.text = data['text'] || '';
+
+	/** @type {} */
+	this.tracks = (data['tracks']['results'] || []).map(function(track) {
+		return new vknp.models.yandexMusic.Track(track);
 	});
 
-	/** @type {number} */
-	this.durationMillis = data['durationMillis'];
-
-	/** @type {number} */
-	this.durationMs = data['durationMs'];
-
-	/** @type {boolean} */
-	this.explicit = data['explicit'];
-
-	/** @type {number} */
-	this.id = data['id'];
-
-	/** @type {Array.<string>} */
-	this.regions = data['regions'];
-
-	/** @type {string} */
-	this.storageDir = data['storageDir'];
-
-	/** @type {string} */
-	this.title = data['title'];
+	/** @type {} */
+	this.videos = data['videos']['results'];
 };
 
 
