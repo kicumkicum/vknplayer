@@ -14,6 +14,7 @@ var xml = require('node-xml-lite');
  */
 var YandexMusic = function(params) {
 	this._api = new YandexMusicApi;
+
 	this.init({username: params.login, password: params.password}).then(function() {
 		// place code here
 	});
@@ -256,7 +257,7 @@ YandexMusic.prototype.getTrackUrl = function(track) {
 /**
  * @param {string} t
  * @return {string}
- * @private
+ * @protected
  */
 YandexMusic.prototype._hash = function(t) {
 	// todo need dynamic download
@@ -455,6 +456,23 @@ YandexMusic.prototype._hash = function(t) {
 	}
 	var j = D(aa) + D(Z) + D(Y) + D(X);
 	return j.toLowerCase()
+};
+
+
+/**
+ * @return {Promise|*}
+ * @protected
+ */
+YandexMusic.prototype._getMagicScript = function() {
+	var rxp = /(?:"player\/helpers\/md5\.js"\:function\(d,a,b,e\){)([\s\S]*)(?:;d\.exports=c)/;
+	var url = 'https://music.yandex.ru/api/v1.6/index.js?v=0.1.5hotfix05';
+
+	return this._request(url)
+		.then(function(response) {
+			var result = rxp.exec(response)[1];
+			return result.substr(6).replace(/\n/g,  '').replace(/"/g, '\'');
+		});
+
 };
 
 
