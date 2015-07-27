@@ -1,4 +1,4 @@
-var SearchResults = require('./search-results');
+var Track = require('./search-results');
 
 
 
@@ -10,8 +10,8 @@ var Tracks = function(data) {
 	/** @type {number} */
 	this.perPage = data['perPage'];
 
-	/** @type {yandexMusicModels.SearchResults} */
-	this.results = new SearchResults(data['results']);
+	/** @type {yandexMusicModels.Track} */
+	this.results = new Track(data['results']);
 };
 
 

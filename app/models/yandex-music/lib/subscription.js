@@ -12,4 +12,3 @@ var Subscription = function(data) {
 
 
 module.exports = Subscription;
-
