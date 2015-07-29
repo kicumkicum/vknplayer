@@ -1,4 +1,5 @@
 var yandexMusicModels = {
+	AbstractModel: require('./lib/abstract-model'),
 	Album: require('./lib/album'),
 	Artist: require('./lib/artist'),
 	Account: require('./lib/account'),
