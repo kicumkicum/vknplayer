@@ -1,4 +1,6 @@
 var Artist = require('./artist');
+var models = require('../');
+
 
 
 /**

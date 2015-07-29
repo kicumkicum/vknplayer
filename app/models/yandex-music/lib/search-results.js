@@ -1,3 +1,10 @@
+var models = require('../');
+
+
+/**
+ * @param data
+ * @constructor
+ */
 var SearchResults = function(data) {
 	data = data || {};
 

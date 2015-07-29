@@ -1,5 +1,6 @@
 var Album = require('./album');
 var Artist = require('./artist');
+var models = require('../');
 
 
 

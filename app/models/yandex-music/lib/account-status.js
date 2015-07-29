@@ -1,3 +1,7 @@
+var models = require('../');
+
+
+
 /**
  * @param {*} data
  * @constructor

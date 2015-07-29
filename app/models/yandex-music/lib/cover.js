@@ -1,17 +1,30 @@
+var models = require('../');
+
+
+
 /**
- * @param {*} data
+ * @param {Object=} opt_data
  * @constructor
  */
-var Cover = function(data) {
-	data = data || {};
+var Cover = function(opt_data) {
+	goog.base(this, opt_data);
+};
+goog.inherits(Cover, models.AbstractModel);
+
+
+/**
+ * @param {Object=} opt_data
+ */
+Cover.prototype.parse = function(opt_data) {
 	/** @type {string} */
-	this.prefix = data['prefix'];
+	this.prefix = opt_data['prefix'];
 
 	/** @type {string} */
-	this.type = data['type'];
+	this.type = opt_data['type'];
 
 	/** @type {string} */
-	this.uri = data['uri'];
+	this.uri = opt_data['uri'];
+
 };
 
 

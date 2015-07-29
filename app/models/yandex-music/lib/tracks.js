@@ -1,4 +1,5 @@
 var Track = require('./search-results');
+var models = require('../');
 
 
 

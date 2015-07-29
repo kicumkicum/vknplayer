@@ -1,4 +1,5 @@
 var Cover = require('./cover');
+var models = require('../');
 
 
 

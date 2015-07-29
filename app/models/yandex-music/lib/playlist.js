@@ -1,3 +1,7 @@
+var models = require('../');
+
+
+
 var Playlist = function(data) {
 	/** @type {string} */
 	this.cover = data['cover'];
