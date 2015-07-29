@@ -52,4 +52,12 @@ var Track = function(data) {
 };
 
 
+/**
+ * @return {Promise.<string>}
+ */
+Track.prototype.getUrl = function() {
+	return app.api.yandexMusic.getTrackUrl(this);
+};
+
+
 module.exports = Track;
