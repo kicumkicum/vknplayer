@@ -17,7 +17,7 @@ var SearchResults = function(data) {
 	this.nocorrect = data['nocorrect'];
 
 	/** @type {} */
-	this.playlists = data['playlists']['results'];
+	this.playlists = data['playlists'] && data['playlists']['results'];
 
 	/** @type {string} */
 	this.text = data['text'] || '';
