@@ -7,6 +7,17 @@ var models = require('../');
  * @constructor
  */
 var Permissions = function(data) {
+	goog.base(this, data);
+};
+goog.inherits(Permissions, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+Permissions.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
 	/** @type {Array.<string>} */
 	this.default = data['default'].map(function(item) {
 		return item
@@ -20,7 +31,6 @@ var Permissions = function(data) {
 		return item
 	});
 };
-goog.inherits(Permissions, models.AbstractModel);
 
 
 /**

@@ -6,7 +6,16 @@ var models = require('../');
  * @constructor
  */
 var SearchResults = function(data) {
-	data = data || {};
+	goog.base(this, data);
+};
+goog.inherits(SearchResults, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+SearchResults.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
 
 	/** @type {} */
 	this.albums = data['albums']['results'];
@@ -37,7 +46,6 @@ var SearchResults = function(data) {
 	/** @type {} */
 	this.videos = data['videos']['results'];
 };
-goog.inherits(SearchResults, models.AbstractModel);
 
 
 module.exports = SearchResults;

@@ -7,6 +7,17 @@ var models = require('../');
  * @constructor
  */
 var Genre = function(data) {
+	goog.base(this, data);
+};
+goog.inherits(Genre, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+Genre.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
 	/** @type {boolean} */
 	this.composerTop = data['composerTop'];
 
@@ -53,10 +64,7 @@ var Genre = function(data) {
 
 	/** @type {number} */
 	this.weight = data['weight'];
-
-
 };
-goog.inherits(Genre, models.AbstractModel);
 
 
 /**

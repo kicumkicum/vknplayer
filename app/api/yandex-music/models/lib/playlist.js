@@ -3,6 +3,17 @@ var models = require('../');
 
 
 var Playlist = function(data) {
+	goog.base(this, data);
+};
+goog.inherits(Playlist, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+Playlist.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
 	/** @type {string} */
 	this.cover = data['cover'];
 
@@ -33,7 +44,6 @@ var Playlist = function(data) {
 	/** @type {string} */
 	this.visibility = data['visibility'];
 };
-goog.inherits(Playlist, models.AbstractModel);
 
 
 module.exports = Playlist;

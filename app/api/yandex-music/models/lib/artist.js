@@ -7,6 +7,17 @@ var models = require('../');
  * @constructor
  */
 var Artist = function(data) {
+	goog.base(this, data);
+};
+goog.inherits(Artist, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+Artist.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
 	/** @type {boolean} */
 	this.composer = data['composer'];
 
@@ -25,7 +36,6 @@ var Artist = function(data) {
 	/** @type {boolean} */
 	this.various = data['various'];
 };
-goog.inherits(Artist, models.AbstractModel);
 
 
 module.exports = Artist;

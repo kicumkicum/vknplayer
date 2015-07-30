@@ -7,6 +7,17 @@ var models = require('../');
  * @constructor
  */
 var Track = function(data) {
+	goog.base(this, data);
+};
+goog.inherits(Track, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+Track.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
 	/** @type {models.Album} */
 	this.album = new models.Album(data['album']);
 
@@ -49,7 +60,6 @@ var Track = function(data) {
 	/** @type {string} */
 	this.title = data['title'];
 };
-goog.inherits(Track, models.AbstractModel);
 
 
 /**

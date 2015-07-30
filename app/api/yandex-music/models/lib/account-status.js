@@ -7,6 +7,14 @@ var models = require('../');
  * @constructor
  */
 var AccountStatus = function(data) {
+	goog.base(this, data);
+};
+goog.inherits(AccountStatus, models.AbstractModel);
+
+
+AccountStatus.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
 	/** @type {Account} */
 	this.account = new models.Account(data['account']);
 
@@ -16,7 +24,6 @@ var AccountStatus = function(data) {
 	/** @type {vknp.models.yandexMusic.Subscription} */
 	this.subscription = new models.Subscription(data['subscription']);
 };
-goog.inherits(AccountStatus, models.AbstractModel);
 
 
 module.exports = AccountStatus;

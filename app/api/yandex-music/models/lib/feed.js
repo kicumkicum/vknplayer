@@ -7,7 +7,16 @@ var models = require('../');
  * @constructor
  */
 var Feed = function(data) {
-	data = data || {};
+	goog.base(this, data);
+};
+goog.inherits(Feed, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+Feed.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
 
 	/** @type {boolean} */
 	this.canGetMoreEvents = data['canGetMoreEvents'];
@@ -16,7 +25,6 @@ var Feed = function(data) {
 	this.days = data['days'];
 
 	/** @type {} */
-	// todo
 	this.headlines = data['headlines'];
 
 	/** @type {string} */
@@ -25,7 +33,6 @@ var Feed = function(data) {
 	/** @type {string} */
 	this.today = data['today'];
 };
-goog.inherits(Feed, models.AbstractModel);
 
 
 module.exports = Feed;

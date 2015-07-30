@@ -7,6 +7,17 @@ var models = require('../');
  * @constructor
  */
 var Account = function(data) {
+	goog.base(this, data);
+};
+goog.inherits(Account, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+Account.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
 	/** @type {string} */
 	this.displayName = data['displayName'];
 
@@ -37,7 +48,6 @@ var Account = function(data) {
 	/** @type {number} */
 	this.uid = data['uid'];
 };
-goog.inherits(Account, models.AbstractModel);
 
 
 module.exports = Account;

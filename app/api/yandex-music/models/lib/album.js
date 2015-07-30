@@ -7,6 +7,17 @@ var models = require('../');
  * @constructor
  */
 var Album = function(data) {
+	goog.base(this, data);
+};
+goog.inherits(Album, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+Album.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
 	/** @type {Array.<models.Artist>} */
 	this.artists = (data['artists'] || []).map(function(artist) {
 		return new models.Artist(artist);
@@ -45,7 +56,6 @@ var Album = function(data) {
 	/** @type {number} */
 	this.year = data['year'];
 };
-goog.inherits(Album, models.AbstractModel);
 
 
 module.exports = Album;
