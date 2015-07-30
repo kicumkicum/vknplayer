@@ -7,7 +7,7 @@ var models = require('../');
  * @constructor
  */
 var Album = function(data) {
-	/** @type {Array.<yandexMusicModels.Artist>} */
+	/** @type {Array.<models.Artist>} */
 	this.artists = (data['artists'] || []).map(function(artist) {
 		return new models.Artist(artist);
 	});

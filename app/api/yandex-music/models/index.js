@@ -1,4 +1,4 @@
-var yandexMusicModels = {
+var models = {
 	AbstractModel: require('./lib/abstract-model'),
 	Album: require('./lib/album'),
 	Artist: require('./lib/artist'),
@@ -15,4 +15,4 @@ var yandexMusicModels = {
 };
 
 
-module.exports = yandexMusicModels;
+module.exports = models;

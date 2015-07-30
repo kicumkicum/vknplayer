@@ -7,15 +7,15 @@ var models = require('../');
  * @constructor
  */
 var Track = function(data) {
-	/** @type {yandexMusicModels.Album} */
+	/** @type {models.Album} */
 	this.album = new models.Album(data['album']);
 
-	/** @type {Array.<yandexMusicModels.Album>} */
+	/** @type {Array.<models.Album>} */
 	this.albums = (data['albums']['results'] || []).map(function(album) {
 		return new models.Album(album);
 	});
 
-	/** @type {Array.<yandexMusicModels.Artist>} */
+	/** @type {Array.<models.Artist>} */
 	this.artists = (data['artists']['results'] || []).map(function(artist) {
 		return new models.Artist(artist);
 	});
@@ -59,4 +59,7 @@ Track.prototype.getUrl = function() {
 };
 
 
+/**
+ * @type {models.Track}
+ */
 module.exports = Track;
