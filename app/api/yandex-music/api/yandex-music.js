@@ -1,8 +1,9 @@
-var AbstractApi = require('./abstract-api');
+var AbstractApi = require('../../lib/abstract-api');
 var Promise = require('promise');
 var YandexMusicApi = require('yandex-music-api');
 
 var events = require('events');
+var models = require('../models');
 var xml = require('node-xml-lite');
 
 /**
@@ -39,13 +40,13 @@ YandexMusic.prototype.init = function(user) {
 /**
  * @param {string} query
  * @param {YandexMusic.SearchOptions} options
- * @return {Promise.<vknp.models.yandexMusic.SearchResults>}
+ * @return {Promise.<models.SearchResults>}
  */
 YandexMusic.prototype.search = function(query, options) {
 	return this._api
 		.search(query, options)
 		.then(function(response) {
-			return new vknp.models.yandexMusic.SearchResults(response);
+			return new models.SearchResults(response);
 		}, function(error) {
 			console.log(error);
 		});
@@ -199,13 +200,13 @@ YandexMusic.prototype.removeTracksFromPlaylist = function(playlistKind, tracks, 
 
 /**
  * Get account status for current user
- * @return {Promise.<vknp.models.yandexMusic.AccountStatus>}
+ * @return {Promise.<models.AccountStatus>}
  */
 YandexMusic.prototype.getAccountStatus = function() {
 	return this._api
 		.getAccountStatus()
 		.then(function(status) {
-			return new vknp.models.yandexMusic.AccountStatus(status);
+			return new models.AccountStatus(status);
 		});
 };
 
@@ -213,21 +214,21 @@ YandexMusic.prototype.getAccountStatus = function() {
 /**
  * GET: /genres
  * Get a list of music genres
- * @return {Promise.<Array.<vknp.models.yandexMusic.Genre>>}
+ * @return {Promise.<Array.<models.Genre>>}
  */
 YandexMusic.prototype.getGenres = function() {
 	return this._api
 		.getGenres()
 		.then(function(genres) {
 			return genres.map(function(genre) {
-				return new vknp.models.yandexMusic.Genre(genre)
+				return new models.Genre(genre);
 			});
 		});
 };
 
 
 /**
- * @param {vknp.models.yandexMusic.Track} track
+ * @param {models.Track} track
  * @return {Promise.<string>}
  */
 YandexMusic.prototype.getTrackUrl = function(track) {
