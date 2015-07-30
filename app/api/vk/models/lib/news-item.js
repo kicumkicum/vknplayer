@@ -1,7 +1,10 @@
 /**
  * Created by oleg on 18.10.14.
  */
-var Attachment = require('./attachment');
+var models = require('../');
+
+
+
 /**
  * @param {Object} data
  * @constructor
@@ -43,7 +46,7 @@ NewsItem = function(data) {
 	this.reposts = data['reposts'];
 	/** @type {Array.<Attachment>} */
 	this.attachments = data['attachments'] ? data['attachments'].map(function(attachment) {
-		return new Attachment(attachment);
+		return new models.Attachment(attachment);
 	}) : void 0;
 	/** @type {} */
 	this.geo = data['geo'];

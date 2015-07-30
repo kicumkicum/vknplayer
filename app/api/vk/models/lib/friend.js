@@ -2,6 +2,8 @@
  * Created by oleg on 27.05.14.
  */
 
+
+
 Friend = function(data) {
 	data = data || {};
 	if (data) {

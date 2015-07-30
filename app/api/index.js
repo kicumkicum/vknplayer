@@ -1,5 +1,5 @@
 var api = {
-	VK: require('./lib/vk'),
+	vk: require('./vk'),
 	Gmusik: require('./lib/gmusic'),
 	yandexMusic: require('./yandex-music')
 };

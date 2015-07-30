@@ -2,7 +2,10 @@
  * Created by oleg on 18.10.14.
  */
 
-var AudioTrack = require('./audio-track');
+var models = require('../');
+
+
+
 /**
  * @param {Object} data
  * @constructor
@@ -20,7 +23,7 @@ Attachment = function(data) {
 	/** @type {} */
 	this.video = data['video'];
 	/** @type {AudioTrack} */
-	this.audio = data['audio'] ? new AudioTrack(data['audio']) : void 0;
+	this.audio = data['audio'] ? new models.AudioTrack(data['audio']) : void 0;
 	/** @type {} */
 	this.doc = data['doc'];
 	/** @type {} */

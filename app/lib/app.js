@@ -194,7 +194,7 @@ Vknp.prototype._initApi = function(config) {
 	this.api = {};
 
 	if (config.vk.enabled) {
-		this.api.vk = new vknp.api.VK(config.vk)
+		this.api.vk = new vknp.api.vk.Api(config.vk);
 	}
 	if (config.gmusic.enabled) {
 		//todo add gmusic api

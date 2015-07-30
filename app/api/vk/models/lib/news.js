@@ -1,7 +1,7 @@
 /**
  * Created by oleg on 22.08.14.
  */
-var NewsItem = require('./news-item');
+var models = require('../');
 
 
 
@@ -10,7 +10,7 @@ var News = function(data) {
 
 	/** @type {Array.<NewsItem>} */
 	this.items = data['items'].map(function(item) {
-		return new NewsItem(item);
+		return new models.NewsItem(item);
 	});
 	/** @type {} */
 	this.profiles = data['profiles'];
@@ -21,5 +21,6 @@ var News = function(data) {
 	/** @type {} */
 	this.nextFrom = data['next_from'];
 };
+
 
 module.exports = News;
