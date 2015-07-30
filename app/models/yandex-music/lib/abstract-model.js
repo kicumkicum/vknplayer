@@ -1,4 +1,4 @@
-var EventEmitter = require('EventEmitter');
+var events = require('events');
 
 
 
@@ -7,14 +7,14 @@ var EventEmitter = require('EventEmitter');
  * @constructor
  * @template INPUT_TYPE
  */
-AbstractModel = function(opt_data) {
+var AbstractModel = function(opt_data) {
 	goog.base(this);
 
 	if (opt_data) {
 		this.parse(opt_data);
 	}
 };
-goog.inherits(AbstractModel, EventEmitter);
+goog.inherits(AbstractModel, events.EventEmitter);
 
 
 /**

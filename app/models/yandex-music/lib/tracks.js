@@ -12,7 +12,7 @@ var Tracks = function(data) {
 	this.perPage = data['perPage'];
 
 	/** @type {yandexMusicModels.Track} */
-	this.results = new Track(data['results']);
+	this.results = new models.Track(data['results']);
 };
 
 

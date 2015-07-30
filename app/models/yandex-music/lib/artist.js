@@ -1,4 +1,3 @@
-var Cover = require('./cover');
 var models = require('../');
 
 
@@ -11,8 +10,8 @@ var Artist = function(data) {
 	/** @type {boolean} */
 	this.composer = data['composer'];
 
-	/** @type {yandexMusicModels.Cover} */
-	this.cover = new Cover(data['cover']);
+	/** @type {models.Cover} */
+	this.cover = new models.Cover(data['cover']);
 
 	/** @type {Array.<*>} */
 	this.decomposed = data['decomposed'];

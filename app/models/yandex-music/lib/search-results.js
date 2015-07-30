@@ -31,7 +31,7 @@ var SearchResults = function(data) {
 
 	/** @type {} */
 	this.tracks = (data['tracks']['results'] || []).map(function(track) {
-		return new vknp.models.yandexMusic.Track(track);
+		return new models.Track(track);
 	});
 
 	/** @type {} */

@@ -1,4 +1,3 @@
-var Artist = require('./artist');
 var models = require('../');
 
 
@@ -10,7 +9,7 @@ var models = require('../');
 var Album = function(data) {
 	/** @type {Array.<yandexMusicModels.Artist>} */
 	this.artists = (data['artists'] || []).map(function(artist) {
-		return new Artist(artist);
+		return new models.Artist(artist);
 	});
 
 	/** @type {number} */

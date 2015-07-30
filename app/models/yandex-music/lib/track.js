@@ -1,5 +1,3 @@
-var Album = require('./album');
-var Artist = require('./artist');
 var models = require('../');
 
 
@@ -10,16 +8,16 @@ var models = require('../');
  */
 var Track = function(data) {
 	/** @type {yandexMusicModels.Album} */
-	this.album = new Album(data['album']);
+	this.album = new models.Album(data['album']);
 
 	/** @type {Array.<yandexMusicModels.Album>} */
 	this.albums = (data['albums']['results'] || []).map(function(album) {
-		return new Album(album);
+		return new models.Album(album);
 	});
 
 	/** @type {Array.<yandexMusicModels.Artist>} */
 	this.artists = (data['artists']['results'] || []).map(function(artist) {
-		return new Artist(artist);
+		return new models.Artist(artist);
 	});
 
 	/** @type {boolean} */
@@ -27,7 +25,7 @@ var Track = function(data) {
 
 	/** @type {Array.<Track>|undefined} */
 	this.duplicates = (data['duplicates'] || []).map(function(duplicat) {
-		return new Track(duplicat);
+		return new models.Track(duplicat);
 	});
 
 	/** @type {number} */

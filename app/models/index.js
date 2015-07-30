@@ -6,9 +6,9 @@ var models = {
 	Friend: require('./lib/friend'),
 	Group: require('./lib/group'),
 	News: require('./lib/news'),
-	NewsItem: require('./lib/news-item'),
+	NewsItem: require('./lib/news-item')//,
 
-	yandexMusic: require('./yandex-music')
+	//yandexMusic: require('./yandex-music')
 };
 
 module.exports = models;

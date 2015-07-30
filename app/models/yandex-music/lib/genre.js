@@ -29,7 +29,7 @@ var Genre = function(data) {
 
 	/** @type {vknp.models.yandexMusic.Genre} */
 	this.subGenres = (data['subGenres'] || []).map(function(subGenre) {
-		return new vknp.models.yandexMusic.Genre(subGenre);
+		return new models.Genre(subGenre);
 	});
 
 	/** @type {string} */
