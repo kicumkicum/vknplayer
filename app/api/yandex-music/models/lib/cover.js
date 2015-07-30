@@ -1,5 +1,4 @@
-var a;
-var models = require('../index');
+var models = require('../');
 
 
 

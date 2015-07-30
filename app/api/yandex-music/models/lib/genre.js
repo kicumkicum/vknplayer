@@ -56,6 +56,7 @@ var Genre = function(data) {
 
 
 };
+goog.inherits(Genre, models.AbstractModel);
 
 
 /**

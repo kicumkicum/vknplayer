@@ -25,6 +25,7 @@ var Feed = function(data) {
 	/** @type {string} */
 	this.today = data['today'];
 };
+goog.inherits(Feed, models.AbstractModel);
 
 
 module.exports = Feed;

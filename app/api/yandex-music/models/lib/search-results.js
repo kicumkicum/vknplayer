@@ -37,6 +37,7 @@ var SearchResults = function(data) {
 	/** @type {} */
 	this.videos = data['videos']['results'];
 };
+goog.inherits(SearchResults, models.AbstractModel);
 
 
 module.exports = SearchResults;

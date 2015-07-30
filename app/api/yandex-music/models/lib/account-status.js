@@ -16,6 +16,7 @@ var AccountStatus = function(data) {
 	/** @type {vknp.models.yandexMusic.Subscription} */
 	this.subscription = new models.Subscription(data['subscription']);
 };
+goog.inherits(AccountStatus, models.AbstractModel);
 
 
 module.exports = AccountStatus;

@@ -14,6 +14,7 @@ var Tracks = function(data) {
 	/** @type {models.Track} */
 	this.results = new models.Track(data['results']);
 };
+goog.inherits(Tracks, models.AbstractModel);
 
 
 module.exports = Tracks;

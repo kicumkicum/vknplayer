@@ -37,6 +37,7 @@ var Account = function(data) {
 	/** @type {number} */
 	this.uid = data['uid'];
 };
+goog.inherits(Account, models.AbstractModel);
 
 
 module.exports = Account;

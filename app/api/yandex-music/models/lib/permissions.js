@@ -20,6 +20,7 @@ var Permissions = function(data) {
 		return item
 	});
 };
+goog.inherits(Permissions, models.AbstractModel);
 
 
 /**

@@ -25,6 +25,7 @@ var Artist = function(data) {
 	/** @type {boolean} */
 	this.various = data['various'];
 };
+goog.inherits(Artist, models.AbstractModel);
 
 
 module.exports = Artist;

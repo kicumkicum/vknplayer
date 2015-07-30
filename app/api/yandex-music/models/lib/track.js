@@ -49,6 +49,7 @@ var Track = function(data) {
 	/** @type {string} */
 	this.title = data['title'];
 };
+goog.inherits(Track, models.AbstractModel);
 
 
 /**

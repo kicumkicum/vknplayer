@@ -1,18 +1,18 @@
-var models = {
-	AbstractModel: require('./lib/abstract-model'),
-	Album: require('./lib/album'),
-	Artist: require('./lib/artist'),
-	Account: require('./lib/account'),
-	AccountStatus: require('./lib/account-status'),
-	Cover: require('./lib/cover'),
-	Genre: require('./lib/genre'),
-	Permissions: require('./lib/permissions'),
-	Playlist: require('./lib/playlist'),
-	SearchResults: require('./lib/search-results'),
-	Subscription: require('./lib/subscription'),
-	Track: require('./lib/track'),
-	Tracks: require('./lib/tracks')
-};
+var models = {};
 
 
 module.exports = models;
+
+models.AbstractModel = require('./lib/abstract-model'),
+	models.Album = require('./lib/album'),
+	models.Artist = require('./lib/artist'),
+	models.Account = require('./lib/account'),
+	models.AccountStatus = require('./lib/account-status'),
+	models.Cover = require('./lib/cover'),
+	models.Genre = require('./lib/genre'),
+	models.Permissions = require('./lib/permissions'),
+	models.Playlist = require('./lib/playlist'),
+	models.SearchResults = require('./lib/search-results'),
+	models.Subscription = require('./lib/subscription'),
+	models.Track = require('./lib/track'),
+	models.Tracks = require('./lib/tracks')

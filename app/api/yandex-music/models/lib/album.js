@@ -45,6 +45,7 @@ var Album = function(data) {
 	/** @type {number} */
 	this.year = data['year'];
 };
+goog.inherits(Album, models.AbstractModel);
 
 
 module.exports = Album;

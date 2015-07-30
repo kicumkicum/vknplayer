@@ -33,6 +33,7 @@ var Playlist = function(data) {
 	/** @type {string} */
 	this.visibility = data['visibility'];
 };
+goog.inherits(Playlist, models.AbstractModel);
 
 
 module.exports = Playlist;

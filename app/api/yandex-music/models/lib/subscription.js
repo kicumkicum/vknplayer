@@ -13,6 +13,7 @@ var Subscription = function(data) {
 	/** @type {number} */
 	this.trialDuration = data['trialDuration'];
 };
+goog.inherits(Subscription, models.AbstractModel);
 
 
 module.exports = Subscription;
