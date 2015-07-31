@@ -16,7 +16,7 @@
 			"response_type": "token",
 			"token": ""
 		},
-		"yandex-music": {
+		"yandexMusic": {
 			"enable": 1,
 			"login": "kicumkicum",
 			"password": "11zhlm5a"
