@@ -1,7 +1,7 @@
 var api = {
-	vk: require('./vk'),
+	vk: require('./lib/vk'),
 	Gmusik: require('./lib/gmusic'),
-	yandexMusic: require('./yandex-music')
+	yandexMusic: require('./lib/yandex-music')
 };
 
 module.exports = api;

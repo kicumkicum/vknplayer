@@ -1,4 +1,4 @@
-var AbstractApi = require('../../lib/abstract-api');
+var AbstractApi = require('../../../lib/abstract-api');
 var Promise = require('promise');
 var YandexMusicApi = require('yandex-music-api');
 

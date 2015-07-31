@@ -3,7 +3,7 @@
  */
 
 
-var AbstractApi = require('../../lib/abstract-api');
+var AbstractApi = require('../../../lib/abstract-api');
 
 var util = require('util');
 var events = require('events');
