@@ -10,7 +10,7 @@
  * @param {Object} data
  * @constructor
  */
-var Track = function(data) {
+var AudioTrack = function(data) {
 	data = data || {};
 
 	/** @type {string} */
@@ -23,14 +23,14 @@ var Track = function(data) {
 };
 
 
-Track.prototype.getUrl = function() {
+AudioTrack.prototype.getUrl = function() {
 
 };
 
 /**
  * @return {string}
  */
-Track.prototype.toString = function() {
+AudioTrack.prototype.toString = function() {
 	return (this.artist ? this.artist + ' - ' : '' ) + this.title;
 };
 
@@ -38,7 +38,7 @@ Track.prototype.toString = function() {
 /**
  * @enum {number}
  */
-Track.genreType = {
+AudioTrack.genreType = {
 	ROCK: 1,
 	POP: 2,
 	RAP_AND_HIP_HOP: 3,
@@ -63,4 +63,4 @@ Track.genreType = {
 };
 
 
-module.exports = Track;
+module.exports = AudioTrack;
