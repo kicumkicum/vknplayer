@@ -63,4 +63,17 @@ Helper.prototype.clone = function(item) {
 	return result;
 };
 
+
+/**
+ * @param {Array.<Object>} array
+ * @param {function(...*):TYPE} itemClass
+ * @return {Array.<TYPE>}
+ */
+Helper.prototype.parseArray = function(array, itemClass) {
+	return (array || []).map(function(item) {
+		return new itemClass(item);
+	});
+};
+
+
 module.exports = Helper;
