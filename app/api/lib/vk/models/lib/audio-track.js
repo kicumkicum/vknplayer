@@ -14,27 +14,44 @@ var models = require('../');
  * @constructor
  */
 var AudioTrack = function(data) {
-	data = data || {};
+	goog.base(this, data);
+};
+goog.inherits(AudioTrack, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+AudioTrack.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
 	/** @type {?number} */
 	this.id = data['id'] || null;
+
 	/** @type {?number} */
 	this.ownerId = data['owner_id'] || null;
+
 	/** @type {string} */
 	this.artist = data['artist'] || '';
+
 	/** @type {string} */
 	this.title = data['title'] || '';
+
 	/** @type {string} */
 	this.duration = data['duration'] || 0;
+
 	/** @type {string} */
 	this.url = data['url'] || data['uri'] || '';
+
 	/** @type {string} */
 	this.lyricsId = data['lyrics_id'] || null;
+
 	/** @type {?number} */
 	this.albumId = data['album_id'] || null;
+
 	/** @type {AudioTrack.genreType} */
 	this.genreId = data['genre_id'] || null;
 };
-goog.inherits(AudioTrack, models.AbstractModel);
 
 
 /**

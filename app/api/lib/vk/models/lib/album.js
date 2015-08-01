@@ -10,17 +10,26 @@ var models = require('../');
  * @constructor
  */
 Album = function(data) {
-	data = data || {};
-	/** @type {number}*/
-	this.ownerId = data['owner_id'];
-	/** @type {number}*/
-	this.albumId = data['id'] || data['album_id'];//в апи написано album_id, но приходит id
-	/** @type {string}*/
-	this.title = data['title'];
-
-	return this;
+	goog.base(this, data);
 };
 goog.inherits(Album, models.AbstractModel);
+
+
+/**
+ * @param {Object} data
+ */
+Album.prototype.parse = function(data) {
+	goog.base(this, 'parse', data);
+
+	/** @type {number}*/
+	this.ownerId = data['owner_id'];
+
+	/** @type {number}*/
+	this.albumId = data['id'] || data['album_id'];//в апи написано album_id, но приходит id
+
+	/** @type {string}*/
+	this.title = data['title'];
+};
 
 
 /**
