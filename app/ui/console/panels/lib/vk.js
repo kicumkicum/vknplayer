@@ -157,31 +157,10 @@ VK.prototype._showBookmarks = function() {
 		.getListNewsFeed({
 			count: 100
 		})
-		.then(function(list) {
-			var tracks = [];
-			var news = list.items;
-			news.forEach(function(item) {
-				if (item.attachments.length) {
-					item.attachments.forEach(function(attachment) {
-						if (attachment.audio) {
-							tracks.push(attachment.audio);
-						}
-					})
-				} else {
-					item.copyHistory.forEach(function(newsItem) {
-						if (newsItem.attachments.length) {
-							newsItem.attachments.forEach(function(attachment) {
-								if (attachment.audio) {
-									tracks.push(attachment.audio);
-								}
-							});
-						}
-					});
-				}
-			});
+		.then(function(feed) {
+			var tracks = feed.getAudioAttachments();
 			app.ui.console._panels.slavePL.setContent(tracks);
-
-		})
+		});
 };
 
 
