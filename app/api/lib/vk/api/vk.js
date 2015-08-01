@@ -414,14 +414,7 @@ VK.prototype.getListNewsFeed = function(params) {
 	return this
 		._requestWrapper(body)
 		.then(function(response) {
-			var items = response['items'];
-			items = items.map(function(item) {
-				return new models.NewsItem(item);
-			});
-			return {
-				count: response['count'],
-				items: items
-			};
+			return new models.News(response);
 		});
 };
 
