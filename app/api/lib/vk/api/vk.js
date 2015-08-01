@@ -362,14 +362,7 @@ VK.prototype.getNews = function(params) {
 	return this
 		._requestWrapper(body)
 		.then(function(response) {
-			var news = response['items'];//todo work with time
-			news = news.map(function(newsItem) {
-				return new models.NewsItem(newsItem);
-			});
-			return {
-				startFrom: response['start_from'],
-				news: news
-			}
+			return new models.News(response);
 		});
 };
 
