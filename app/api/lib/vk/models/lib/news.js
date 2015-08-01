@@ -36,4 +36,30 @@ News.prototype.parse = function(data) {
 };
 
 
+/**
+ * @return {Array.<models.Attachment>}
+ */
+News.prototype.getAttachments = function() {
+	return this.items.map(function(item) {
+		return item.getAttachments();
+	});
+};
+
+
+/**
+ * @return {Array.<models.Attachment>}
+ */
+News.prototype.getAudioAttachments = function() {
+	var audioAttachments = [];
+
+	this.items.forEach(function(item) {
+		audioAttachments = audioAttachments.concat(item.getAudioAttachments());
+	});
+
+	return audioAttachments.filter(function(attachment) {
+		return attachment;
+	});
+};
+
+
 module.exports = News;

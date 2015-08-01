@@ -94,6 +94,36 @@ NewsItem.prototype.parse = function(data) {
 
 
 /**
+ * @return {Array.<models.Attachment>}
+ */
+NewsItem.prototype.getAttachments = function() {
+	var attachments = [];
+
+	attachments = attachments.concat(this.attachments);
+	this.copyHistory.forEach(function(newsItem) {
+		attachments = attachments.concat(newsItem.attachments);
+	});
+
+	return attachments;
+};
+
+
+/**
+ * @return {Array.<models.Attachment>}
+ */
+NewsItem.prototype.getAudioAttachments = function() {
+	var attachments = this.getAttachments();
+	return attachments
+		.filter(function(attachment) {
+			return attachment.type === models.Attachment.Type.AUDIO;
+		})
+		.map(function(attachment) {
+			return attachment.audio;
+		});
+};
+
+
+/**
  * @enum {string}
  */
 NewsItem.Types = {
