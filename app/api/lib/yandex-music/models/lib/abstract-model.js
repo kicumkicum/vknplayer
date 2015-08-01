@@ -20,7 +20,9 @@ goog.inherits(AbstractModel, events.EventEmitter);
 /**
  * @param {INPUT_TYPE} data
  */
-AbstractModel.prototype.parse = goog.abstractMethod;
+AbstractModel.prototype.parse = function(date) {
+	date = date || {};
+};
 
 
 module.exports = AbstractModel;
