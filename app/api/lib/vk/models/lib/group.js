@@ -1,6 +1,7 @@
 /**
  * Created by oleg on 08.06.14.
  */
+var models = require('../');
 
 
 
@@ -34,6 +35,7 @@ Group = function(data) {
 	this.position = NaN;
 	return this;
 };
+goog.inherits(Group, models.AbstractModel);
 
 
 /**

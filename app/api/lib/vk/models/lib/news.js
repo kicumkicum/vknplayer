@@ -21,6 +21,7 @@ var News = function(data) {
 	/** @type {} */
 	this.nextFrom = data['next_from'];
 };
+goog.inherits(News, models.AbstractModel);
 
 
 module.exports = News;

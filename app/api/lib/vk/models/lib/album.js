@@ -1,6 +1,7 @@
 /**
  * Created by oleg on 08.06.14.
  */
+var models = require('../');
 
 
 
@@ -19,6 +20,7 @@ Album = function(data) {
 
 	return this;
 };
+goog.inherits(Album, models.AbstractModel);
 
 
 /**

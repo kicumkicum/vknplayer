@@ -92,12 +92,23 @@ Home.prototype.showVK = function() {
 
 /**
  */
+Home.prototype.showYandexMusic = function() {
+	app.api.yandexMusic
+		.search('оборона')
+		.then(function(result) {
+			return app.ui.console._panels.mainPL.setContent(result.tracks);//todo mb setItems
+		});
+};
+
+
+/**
+ */
 Home.prototype.showGMusic = function() {
 	app.api.gmusic
 		.getCollection()
 		.then(function(playlist) {
 			playlist = playlist.split('\n');
-			var arr = this._createTracks(playlist);
+			var tracks = this._createTracks(playlist);
 			app.ui.console._panels.slavePL.setContent(tracks);
 		}.bind(this));
 };
@@ -132,6 +143,10 @@ Home.prototype._clickHandler = function(eventName, select, selectNumber) {
 		case Home.Category.VK:
 			this.showVK();
 			break;
+		case Home.Category.YAMUSIC:
+			this.showYandexMusic();
+			break;
+
 	}
 };
 

@@ -5,6 +5,7 @@
  * Time: 23:28
  * To change this template use File | Settings | File Templates.
  */
+var models = require('../');
 
 
 
@@ -33,6 +34,7 @@ var AudioTrack = function(data) {
 	/** @type {AudioTrack.genreType} */
 	this.genreId = data['genre_id'] || null;
 };
+goog.inherits(AudioTrack, models.AbstractModel);
 
 
 /**

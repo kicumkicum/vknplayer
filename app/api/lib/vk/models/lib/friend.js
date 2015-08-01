@@ -1,6 +1,7 @@
 /**
  * Created by oleg on 27.05.14.
  */
+var models = require('../');
 
 
 
@@ -30,6 +31,7 @@ Friend = function(data) {
 
 	return this;
 };
+goog.inherits(Friend, models.AbstractModel);
 
 
 /**

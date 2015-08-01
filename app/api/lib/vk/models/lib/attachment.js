@@ -1,7 +1,6 @@
 /**
  * Created by oleg on 18.10.14.
  */
-
 var models = require('../');
 
 
@@ -43,6 +42,7 @@ Attachment = function(data) {
 	/** @type {} */
 	this.photosList = data['photos_list'];
 };
+goog.inherits(Attachment, models.AbstractModel);
 
 
 /**

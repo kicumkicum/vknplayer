@@ -59,6 +59,7 @@ NewsItem = function(data) {
 	/** @type {} */
 	this.friends = data['friends'];
 };
+goog.inherits(NewsItem, models.AbstractModel);
 
 
 /**
