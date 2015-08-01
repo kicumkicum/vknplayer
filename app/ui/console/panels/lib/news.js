@@ -61,12 +61,22 @@ News.prototype._clickHandler = function(eventName, select, selectNumber) {
 		.then(function(items) {
 			var tracks = [];
 			items.news.forEach(function(item) {
-				if (item.attachments) {
+				if (item.attachments.length) {
 					item.attachments.forEach(function(attachment) {
 						if (attachment.audio) {
 							tracks.push(attachment.audio);
 						}
 					})
+				} else {
+					item.copyHistory.forEach(function(newsItem) {
+						if (item.attachments.length) {
+							item.attachments.forEach(function(attachment) {
+								if (attachment.audio) {
+									tracks.push(attachment.audio);
+								}
+							})
+						}
+					});
 				}
 			});
 			app.ui.console._panels.slavePL.setContent(tracks);//todo make datalist

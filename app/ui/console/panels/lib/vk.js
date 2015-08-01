@@ -161,12 +161,22 @@ VK.prototype._showBookmarks = function() {
 			var tracks = [];
 			var news = list.items;
 			news.forEach(function(item) {
-				if (item.attachments) {
+				if (item.attachments.length) {
 					item.attachments.forEach(function(attachment) {
 						if (attachment.audio) {
 							tracks.push(attachment.audio);
 						}
 					})
+				} else {
+					item.copyHistory.forEach(function(newsItem) {
+						if (newsItem.attachments.length) {
+							newsItem.attachments.forEach(function(attachment) {
+								if (attachment.audio) {
+									tracks.push(attachment.audio);
+								}
+							});
+						}
+					});
 				}
 			});
 			app.ui.console._panels.slavePL.setContent(tracks);
