@@ -58,27 +58,8 @@ News.prototype._clickHandler = function(eventName, select, selectNumber) {
 			filter: 'post',
 			count: '100'
 		})
-		.then(function(items) {
-			var tracks = [];
-			items.news.forEach(function(item) {
-				if (item.attachments.length) {
-					item.attachments.forEach(function(attachment) {
-						if (attachment.audio) {
-							tracks.push(attachment.audio);
-						}
-					})
-				} else {
-					item.copyHistory.forEach(function(newsItem) {
-						if (item.attachments.length) {
-							item.attachments.forEach(function(attachment) {
-								if (attachment.audio) {
-									tracks.push(attachment.audio);
-								}
-							})
-						}
-					});
-				}
-			});
+		.then(function(news) {
+			var tracks = news.getAudioAttachments();
 			app.ui.console._panels.slavePL.setContent(tracks);//todo make datalist
 		}.bind(this));
 };
