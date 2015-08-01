@@ -26,7 +26,7 @@ Playlist.prototype.parse = function(data) {
 	/** @type {Date} */
 	this.modified = data['modified'];
 
-	/** @type {vknp.models.yandexMusic.Account} */
+	/** @type {models.Account} */
 	this.owner = data['owner'];
 
 	/** @type {number} */
@@ -37,6 +37,10 @@ Playlist.prototype.parse = function(data) {
 
 	/** @type {number} */
 	this.trackCount = data['trackCount'];
+
+	this.tracks = (data['tracks'] || []).map(function(track) {
+		return new models.Track(track.track);
+	});
 
 	/** @type {number} */
 	this.uid = data['uid'];
