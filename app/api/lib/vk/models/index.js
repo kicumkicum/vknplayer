@@ -3,6 +3,7 @@ var models = {};
 
 module.exports = models;
 
+models.AbstractModel = require('./lib/abstract-model');
 models.Album = require('./lib/album');
 models.Attachment = require('./lib/attachment');
 models.AudioTrack = require('./lib/audio-track');
