@@ -45,8 +45,10 @@ NewsItem.prototype.parse = function(data) {
 	/** @type {} */
 	this.copyPostId = data['copy_post_id'];
 
-	/** @type {} */
-	this.copyHistory = data['copy_history'];
+	/** @type {Array.<NewsItem>} */
+	this.copyHistory = (data['copy_history'] || []).map(function(newsItem) {
+		return new models.NewsItem(newsItem);
+	});
 
 	/** @type {} */
 	this.copyPostDate = data['copy_post_date'];
