@@ -87,16 +87,16 @@ YandexMusic.prototype.getUserPlaylists = function(userId) {
 
 /**
  * Get a playlist without tracks
- * @param {String} userId The user ID, if null then equal to current user id
- * @param {String} playlistKind The playlist ID.
+ * @param {?string} userId The user ID, if null then equal to current user id
+ * @param {string} playlistKind The playlist ID.
  * @return {Promise}
  */
 YandexMusic.prototype.getPlaylist = function(userId, playlistKind) {
 	return this._api
 		.getPlaylist(userId, playlistKind)
-		.then(function(a) {
-			debugger;
-		})
+		.then(function(playlist) {
+			return new models.Playlist(playlist);
+		});
 };
 
 

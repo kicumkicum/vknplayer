@@ -94,7 +94,7 @@ Home.prototype.showVK = function() {
  */
 Home.prototype.showYandexMusic = function() {
 	app.api.yandexMusic
-		.search('оборона')
+		.getPlaylist(null, '1000')
 		.then(function(result) {
 			return app.ui.console._panels.mainPL.setContent(result.tracks);//todo mb setItems
 		});
