@@ -77,10 +77,9 @@ YandexMusic.prototype.getUserPlaylists = function(userId) {
 	return this._api
 		.getUserPlaylists(userId)
 		.then(function(userPlaylists) {
-			debugger;
 			return userPlaylists.map(function(userPlaylist) {
-				debugger;
-			})
+				return new models.Playlist(userPlaylist);
+			});
 		});
 };
 
