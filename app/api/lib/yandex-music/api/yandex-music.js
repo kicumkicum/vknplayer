@@ -61,7 +61,7 @@ YandexMusic.prototype.getFeed = function() {
 	return this._api
 		.getFeed()
 		.then(function(response) {
-			debugger;
+			return new models.Feed(response);
 		}, function(error) {
 			console.log(error);
 		});
