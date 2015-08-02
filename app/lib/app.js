@@ -177,6 +177,14 @@ Vknp.prototype.isVkEnabled = function() {
 /**
  * @return {boolean}
  */
+Vknp.prototype.isYandexMusicEnabled = function() {
+	return !!this._config.api.yandexMusic.enable;
+};
+
+
+/**
+ * @return {boolean}
+ */
 Vknp.prototype.isGmusicEnabled = function() {
 	return !!this._config.api.gmusic.enabled;
 };
@@ -184,8 +192,9 @@ Vknp.prototype.isGmusicEnabled = function() {
 
 Vknp.prototype._initApi = function(config) {
 	this.api = {};
+
 	if (config.vk.enabled) {
-		this.api.vk = new vknp.api.VK(config.vk)
+		this.api.vk = new vknp.api.vk.Api(config.vk);
 	}
 	if (config.gmusic.enabled) {
 		//todo add gmusic api
@@ -193,6 +202,10 @@ Vknp.prototype._initApi = function(config) {
 	if (config.soundcloud.enabled) {
 		//todo add soundcloud api
 	}
+	if (config.yandexMusic.enable) {
+		this.api.yandexMusic = new vknp.api.yandexMusic.Api(config.yandexMusic);
+	}
+
 };
 
 

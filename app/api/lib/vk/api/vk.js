@@ -3,10 +3,11 @@
  */
 
 
-var AbstractApi = require('./abstract-api');
+var AbstractApi = require('../../../lib/abstract-api');
 
 var util = require('util');
 var events = require('events');
+var models = require('../models');
 //"authUrl": "https://oauth.vk.com/authorize?client_id=4072914&scope=audio,offline&redirect_uri=http://109.227.206.91:8888&display=popup&v=5.21&response_type=token",
 //"authUrl": "https://oauth.vk.com/authorize?client_id=4072914&scope=audio,offline&redirect_uri=https://oauth.vk.com/blank.htm&display=popup&v=5.21&response_type=token",
 
@@ -111,7 +112,7 @@ VK.prototype.audioSearch = function(artist, count) {
 		.then(function(response) {
 			var tracks = response['items'] || [];
 			return tracks.map(function(track) {
-				return new vknp.models.AudioTrack(track);
+				return new models.AudioTrack(track);
 			});
 		});
 };
@@ -133,7 +134,7 @@ VK.prototype.getAudio = function(opt_ownerId, opt_count, opt_albumId) {
 		.then(function(response) {
 			var tracks = response['items'];
 			return tracks.map(function(track) {
-				return new vknp.models.AudioTrack(track);
+				return new models.AudioTrack(track);
 			});
 		});
 };
@@ -141,7 +142,7 @@ VK.prototype.getAudio = function(opt_ownerId, opt_count, opt_albumId) {
 /**
  * @param {?number} ownerId
  * @param {number=} opt_count
- * @return {Promise.<Array.<vknp.models.Album>>}
+ * @return {Promise.<Array.<models.Album>>}
  */
 VK.prototype.getAudioAlbums = function(ownerId, opt_count) {
 	var body = 'audio.getAlbums?' +
@@ -152,7 +153,7 @@ VK.prototype.getAudioAlbums = function(ownerId, opt_count) {
 		.then(function(response) {
 			var albums = response['items'];
 			return albums.map(function(album) {
-				return new vknp.models.Album(album);
+				return new models.Album(album);
 			});
 		});
 };
@@ -259,13 +260,13 @@ VK.prototype.getAudioFromNews = function(ownerId, newsId) {
 /**
  * @param {string} artist
  * @param {number} count
- * @return {Promise.<Array.<vknp.models.AudioTrack>>}
+ * @return {Promise.<Array.<models.AudioTrack>>}
  */
 VK.prototype.getRadio = function(artist, count) {
 	return this
 		._checkArtist(artist)
 		.then(function(trackOrOwnerId) {
-			if (trackOrOwnerId instanceof Array || trackOrOwnerId instanceof vknp.models.AudioTrack) {
+			if (trackOrOwnerId instanceof Array || trackOrOwnerId instanceof models.AudioTrack) {
 				return trackOrOwnerId;
 			} else {
 				return this._addRemoveAudio(trackOrOwnerId, artist, count);
@@ -280,7 +281,7 @@ VK.prototype.getRadio = function(artist, count) {
 		}.bind(this))
 		.then(function(tracks) {
 			return tracks.map(function(track) {
-				return new vknp.models.AudioTrack(track);
+				return new models.AudioTrack(track);
 			})
 		});
 };
@@ -288,7 +289,7 @@ VK.prototype.getRadio = function(artist, count) {
 
 /**
  * @param {number} count
- * @return {Promise.<Array.<vknp.models.AudioTrack>>}
+ * @return {Promise.<Array.<models.AudioTrack>>}
  */
 VK.prototype.getRecomendationMusic = function(count) {
 	var body = 'audio.getRecommendations?' +
@@ -299,7 +300,7 @@ VK.prototype.getRecomendationMusic = function(count) {
 		.then(function(response) {
 			var tracks = response['items'] || [];
 			return tracks.map(function(track) {
-				return new vknp.models.AudioTrack(track);
+				return new models.AudioTrack(track);
 			})
 		});
 };
@@ -307,7 +308,7 @@ VK.prototype.getRecomendationMusic = function(count) {
 
 /**
  * @param {number} count
- * @return {Promise.<Array.<vknp.models.Friend>>}
+ * @return {Promise.<Array.<models.Friend>>}
  */
 VK.prototype.getFriends = function(count) {
 	var body = 'friends.get?' +
@@ -320,14 +321,14 @@ VK.prototype.getFriends = function(count) {
 		.then(function(response) {
 			var friends = response['items'];
 			return friends.map(function(item) {
-				return new vknp.models.Friend(item);
+				return new models.Friend(item);
 			});
 		});
 };
 
 
 /**
- * @return {Promise.<vknp.models.Group>}
+ * @return {Promise.<models.Group>}
  */
 VK.prototype.getGroups = function() {
 	var body = 'groups.get?' +
@@ -338,7 +339,7 @@ VK.prototype.getGroups = function() {
 		.then(function(response) {
 			var groups = response['items'];
 			return groups.map(function(group) {
-				return new vknp.models.Group(group);
+				return new models.Group(group);
 			})
 		});
 };
@@ -350,7 +351,7 @@ VK.prototype.getGroups = function() {
  *      filter: (string|undefined),
  *      count: (string|undefined)
  * }} params
- * @return {Promise.<vknp.models.Group>}
+ * @return {Promise.<models.Group>}
  */
 VK.prototype.getNews = function(params) {
 	var body = 'newsfeed.get' +
@@ -361,14 +362,7 @@ VK.prototype.getNews = function(params) {
 	return this
 		._requestWrapper(body)
 		.then(function(response) {
-			var news = response['items'];//todo work with time
-			news = news.map(function(newsItem) {
-				return new vknp.models.NewsItem(newsItem);
-			});
-			return {
-				startFrom: response['start_from'],
-				news: news
-			}
+			return new models.News(response);
 		});
 };
 
@@ -413,14 +407,7 @@ VK.prototype.getListNewsFeed = function(params) {
 	return this
 		._requestWrapper(body)
 		.then(function(response) {
-			var items = response['items'];
-			items = items.map(function(item) {
-				return new vknp.models.NewsItem(item);
-			});
-			return {
-				count: response['count'],
-				items: items
-			};
+			return new models.News(response);
 		});
 };
 
@@ -509,7 +496,7 @@ VK.prototype._checkArtist = function(artist) {
  * @param {number} ownerId
  * @param {string} artist
  * @param {count} count
- * @return {Promise.<Array.<vknp.models.AudioTrack>>}
+ * @return {Promise.<Array.<models.AudioTrack>>}
  * @private
  */
 VK.prototype._addRemoveAudio = function(ownerId, artist, count) {
@@ -556,14 +543,14 @@ VK.prototype._errorHandler = function(error) {
 
 /**
  * @param {Array.<*>} items
- * @return {Promise.<vknp.models.AudioTrack>}
+ * @return {Promise.<models.AudioTrack>}
  * @private
  */
 VK.prototype._getAudioFromNews = function(items) {
 	return items
 		.map(function(item) {
 			if (item['audio']) {
-				return new vknp.models.AudioTrack(item['audio']);
+				return new models.AudioTrack(item['audio']);
 			}
 		})
 		.filter(function(item) {
