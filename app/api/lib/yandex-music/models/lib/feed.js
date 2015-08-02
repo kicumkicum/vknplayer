@@ -21,11 +21,22 @@ Feed.prototype.parse = function(data) {
 	/** @type {boolean} */
 	this.canGetMoreEvents = data['canGetMoreEvents'];
 
-	/** @type {} */
-	this.days = data['days'];
+	/** @type {Array.<models.Day>} */
+	this.days = this.parseArray(data['days'], models.Day);
 
-	/** @type {} */
-	this.headlines = data['headlines'];
+	/** @type {Array.<{
+	 *     id: string,
+	 *     message: string,
+	 *     type: string
+	 * }>}
+	 */
+	this.headlines = (data['headlines'] || []).map(function(headline) {
+		return {
+			id: headline['id'],
+			message: headline['message'],
+			type: headline['type']
+		};
+	});
 
 	/** @type {string} */
 	this.nextRevision = data['nextRevision'];

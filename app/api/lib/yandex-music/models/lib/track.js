@@ -22,7 +22,7 @@ Track.prototype.parse = function(data) {
 	this.album = new models.Album(data['album']);
 
 	/** @type {Array.<models.Album>} */
-	this.albums = (data['albums']['results'] || []).map(function(album) {
+	this.albums = (data['albums'] && data['albums']['results'] || []).map(function(album) {
 		return new models.Album(album);
 	});
 

@@ -25,4 +25,16 @@ AbstractModel.prototype.parse = function(date) {
 };
 
 
+/**
+ * @param {Array=} array
+ * @param {*} model
+ * @return Array
+ */
+AbstractModel.prototype.parseArray = function(array, model) {
+	return (array || []).map(function(arrayItem) {
+		return new model(arrayItem);
+	});
+};
+
+
 module.exports = AbstractModel;
