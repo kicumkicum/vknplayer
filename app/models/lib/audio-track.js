@@ -98,7 +98,7 @@ AudioTrack.prototype._parseYandexMusic = function(data) {
 
 
 AudioTrack.prototype._getVKUrl = function() {
-	return new Promise(function(resolve, reject) {
+	return new vknp.Promise(function(resolve, reject) {
 		resolve(this.url);
 	}.bind(this));
 };
