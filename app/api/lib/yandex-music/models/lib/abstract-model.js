@@ -20,8 +20,8 @@ goog.inherits(AbstractModel, events.EventEmitter);
 /**
  * @param {INPUT_TYPE} data
  */
-AbstractModel.prototype.parse = function(date) {
-	date = date || {};
+AbstractModel.prototype.parse = function(data) {
+	data = data || {};
 };
 
 
