@@ -153,17 +153,21 @@ Player.prototype._play = function() {
 	if (this._player) {
 		this._player.deinit();
 	}
-	this._player = new p(track.url);
-	this._state = this.state.PLAY;
-	this.emit(this.EVENT_PLAY, {
-		track: playlist.current(),
-		position: playlist.currentIndex(),
-		playlistId: app.service.playListManager.getActivePlaylistId(),
-		isStream: this._player._isStream()
-	});
+	track.getUrl()
+		.then(function(url) {
+			this._player = new p(url);
+			this._state = this.state.PLAY;
 
-	this._player.on(this._player.EVENT_STOP, this._afterStop.bind(this));
-	this._player.on(this._player.EVENT_ERROR, this._afterStop.bind(this));
+			this.emit(this.EVENT_PLAY, {
+				track: playlist.current(),
+				position: playlist.currentIndex(),
+				playlistId: app.service.playListManager.getActivePlaylistId(),
+				isStream: this._player._isStream()
+			});
+
+			this._player.on(this._player.EVENT_STOP, this._afterStop.bind(this));
+			this._player.on(this._player.EVENT_ERROR, this._afterStop.bind(this));
+		}.bind(this));
 };
 
 
