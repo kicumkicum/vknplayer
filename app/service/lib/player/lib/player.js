@@ -135,6 +135,44 @@ Player.prototype.reward = function() {};
 
 
 /**
+ * @param {number} value
+ */
+Player.prototype.setVolume = function(value) {
+	this._volume = volume;
+};
+
+
+/**
+ * @return {number}
+ */
+Player.prototype.getVolume = function() {
+	return this._volume;
+};
+
+
+/**
+ */
+Player.prototype.volumeUp = function() {
+	var volume = this.getVolume() + 5;
+	if (volume > 100) {
+		volume = 100;
+	}
+	this.setVolume(volume);
+};
+
+
+/**
+ */
+Player.prototype.volumeDown = function() {
+	var volume = this.getVolume() - 5;
+	if (volume < 0) {
+		volume = 0;
+	}
+	this.setVolume(volume);
+};
+
+
+/**
  * @private
  */
 Player.prototype._play = function() {
@@ -199,6 +237,12 @@ Player.prototype._state;
  * @param {boolean}
  */
 Player.prototype._realStop;
+
+
+/**
+ * @type {number}
+ */
+Player.prototype._volume;
 
 
 /**
