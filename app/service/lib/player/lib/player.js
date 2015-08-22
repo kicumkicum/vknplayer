@@ -139,8 +139,10 @@ Player.prototype.reward = function() {};
  * @param {number} value 0..100
  */
 Player.prototype.setVolume = function(value) {
-	this._volume = value;
-	this._player.setVolume(value / 100);
+	if (this._player) {
+		this._volume = value;
+		this._player.setVolume(value / 100);
+	}
 };
 
 
