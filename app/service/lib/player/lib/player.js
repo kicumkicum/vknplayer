@@ -17,6 +17,7 @@ Player = function() {
 	this._player = null;
 	this._state = this.state.STOP;
 	this._realStop = false;
+	this._volume = 100;
 };
 goog.inherits(Player, events.EventEmitter);
 
@@ -135,15 +136,16 @@ Player.prototype.reward = function() {};
 
 
 /**
- * @param {number} value
+ * @param {number} value 0..100
  */
 Player.prototype.setVolume = function(value) {
-	this._volume = volume;
+	this._volume = value;
+	this._player.setVolume(value / 100);
 };
 
 
 /**
- * @return {number}
+ * @return {number} 0..100
  */
 Player.prototype.getVolume = function() {
 	return this._volume;
