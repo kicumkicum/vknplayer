@@ -68,17 +68,17 @@ var Controls = function() {
 					//this.popup = new AuthorizationPopUp();
 				}.bind(this)
 			},
-			'f7': {
+			'VolUp': {
 				keys: ['f7'],
 				callback: function() {
-					//this.popup.close();
+					this._handler(app.service.player.volumeUp.bind(app.service.player));
 				}.bind(this)
 			},
-			'f8': {
+			'VolDown': {
 				keys: ['f8'],
 				callback: function() {
-					//app.ui.console.remove();
-				}
+					this._handler(app.service.player.volumeDown.bind(app.service.player));
+				}.bind(this)
 			},
 			'f9': {
 				keys: ['f9'],
