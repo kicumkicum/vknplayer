@@ -70,6 +70,22 @@ StupidPlayer.prototype.stop = function() {
 };
 
 
+/**
+ * @param {number} value
+ */
+StupidPlayer.prototype.setVolume = function(value) {
+	this._emit(this.EVENT_VOLUME_CHANGE, value);
+};
+
+
+/**
+ * @return {number}
+ */
+StupidPlayer.prototype.getVolume = function() {
+
+};
+
+
 StupidPlayer.prototype.deinit = function() {
 	this.closeConnection();
 	if (this.speaker instanceof Speaker) {
@@ -188,6 +204,13 @@ StupidPlayer.prototype.EVENT_START = 'start';
  * @const {string}
  */
 StupidPlayer.prototype.EVENT_STOP = 'stop';
+
+
+/**
+ * Fired with: {number} volume
+ * @const {string}
+ */
+StupidPlayer.prototype.EVENT_VOLUME_CHANGE = 'volume-change';
 
 
 /**
