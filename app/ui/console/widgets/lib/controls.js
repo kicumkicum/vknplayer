@@ -115,8 +115,57 @@ Controls.prototype.getNode = function() {
 
 
 /**
+ * @param {boolean} isLock
+ */
+Controls.prototype.setLock = function(isLock) {
+	this._isLock = isLock;
+};
+
+/**
+ * @return {boolean}
+ */
+Controls.prototype.getLock = function() {
+	return this._isLock;
+};
+
+
+/**
+ * @return {boolean}
+ */
+Controls.prototype.isLock = function() {
+	return this.getLock();
+};
+
+
+/**
+ * @param {function} callback
+ * @protected
+ */
+Controls.prototype._handler = function(callback) {
+	if (!this.isLock()) {
+		callback();
+		this.setLock(true);
+		setTimeout(this.setLock.bind(this, false), this.LOCK_CONTROLS_TIMEOUT);
+	}
+};
+
+
+/**
  * @type {Listbar}
  */
 Controls.prototype._node;
+
+
+/**
+ * @type {boolean}
+ */
+Controls.prototype._isLock;
+
+
+/**
+ * @const {number} in ms
+ */
+Controls.prototype.LOCK_CONTROLS_TIMEOUT = 200;
+
 
 module.exports = Controls;
