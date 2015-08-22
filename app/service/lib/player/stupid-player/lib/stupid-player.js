@@ -21,7 +21,6 @@ StupidPlayer = function(urlOrPath) {
 	this._request = null;
 	this._src = urlOrPath;
 	this.play(urlOrPath);
-	events.EventEmitter.call(this);
 };
 goog.inherits(StupidPlayer, events.EventEmitter);
 
