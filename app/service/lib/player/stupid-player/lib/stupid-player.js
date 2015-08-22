@@ -6,6 +6,7 @@ var fs = require('fs');
 var http = require('http');
 var https = require('https');
 
+var mpg123Util = require('node-mpg123-util');
 var util = require('util');
 
 
@@ -70,18 +71,25 @@ StupidPlayer.prototype.stop = function() {
 
 
 /**
- * @param {number} value
+ * @param {number} value 0..1
  */
 StupidPlayer.prototype.setVolume = function(value) {
-	this._emit(this.EVENT_VOLUME_CHANGE, value);
+	if (this.decoder) {
+		mpg123Util.setVolume(this.decoder.mh, value);
+		this._emit(this.EVENT_VOLUME_CHANGE, value);
+	}
 };
 
 
 /**
- * @return {number}
+ * @return {?number} 0..1
  */
 StupidPlayer.prototype.getVolume = function() {
-
+	if (this.decoder) {
+		return mpg123Util.getVolume(this.decoder.mh);
+	} else {
+		return null;
+	}
 };
 
 
@@ -93,6 +101,7 @@ StupidPlayer.prototype.deinit = function() {
 		this.decoder.unpipe();
 		this.speaker.end();
 		this.speaker = null;
+		// todo add this.decoder = null;
 	}
 };
 
