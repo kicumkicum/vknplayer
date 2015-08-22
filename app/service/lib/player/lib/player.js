@@ -202,6 +202,7 @@ Player.prototype._play = function() {
 		isStream: this._player._isStream()
 	});
 
+	this._player.once(this._player.EVENT_START, this.setVolume.bind(this, this._volume));
 	this._player.on(this._player.EVENT_STOP, this._afterStop.bind(this));
 	this._player.on(this._player.EVENT_ERROR, this._afterStop.bind(this));
 };
