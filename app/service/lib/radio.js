@@ -1,7 +1,7 @@
 var fs   = require('fs');
 var http = require('http');
 var https = require('https');
-var Promise = require('promise-polyfill');
+var Promise = require('promise');
 
 var Parser = require('../../../helper/parser');
 var parser = Parser.createM3u8();
