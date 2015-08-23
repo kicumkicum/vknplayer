@@ -18,6 +18,10 @@
     "ws": "~0.4.31",
     "yandex-music-api": "~0.0.3"
   },
+  "engineStrict": true,
+  "engines": {
+    "node": ">=0.10.0 <0.11"
+  },
   "bin": {
     "vknplayer": "./vknplayer.js"
   },
