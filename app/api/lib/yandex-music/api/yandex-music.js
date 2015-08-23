@@ -227,12 +227,13 @@ YandexMusic.prototype.getGenres = function() {
 
 
 /**
- * @param {models.Track} track
+ * @param {number} id
+ * @param {string} storageDir
  * @return {Promise.<string>}
  */
-YandexMusic.prototype.getTrackUrl = function(track) {
+YandexMusic.prototype.getTrackUrl = function(id, storageDir) {
 	var head = 'http://storage.music.yandex.ru/get/storage';
-	var body = track.storageDir;
+	var body = storageDir;
 	var tail = '2.xml';
 	var url = head + '/' + body + '/' + tail;
 
@@ -241,7 +242,7 @@ YandexMusic.prototype.getTrackUrl = function(track) {
 		.then(function(response) {
 			response = xml.parseString(response);
 			var fileName = response.attrib.filename;
-			var url = 'http://storage.music.yandex.ru/download-info/' + track.storageDir + '/' + fileName;
+			var url = 'http://storage.music.yandex.ru/download-info/' + storageDir + '/' + fileName;
 			return this._request(url);
 		}.bind(this))
 		.then(function(response) {
@@ -255,7 +256,7 @@ YandexMusic.prototype.getTrackUrl = function(track) {
 			var token = this.getMagicHash(path.substr(1) + s);
 
 			if (token) {
-				return 'http://'+ host + '/get-mp3/' + token + '/' + ts + path + '?track-id=' + track.id + '&play=false';
+				return 'http://'+ host + '/get-mp3/' + token + '/' + ts + path + '?track-id=' + id + '&play=false';
 			} else {
 				return null;
 			}

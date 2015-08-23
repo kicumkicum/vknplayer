@@ -448,6 +448,18 @@ VK.prototype.initStats = function() {
 
 
 /**
+ * @param {number} ownerId
+ * @param {string} trackId
+ * @return {Promise.<string>}
+ */
+VK.prototype.getAudioTrackById = function(ownerId, trackId) {
+	var body = 'audio.getById' +
+		'?audios=' + ownerId + '_' + trackId;
+	return this._requestWrapper(body);
+};
+
+
+/**
  * @param {AudioTrack} track
  * @param {number} count
  * @return {Promise.<Array.<*>>}

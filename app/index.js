@@ -6,4 +6,6 @@ vknp.ui = vknp.UI.namespace;
 vknp.service = require('./service');
 vknp.models = require('./models');
 
+vknp.Promise = require('promise');
+
 module.exports = require('./lib/app');
