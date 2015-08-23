@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var p = (require('../stupid-player/index'));
+var p = require('stupid-player');
 var events = require('events');
 var util = require('util');
 
