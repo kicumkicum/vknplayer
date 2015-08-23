@@ -107,8 +107,7 @@ Vknp.prototype.search = function(playlistId, count, query) {
 	return this.api.vk.audioSearch(query, count)
 		.then(function(tracks) {
 			tracks = this._scythe(tracks, query);
-			this.service.playListManager.clear(playlistId);
-			return this.service.playListManager.addItems(playlistId, tracks, true);//todo mb setItems
+			return this.service.playListManager.setItems(playlistId, tracks, true);
 		}.bind(this));
 };
 
