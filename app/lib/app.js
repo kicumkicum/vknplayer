@@ -82,13 +82,12 @@ Vknp.prototype.radio = function(playListId, count, opt_artist) {
 	if (opt_artist) {
 		return this.api.vk.getRadio(opt_artist, count)
 			.then(function(tracks) {
-				return this.service.playListManager.addItems(playListId, tracks, true);
+				return this.service.playListManager.addItems(playListId, this.makeAudioModels(tracks), true);
 			}.bind(this));
 	} else {
 		return this.api.vk.getRecomendationMusic(this.MAX_AUDIO_COUNT)
 			.then(function(tracks) {
-				this.service.playListManager.clear(playlistId);
-				return this.service.playListManager.addItems(playListId, tracks, true);
+				return this.service.playListManager.setItems(playListId, this.makeAudioModels(tracks), true);
 			}.bind(this));
 	}
 };
@@ -105,14 +104,9 @@ Vknp.prototype.search = function(playlistId, count, query) {
 		query = query.join(' ');
 	}
 	return this.api.vk.audioSearch(query, count)
-		.then(function(_tracks) {
-			_tracks = this._scythe(_tracks, query);
-
-			var tracks = _tracks.map(function(track) {
-				return new vknp.models.AudioTrack(track);
-			});
-
-			return this.service.playListManager.setItems(playlistId, tracks, true);
+		.then(function(tracks) {
+			tracks = this._scythe(tracks, query);
+			return this.service.playListManager.setItems(playlistId, this.makeAudioModels(tracks), true);
 		}.bind(this));
 };
 
@@ -128,7 +122,7 @@ Vknp.prototype.addAudioFromNews = function(playlistId, ownerId, newsId, replace)
 	return this.api.vk
 		.getAudioFromNews(ownerId, newsId)
 		.then(function(tracks) {
-			return this.service.playListManager.add(playlistId, tracks, replace);
+			return this.service.playListManager.add(playlistId, this.makeAudioModels(tracks), replace);
 		}.bind(this));
 };
 
@@ -191,6 +185,16 @@ Vknp.prototype.isYandexMusicEnabled = function() {
  */
 Vknp.prototype.isGmusicEnabled = function() {
 	return !!this._config.api.gmusic.enabled;
+};
+
+
+/**
+ * @param {Array} tracks
+ */
+Vknp.prototype.makeAudioModels = function(tracks) {
+	return tracks.map(function(track) {
+		return new vknp.models.AudioTrack(track);
+	});
 };
 
 
