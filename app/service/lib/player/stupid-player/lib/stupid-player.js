@@ -6,6 +6,7 @@ var fs = require('fs');
 var http = require('http');
 var https = require('https');
 
+var mpg123Util = require('node-mpg123-util');
 var util = require('util');
 
 
@@ -21,7 +22,6 @@ StupidPlayer = function(urlOrPath) {
 	this._request = null;
 	this._src = urlOrPath;
 	this.play(urlOrPath);
-	events.EventEmitter.call(this);
 };
 goog.inherits(StupidPlayer, events.EventEmitter);
 
@@ -70,6 +70,29 @@ StupidPlayer.prototype.stop = function() {
 };
 
 
+/**
+ * @param {number} value 0..1
+ */
+StupidPlayer.prototype.setVolume = function(value) {
+	if (this.decoder) {
+		mpg123Util.setVolume(this.decoder.mh, value);
+		this._emit(this.EVENT_VOLUME_CHANGE, value);
+	}
+};
+
+
+/**
+ * @return {?number} 0..1
+ */
+StupidPlayer.prototype.getVolume = function() {
+	if (this.decoder) {
+		return mpg123Util.getVolume(this.decoder.mh);
+	} else {
+		return null;
+	}
+};
+
+
 StupidPlayer.prototype.deinit = function() {
 	this.closeConnection();
 	if (this.speaker instanceof Speaker) {
@@ -78,6 +101,7 @@ StupidPlayer.prototype.deinit = function() {
 		this.decoder.unpipe();
 		this.speaker.end();
 		this.speaker = null;
+		// todo add this.decoder = null;
 	}
 };
 
@@ -188,6 +212,13 @@ StupidPlayer.prototype.EVENT_START = 'start';
  * @const {string}
  */
 StupidPlayer.prototype.EVENT_STOP = 'stop';
+
+
+/**
+ * Fired with: {number} volume
+ * @const {string}
+ */
+StupidPlayer.prototype.EVENT_VOLUME_CHANGE = 'volume-change';
 
 
 /**

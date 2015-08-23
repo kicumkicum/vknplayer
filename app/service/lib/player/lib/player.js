@@ -17,6 +17,7 @@ Player = function() {
 	this._player = null;
 	this._state = this.state.STOP;
 	this._realStop = false;
+	this._volume = 100;
 };
 goog.inherits(Player, events.EventEmitter);
 
@@ -135,6 +136,47 @@ Player.prototype.reward = function() {};
 
 
 /**
+ * @param {number} value 0..100
+ */
+Player.prototype.setVolume = function(value) {
+	if (this._player) {
+		this._volume = value;
+		this._player.setVolume(value / 100);
+	}
+};
+
+
+/**
+ * @return {number} 0..100
+ */
+Player.prototype.getVolume = function() {
+	return this._volume;
+};
+
+
+/**
+ */
+Player.prototype.volumeUp = function() {
+	var volume = this.getVolume() + 5;
+	if (volume > 100) {
+		volume = 100;
+	}
+	this.setVolume(volume);
+};
+
+
+/**
+ */
+Player.prototype.volumeDown = function() {
+	var volume = this.getVolume() - 5;
+	if (volume < 0) {
+		volume = 0;
+	}
+	this.setVolume(volume);
+};
+
+
+/**
  * @private
  */
 Player.prototype._play = function() {
@@ -162,6 +204,7 @@ Player.prototype._play = function() {
 		isStream: this._player._isStream()
 	});
 
+	this._player.once(this._player.EVENT_START, this.setVolume.bind(this, this._volume));
 	this._player.on(this._player.EVENT_STOP, this._afterStop.bind(this));
 	this._player.on(this._player.EVENT_ERROR, this._afterStop.bind(this));
 };
@@ -199,6 +242,12 @@ Player.prototype._state;
  * @param {boolean}
  */
 Player.prototype._realStop;
+
+
+/**
+ * @type {number}
+ */
+Player.prototype._volume;
 
 
 /**
