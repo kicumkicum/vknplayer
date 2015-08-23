@@ -17,9 +17,9 @@
 			"token": ""
 		},
 		"yandexMusic": {
-			"enable": 1,
-			"login": "kicumkicum",
-			"password": "11zhlm5a"
+			"enable": 0,
+			"login": "",
+			"password": ""
 		},
 		"gmusic": {
 			"enabled": 0,
