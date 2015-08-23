@@ -54,7 +54,10 @@ Radio.prototype._parse = function(resolve, reject, readStream) {
 
 Radio.prototype._makeAudioTracks = function(resolve, m3uItems) {
 	var audioTracks = m3uItems['PlaylistItem'].map(function(item) {
-		return new vknp.models.AudioTrack(item.properties);
+		return new vknp.models.AudioTrack({
+			title: item.properties.title,
+			url: item.properties.uri
+		});
 	});
 	resolve(audioTracks);
 };
