@@ -105,8 +105,13 @@ Vknp.prototype.search = function(playlistId, count, query) {
 		query = query.join(' ');
 	}
 	return this.api.vk.audioSearch(query, count)
-		.then(function(tracks) {
-			tracks = this._scythe(tracks, query);
+		.then(function(_tracks) {
+			_tracks = this._scythe(_tracks, query);
+
+			var tracks = _tracks.map(function(track) {
+				return new vknp.models.AudioTrack(track);
+			});
+
 			return this.service.playListManager.setItems(playlistId, tracks, true);
 		}.bind(this));
 };
