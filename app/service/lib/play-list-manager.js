@@ -98,6 +98,17 @@ PlayListManager.prototype.addItems = function(id, tracks) {
 };
 
 
+/**
+ * @param {number} id
+ * @param {Array.<vknp.models.AudioTrack>} tracks
+ * @return {?number}
+ */
+PlayListManager.prototype.setItems = function(id, tracks) {
+	this.clear(id);
+	this.addItems(id, tracks);
+};
+
+
 
 /**
  * @param {number} id
