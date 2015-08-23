@@ -33,6 +33,9 @@ AudioTrack.prototype.parse = function(data) {
 	} else if (data instanceof vknp.api.yandexMusic.models.Track) {
 		this._parseYandexMusic(data);
 		this._apiType = AudioTrack.Api.YANDEX_MUSIC;
+
+	} else {
+		this._parseOther(data);
 	}
 };
 
@@ -48,6 +51,8 @@ AudioTrack.prototype.getUrl = function() {
 		case AudioTrack.Api.YANDEX_MUSIC:
 			return this._getYandexMusicUrl();
 			break;
+		default:
+			return this._getOtherUrl();
 	}
 };
 
@@ -97,6 +102,15 @@ AudioTrack.prototype._parseYandexMusic = function(data) {
 };
 
 
+AudioTrack.prototype._parseOther = function(data) {
+	/** @type {string} */
+	this.title = data.title || '';
+
+	/** @type {string} */
+	this.url = data.url;
+};
+
+
 AudioTrack.prototype._getVKUrl = function() {
 	return new vknp.Promise(function(resolve, reject) {
 		resolve(this.url);
@@ -106,6 +120,18 @@ AudioTrack.prototype._getVKUrl = function() {
 
 AudioTrack.prototype._getYandexMusicUrl = function() {
 	return app.api.yandexMusic.getTrackUrl(this.id, this.storageDir);
+};
+
+
+/**
+ *
+ * @return {Promise.<string>}
+ * @protected
+ */
+AudioTrack.prototype._getOtherUrl = function() {
+	return new vknp.Promise(function(resolve, reject) {
+		resolve(this.url);
+	}.bind(this));
 };
 
 
