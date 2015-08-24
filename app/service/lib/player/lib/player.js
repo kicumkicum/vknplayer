@@ -141,7 +141,9 @@ Player.prototype.reward = function() {};
 Player.prototype.setVolume = function(value) {
 	if (this._player) {
 		this._volume = value;
-		this._player.setVolume(value / 100);
+		return this._player.setVolume(value / 100);
+	} else {
+		return vknp.Promise.reject();
 	}
 };
 
@@ -161,7 +163,7 @@ Player.prototype.volumeUp = function() {
 	if (volume > 100) {
 		volume = 100;
 	}
-	this.setVolume(volume);
+	return this.setVolume(volume);
 };
 
 
@@ -172,7 +174,7 @@ Player.prototype.volumeDown = function() {
 	if (volume < 0) {
 		volume = 0;
 	}
-	this.setVolume(volume);
+	return this.setVolume(volume);
 };
 
 
@@ -198,18 +200,23 @@ Player.prototype._play = function() {
 	track.getUrl()
 		.then(function(url) {
 			this._player = new p(url);
-			this._state = this.state.PLAY;
 
-			this.emit(this.EVENT_PLAY, {
-				track: playlist.current(),
-				position: playlist.currentIndex(),
-				playlistId: app.service.playListManager.getActivePlaylistId(),
-				isStream: this._player._isStream()
-			});
-
-			this._player.once(this._player.EVENT_START, this.setVolume.bind(this, this._volume));
 			this._player.on(this._player.EVENT_STOP, this._afterStop.bind(this));
 			this._player.on(this._player.EVENT_ERROR, this._afterStop.bind(this));
+
+			this._player
+				.play()
+				.then(function() {
+					this.setVolume(this._volume);
+
+					this._state = this.state.PLAY;
+					this.emit(this.EVENT_PLAY, {
+						track: playlist.current(),
+						position: playlist.currentIndex(),
+						playlistId: app.service.playListManager.getActivePlaylistId(),
+						isStream: this._player._isStream()
+					});
+				}.bind(this));
 		}.bind(this));
 };
 
