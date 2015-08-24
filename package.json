@@ -1,6 +1,6 @@
 {
   "name": "vknplayer",
-  "version": "0.0.41",
+  "version": "0.0.42",
   "description": "console audio player for listen music from vk.com and on-line radio",
   "dependencies": {
     "blessed": "0.0.47",
