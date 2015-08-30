@@ -164,7 +164,7 @@ Player.prototype.getVolume = function() {
 /**
  */
 Player.prototype.volumeUp = function() {
-	var volume = this.getVolume() + 5;
+	var volume = this.getVolume() + 10;
 	if (volume > 100) {
 		volume = 100;
 	}
@@ -175,7 +175,7 @@ Player.prototype.volumeUp = function() {
 /**
  */
 Player.prototype.volumeDown = function() {
-	var volume = this.getVolume() - 5;
+	var volume = this.getVolume() - 10;
 	if (volume < 0) {
 		volume = 0;
 	}
