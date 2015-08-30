@@ -14,7 +14,7 @@
     "q": "^2.0.0",
     "qrcode-terminal": "^0.9.4",
     "request": "^2.34.0",
-    "stupid-player": "^0.0.6",
+    "stupid-player": "^0.1.0",
     "ws": "^0.4.31",
     "yandex-music-api": "^0.0.3"
   },
