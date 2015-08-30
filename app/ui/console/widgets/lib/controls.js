@@ -143,9 +143,8 @@ Controls.prototype.isLock = function() {
  */
 Controls.prototype._handler = function(callback) {
 	if (!this.isLock()) {
-		callback();
 		this.setLock(true);
-		setTimeout(this.setLock.bind(this, false), this.LOCK_CONTROLS_TIMEOUT);
+		callback().then(this.setLock.bind(this, false));
 	}
 };
 
