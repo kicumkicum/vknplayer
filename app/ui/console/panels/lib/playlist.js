@@ -43,9 +43,13 @@ goog.inherits(PlayList, BasePanel);
 
 
 /**
- * @param {DataList.<AudioTrack>} tracks
+ * @param {Array.<vknp.api.yandexMusic.models.Track|vknp.api.vk.models.AudioTrack>} tracks
  */
 PlayList.prototype.setContent = function(tracks) {
+	tracks = tracks.map(function(track) {
+		return new vknp.models.AudioTrack(track);
+	});
+
 	var playlist = this.getPlaylist();
 	if (playlist) {
 		playlist.setItems(tracks);

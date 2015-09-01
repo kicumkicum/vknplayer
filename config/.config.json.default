@@ -16,6 +16,11 @@
 			"response_type": "token",
 			"token": ""
 		},
+		"yandexMusic": {
+			"enable": 0,
+			"login": "",
+			"password": ""
+		},
 		"gmusic": {
 			"enabled": 0,
 			"login": "",

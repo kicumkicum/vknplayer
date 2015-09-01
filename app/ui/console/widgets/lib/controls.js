@@ -68,17 +68,17 @@ var Controls = function() {
 					//this.popup = new AuthorizationPopUp();
 				}.bind(this)
 			},
-			'f7': {
+			'VolUp': {
 				keys: ['f7'],
 				callback: function() {
-					//this.popup.close();
+					this._handler(app.service.player.volumeUp.bind(app.service.player));
 				}.bind(this)
 			},
-			'f8': {
+			'VolDown': {
 				keys: ['f8'],
 				callback: function() {
-					//app.ui.console.remove();
-				}
+					this._handler(app.service.player.volumeDown.bind(app.service.player));
+				}.bind(this)
 			},
 			'f9': {
 				keys: ['f9'],
@@ -115,8 +115,56 @@ Controls.prototype.getNode = function() {
 
 
 /**
+ * @param {boolean} isLock
+ */
+Controls.prototype.setLock = function(isLock) {
+	this._isLock = isLock;
+};
+
+/**
+ * @return {boolean}
+ */
+Controls.prototype.getLock = function() {
+	return this._isLock;
+};
+
+
+/**
+ * @return {boolean}
+ */
+Controls.prototype.isLock = function() {
+	return this.getLock();
+};
+
+
+/**
+ * @param {function} callback
+ * @protected
+ */
+Controls.prototype._handler = function(callback) {
+	if (!this.isLock()) {
+		this.setLock(true);
+		callback().then(this.setLock.bind(this, false));
+	}
+};
+
+
+/**
  * @type {Listbar}
  */
 Controls.prototype._node;
+
+
+/**
+ * @type {boolean}
+ */
+Controls.prototype._isLock;
+
+
+/**
+ * @const {number} in ms
+ */
+Controls.prototype.LOCK_CONTROLS_TIMEOUT = 200;
+
 
 module.exports = Controls;

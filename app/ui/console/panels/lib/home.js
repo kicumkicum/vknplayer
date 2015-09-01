@@ -27,6 +27,13 @@ var Home = function() {
 				return this.name;
 			}
 		},
+		yaMusic: {
+			name: 'yaMusic',
+			type: 'yaMusic',
+			toString: function() {
+				return this.name;
+			}
+		},
 		radio: {
 			name: 'Радио',
 			type: 'radio',
@@ -65,6 +72,9 @@ Home.prototype._loadData = function() {
 	if (app.isVkEnabled()) {
 		items.push(this.category.vk);
 	}
+	if (app.isYandexMusicEnabled()) {
+		items.push(this.category.yaMusic);
+	}
 	if (app.isGmusicEnabled()) {
 		items.push(this.category.gmusic);
 	}
@@ -82,12 +92,23 @@ Home.prototype.showVK = function() {
 
 /**
  */
+Home.prototype.showYandexMusic = function() {
+	app.api.yandexMusic
+		.getPlaylist(null, '1000')
+		.then(function(result) {
+			return app.ui.console._panels.mainPL.setContent(result.tracks);//todo mb setItems
+		});
+};
+
+
+/**
+ */
 Home.prototype.showGMusic = function() {
 	app.api.gmusic
 		.getCollection()
 		.then(function(playlist) {
 			playlist = playlist.split('\n');
-			var arr = this._createTracks(playlist);
+			var tracks = this._createTracks(playlist);
 			app.ui.console._panels.slavePL.setContent(tracks);
 		}.bind(this));
 };
@@ -122,6 +143,10 @@ Home.prototype._clickHandler = function(eventName, select, selectNumber) {
 		case Home.Category.VK:
 			this.showVK();
 			break;
+		case Home.Category.YAMUSIC:
+			this.showYandexMusic();
+			break;
+
 	}
 };
 
@@ -172,6 +197,7 @@ Home.prototype._playlist;
 Home.Category = {
 	VK: 'vk',
 	GMUSIC: 'gmusic',
+	YAMUSIC: 'yaMusic',
 	RADIO: 'radio'
 };
 
