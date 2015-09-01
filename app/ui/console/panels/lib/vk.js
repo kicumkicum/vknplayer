@@ -122,6 +122,9 @@ VK.prototype._showAlbums = function() {
 	app.api.vk
 		.getAudioAlbums(null, 100)
 		.then(function(albums) {
+			albums = albums.map(function(album) {
+				return new vknp.models.Album(album);
+			});
 			app.ui.console._panels.albums.updatePanel(albums, app.ui.console.userId);
 		});
 };
