@@ -147,7 +147,9 @@ Console.prototype._addToHistory = function(panel) {
  */
 Console.prototype.back = function() {
 	var panel = this._history.pop();
-	this._show(panel);
+	if (panel) {
+		this._show(panel);
+	}
 };
 
 
