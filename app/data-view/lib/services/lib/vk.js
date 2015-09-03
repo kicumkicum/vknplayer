@@ -1,4 +1,4 @@
-var dataViews = require('../');
+var dataViewsVK = require('./');
 
 
 
@@ -7,7 +7,7 @@ var dataViews = require('../');
  * @constructor
  */
 var ServiceVK = function() {};
-goog.inherits(ServiceVK, dataViews.Abstract);
+goog.inherits(ServiceVK, dataViewsVK.Abstract);
 
 
 /**
@@ -16,11 +16,11 @@ goog.inherits(ServiceVK, dataViews.Abstract);
 ServiceVK.prototype.getChilds = function() {
 	return new vknp.Promise(function(resolve, reject) {
 		resolve([
-			new dataViews.Playlists,
-			new dataViews.Friends,
-			new dataViews.Publics,
-			new dataViews.News,
-			new dataViews.Bookmarks
+			new dataViewsVK.Playlists,
+			new dataViewsVK.Friends,
+			new dataViewsVK.Publics,
+			new dataViewsVK.News,
+			new dataViewsVK.Bookmarks
 		]);
 	});
 };

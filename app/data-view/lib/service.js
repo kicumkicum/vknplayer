@@ -10,13 +10,12 @@ var Service = function(type) {
 	this._type = type;
 	switch (this._type) {
 		case Service.Type.VK:
-			return new dataViews.ServiceVK;
+			return new dataViews.services.VK;
 			break;
 		case Service.Type.YANDEX_MUSIC:
-			return new dataViews.ServiceYandexMusic;
+			return new dataViews.services.YandexMusic;
 			break;
 	}
-
 };
 goog.inherits(Service, dataViews.Abstract);
 
