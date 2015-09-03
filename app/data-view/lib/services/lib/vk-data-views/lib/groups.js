@@ -13,7 +13,7 @@ goog.inherits(Groups, dataViews.Abstract);
 /**
  * @return {Promise.<Array>}
  */
-Groups.prototype.getChilds = function() {};
+Groups.prototype.getChild = function() {};
 
 
 /**

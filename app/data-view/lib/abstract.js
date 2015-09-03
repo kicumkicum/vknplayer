@@ -13,7 +13,7 @@ var Abstract = function() {};
 /**
  * @return {Promise.<Array>}
  */
-Abstract.prototype.getChilds = function() {};
+Abstract.prototype.getChild = function() {};
 
 
 /**

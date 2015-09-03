@@ -13,7 +13,7 @@ goog.inherits(NewsItem, dataViews.Abstract);
 /**
  * @return {Promise.<Array>}
  */
-NewsItem.prototype.getChilds = function() {};
+NewsItem.prototype.getChild = function() {};
 
 
 /**

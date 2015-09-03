@@ -13,7 +13,7 @@ goog.inherits(ServiceYandexMusic, dataViews.Abstract);
 /**
  * @return {Promise.<Array>}
  */
-ServiceYandexMusic.prototype.getChilds = function() {};
+ServiceYandexMusic.prototype.getChild = function() {};
 
 
 module.exports = ServiceYandexMusic;

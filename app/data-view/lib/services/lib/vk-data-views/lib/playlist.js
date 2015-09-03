@@ -13,7 +13,7 @@ goog.inherits(Playlist, dataViews.Abstract);
 /**
  * @return {Promise.<Array>}
  */
-Playlist.prototype.getChilds = function() {};
+Playlist.prototype.getChild = function() {};
 
 
 /**

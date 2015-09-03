@@ -19,7 +19,7 @@ goog.inherits(Root, dataViews.Abstract);
 /**
  * @return {Promise.<Array.<Service>>}
  */
-Root.prototype.getChilds = function() {
+Root.prototype.getChild = function() {
 	return new vknp.Promise(function(resolve, reject) {
 		resolve(this._childs);
 	}.bind(this));

@@ -23,7 +23,7 @@ goog.inherits(Service, dataViews.Abstract);
 /**
  * @return {Promise.<Array>}
  */
-Service.prototype.getChilds = function() {
+Service.prototype.getChild = function() {
 
 };
 

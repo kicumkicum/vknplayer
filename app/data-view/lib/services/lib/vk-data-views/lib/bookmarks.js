@@ -13,7 +13,7 @@ goog.inherits(Bookmarks, dataViews.Abstract);
 /**
  * @return {Promise.<Array>}
  */
-Bookmarks.prototype.getChilds = function() {};
+Bookmarks.prototype.getChild = function() {};
 
 
 /**
