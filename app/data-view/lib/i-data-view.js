@@ -3,7 +3,7 @@ var dataViews = require('../');
 
 
 /**
- *
+ * @param {*} params
  * @constructor
  * @interface
  */
