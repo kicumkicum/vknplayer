@@ -39,6 +39,7 @@ Service.prototype.toString = function() {
 
 /**
  * @type {string}
+ * @protected
  */
 Service.prototype._type;
 
