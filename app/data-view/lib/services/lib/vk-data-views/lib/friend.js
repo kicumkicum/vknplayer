@@ -3,23 +3,40 @@ var dataViews = require('../');
 
 
 /**
- *
+ * vknp.models.Friend
+ * @param {Friend} data
  * @constructor
  */
-var Friend = function() {};
+var Friend = function(data) {
+	this._data = data;
+};
 goog.inherits(Friend, dataViews.Abstract);
 
 
 /**
- * @return {Promise.<Array>}
+ * @return {Promise.<Array.<dataViews.Playlists>>}
  */
-Friend.prototype.getChild = function() {};
+Friend.prototype.getChild = function() {
+	return app.api.vk
+		.getAudioAlbums(this._data.id, 100)
+		.then(function(albums) {
+			return new dataViews.Playlists(albums);
+		});
+};
 
 
 /**
  * @return {string}
  */
-Friend.prototype.toString = function() {};
+Friend.prototype.toString = function() {
+	return 'Friends';
+};
+
+
+/**
+ * @type {Friend}
+ */
+Friend.prototype._data;
 
 
 module.exports = Friend;
