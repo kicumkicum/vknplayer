@@ -396,7 +396,7 @@ VK.prototype.getListNews = function() {
  *      count: (number|undefined)
  *      extended: (number|undefined),
  * }} params
- * @return {Promise.<>}
+ * @return {Promise.<models.News>}
  */
 VK.prototype.getListNewsFeed = function(params) {
 	var body = 'fave.getPosts?' +
