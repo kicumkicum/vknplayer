@@ -33,7 +33,7 @@ NewsItem.prototype.getChild = function() {
 
 
 /**
- * @return {string}
+ * @inheritDoc
  */
 NewsItem.prototype.toString = function() {
 	return this._data.title;

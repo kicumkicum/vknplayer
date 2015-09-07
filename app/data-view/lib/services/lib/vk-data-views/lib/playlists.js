@@ -3,21 +3,21 @@ var dataViews = require('../');
 
 
 /**
- * @param {Group} group
+ * @param {Playlists} group
  * @constructor
  */
-var Group = function(group) {
+var Playlists = function(group) {
 	this._data = group;
 };
-goog.inherits(Group, dataViews.Abstract);
+goog.inherits(Playlists, dataViews.Abstract);
 
 
 /**
  * @return {Promise.<Array.<dataViews.Playlist>>}
  */
-Group.prototype.getChild = function() {
+Playlists.prototype.getChild = function() {
 	return app.api.vk
-		.getAudioAlbums(this._data.id, 100)
+		.getAudioAlbums(null, 100)
 		.then(function(albums) {
 			return albums.map(function(album) {
 				return new dataViews.Playlist(album);
@@ -29,15 +29,15 @@ Group.prototype.getChild = function() {
 /**
  * @inheritDoc
  */
-Group.prototype.toString = function() {
-	return this._data.name;
+Playlists.prototype.toString = function() {
+	return 'Playlists';
 };
 
 
 /**
- * @type {Group}
+ * @type {Playlists}
  */
-Group.prototype._data;
+Playlists.prototype._data;
 
 
-module.exports = Group;
+module.exports = Playlists;

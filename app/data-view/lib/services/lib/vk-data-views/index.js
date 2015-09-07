@@ -7,7 +7,8 @@ var vkDataViews = {
 	Groups: require('./lib/groups'),
 	News: require('./lib/news'),
 	NewsItem: require('./lib/news-item'),
-	Playlist: require('./lib/playlist')
+	Playlist: require('./lib/playlist'),
+	Playlists: require('./lib/playlists')
 };
 
 

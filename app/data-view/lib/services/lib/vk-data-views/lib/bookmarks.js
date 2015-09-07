@@ -27,7 +27,7 @@ Bookmarks.prototype.getChild = function() {
 
 
 /**
- * @return {string}
+ * @inheritDoc
  */
 Bookmarks.prototype.toString = function() {
 	return 'Bookmarks';

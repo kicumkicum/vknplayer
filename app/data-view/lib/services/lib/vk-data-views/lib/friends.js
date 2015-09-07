@@ -25,7 +25,7 @@ Friends.prototype.getChild = function() {
 
 
 /**
- * @return {string}
+ * @inheritDoc
  */
 Friends.prototype.toString = function() {
 	return 'Friends';

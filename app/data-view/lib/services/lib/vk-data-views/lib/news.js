@@ -25,7 +25,7 @@ News.prototype.getChild = function() {
 
 
 /**
- * @return {string}
+ * @inheritDoc
  */
 News.prototype.toString = function() {
 	return 'News';

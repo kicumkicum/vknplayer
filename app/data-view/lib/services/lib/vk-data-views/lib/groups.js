@@ -22,7 +22,7 @@ Groups.prototype.getChild = function() {
 
 
 /**
- * @return {string}
+ * @inheritDoc
  */
 Groups.prototype.toString = function() {
 	return 'Groups';

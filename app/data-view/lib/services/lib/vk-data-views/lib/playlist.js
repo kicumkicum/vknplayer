@@ -27,7 +27,7 @@ Playlist.prototype.getChild = function() {
 
 
 /**
- * @return {string}
+ * @inheritDoc
  */
 Playlist.prototype.toString = function() {
 	if (this._isAlbum()) {
