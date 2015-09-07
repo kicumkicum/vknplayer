@@ -20,7 +20,9 @@ Friend.prototype.getChild = function() {
 	return app.api.vk
 		.getAudioAlbums(this._data.id, 100)
 		.then(function(albums) {
-			return new dataViews.Playlists(albums);
+			return albums.map(function(album) {
+				return new dataViews.Playlist(album);
+			});
 		});
 };
 

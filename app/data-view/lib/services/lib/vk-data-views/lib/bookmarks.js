@@ -17,7 +17,11 @@ Bookmarks.prototype.getChild = function() {
 	return app.api.vk
 		.getListNewsFeed({count: 100})
 		.then(function(feed) {// todo check result
-			return feed.getAudioAttachments();
+			return feed
+				.getAudioAttachments()
+				.map(function(track) {
+					return new vknp.models.AudioTrack(track);
+				});
 		});
 };
 

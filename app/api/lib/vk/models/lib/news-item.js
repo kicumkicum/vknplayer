@@ -109,7 +109,7 @@ NewsItem.prototype.getAttachments = function() {
 
 
 /**
- * @return {Array.<models.Attachment>}
+ * @return {Array.<models.AudioTrack>}
  */
 NewsItem.prototype.getAudioAttachments = function() {
 	var attachments = this.getAttachments();

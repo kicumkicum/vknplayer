@@ -1,6 +1,5 @@
 var vkDataViews = {
 	Abstract: require('../../../abstract'),
-	Bookmark: require('./lib/bookmark'),
 	Bookmarks: require('./lib/bookmarks'),
 	Friend: require('./lib/friend'),
 	Friends: require('./lib/friends'),
@@ -8,8 +7,7 @@ var vkDataViews = {
 	Groups: require('./lib/groups'),
 	News: require('./lib/news'),
 	NewsItem: require('./lib/news-item'),
-	Playlist: require('./lib/playlist'),
-	Playlists: require('./lib/playlists')
+	Playlist: require('./lib/playlist')
 };
 
 
