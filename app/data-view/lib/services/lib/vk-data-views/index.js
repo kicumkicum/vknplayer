@@ -1,15 +1,16 @@
-var vkDataViews = {
-	Abstract: require('../../../abstract'),
-	Bookmarks: require('./lib/bookmarks'),
-	Friend: require('./lib/friend'),
-	Friends: require('./lib/friends'),
-	Group: require('./lib/group'),
-	Groups: require('./lib/groups'),
-	News: require('./lib/news'),
-	NewsItem: require('./lib/news-item'),
-	Playlist: require('./lib/playlist'),
-	Playlists: require('./lib/playlists')
-};
+var vkDataViews = {};
 
 
 module.exports = vkDataViews;
+
+
+vkDataViews.Abstract = require('../../../abstract');
+vkDataViews.Bookmarks = require('./lib/bookmarks');
+vkDataViews.Friend = require('./lib/friend');
+vkDataViews.Friends = require('./lib/friends');
+vkDataViews.Group = require('./lib/group');
+vkDataViews.Groups = require('./lib/groups');
+vkDataViews.News = require('./lib/news');
+vkDataViews.NewsItem = require('./lib/news-item');
+vkDataViews.Playlist = require('./lib/playlist');
+vkDataViews.Playlists = require('./lib/playlists');

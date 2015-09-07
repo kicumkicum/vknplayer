@@ -1,6 +1,6 @@
 var services = {
-	VK: require('./vk'),
-	YandexMusic: require('./yandex-music')
+	VK: require('./lib/vk'),
+	YandexMusic: require('./lib/yandex-music')
 };
 
 
