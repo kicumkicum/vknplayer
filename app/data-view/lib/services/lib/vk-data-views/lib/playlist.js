@@ -13,16 +13,26 @@ goog.inherits(Playlist, dataViews.Abstract);
 
 
 /**
- * @return {Promise.<Array>}
+ * @return {Promise.<Array.<AudioTrack>>}
  */
 Playlist.prototype.getChild = function() {
-	return app.api.vk
-		.getAudio(this._data.ownerId, 300, this._data.albumId)
-		.then(function(tracks) {
-			return tracks.map(function(track) {
-				return new vknp.models.AudioTrack(track);
+	var promise = null;
+
+	if (this._isAlbum()) {
+		promise = app.api.vk
+			.getAudio(this._data.ownerId, 300, this._data.albumId)
+			.then(function(tracks) {
+				return tracks.map(function(track) {
+					return new vknp.models.AudioTrack(track);
+				});
 			});
-		});
+	} else {
+		promise = new vknp.Promise(function(resolve, reject) {
+			resolve(this._data);
+		}.bind(this));
+	}
+
+	return promise;
 };
 
 
