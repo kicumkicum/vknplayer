@@ -23,7 +23,7 @@ NewsItem.prototype.getChild = function() {
 			count: '100'
 		})
 		.then(function(news) {
-			return new news
+			return news
 				.getAudioAttachments()
 				.map(function(track) {
 					return new vknp.models.AudioTrack(track);
