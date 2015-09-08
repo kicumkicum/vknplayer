@@ -17,12 +17,20 @@ goog.inherits(Friend, dataViews.Abstract);
  * @return {Promise.<Array.<dataViews.Playlists>>}
  */
 Friend.prototype.getChild = function() {
+	var playlists = [];
 	return app.api.vk
-		.getAudioAlbums(this._data.id, 100)
+		.getAudio(this._data.id, 300)
+		.then(function(tracks) {
+			playlists.push(new dataViews.Playlist(tracks));
+		}.bind(this))
+		.then(function() {
+			return app.api.vk
+				.getAudioAlbums(this._data.id, 100);
+		}.bind(this))
 		.then(function(albums) {
-			return albums.map(function(album) {
+			return playlists.concat(albums.map(function(album) {
 				return new dataViews.Playlist(album);
-			});
+			}));
 		});
 };
 
@@ -31,7 +39,7 @@ Friend.prototype.getChild = function() {
  * @inheritDoc
  */
 Friend.prototype.toString = function() {
-	return 'Friends';
+	return this._data.firstName + ' ' + this._data.lastName;
 };
 
 
