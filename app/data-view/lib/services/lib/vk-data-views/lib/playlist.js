@@ -28,7 +28,10 @@ Playlist.prototype.getChild = function() {
 			});
 	} else {
 		promise = new vknp.Promise(function(resolve, reject) {
-			resolve(this._data);
+			var tracks = this._data.map(function(track) {
+				return new vknp.models.AudioTrack(track);
+			});
+			resolve(tracks);
 		}.bind(this));
 	}
 

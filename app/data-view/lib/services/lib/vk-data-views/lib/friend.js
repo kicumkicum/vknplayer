@@ -24,8 +24,7 @@ Friend.prototype.getChild = function() {
 			playlists.push(new dataViews.Playlist(tracks));
 		}.bind(this))
 		.then(function() {
-			return app.api.vk
-				.getAudioAlbums(this._data.id, 100);
+			return app.api.vk.getAudioAlbums(this._data.id, 100);
 		}.bind(this))
 		.then(function(albums) {
 			return playlists.concat(albums.map(function(album) {
