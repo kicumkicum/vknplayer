@@ -15,7 +15,7 @@ goog.inherits(Friends, dataViews.Abstract);
  */
 Friends.prototype.getChild = function() {
 	return app.api.vk
-		.getFriends(30)
+		.getFriends(300)
 		.then(function(friends) {
 			return friends.map(function(friend) {
 				return new dataViews.Friend(friend);

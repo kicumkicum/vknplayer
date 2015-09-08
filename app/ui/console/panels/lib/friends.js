@@ -23,7 +23,7 @@ goog.inherits(Friends, BasePanel);
  */
 Friends.prototype._loadData = function() {
 	app.api.vk
-		.getFriends(30)
+		.getFriends(300)
 		.then(function(friends) {
 			this.setData(friends);
 		}.bind(this));
