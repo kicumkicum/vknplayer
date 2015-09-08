@@ -16,13 +16,41 @@ goog.inherits(Group, dataViews.Abstract);
  * @return {Promise.<Array.<dataViews.Playlist>>}
  */
 Group.prototype.getChild = function() {
-	return app.api.vk
-		.getAudioAlbums(this._data.id, 100)
-		.then(function(albums) {
-			return albums.map(function(album) {
-				return new dataViews.Playlist(album);
-			});
-		});
+	return new vknp.Promise(function(resolve, reject) {
+		var flag = false;
+		var playlists = [];
+
+		var getAlbums = function() {
+			app.api.vk
+				.getAudioAlbums(this._data.id, 100)
+				.then(function(albums) {
+					playlists = playlists.concat(albums.map(function(album) {
+						return new dataViews.Playlist(album);
+					}));
+					checkLoad();
+				});
+		}.bind(this);
+
+		var getAllTracks = function() {
+			app.api.vk
+				.getAudio(this._data.id, 300)
+				.then(function(tracks) {
+					playlists.splice(0, 0, new dataViews.Playlist(tracks));
+					checkLoad();
+				})
+		}.bind(this);
+
+		var checkLoad = function() {
+			if (flag) {
+				resolve(playlists);
+			} else {
+				flag = true;
+			}
+		};
+
+		getAlbums();
+		getAllTracks();
+	}.bind(this));
 };
 
 

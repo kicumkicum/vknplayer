@@ -15,9 +15,12 @@ goog.inherits(Groups, dataViews.Abstract);
 Groups.prototype.getChild = function() {
 	return app.api.vk
 		.getGroups()
-		.map(function(group) {
-			return new dataViews.Group(group);
-		});
+		.then(function(groups) {
+			return groups.map(function(group) {
+				return new dataViews.Group(group);
+			});
+		})
+
 };
 
 
