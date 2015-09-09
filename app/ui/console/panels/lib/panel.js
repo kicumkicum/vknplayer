@@ -14,6 +14,7 @@ var blessed = require('blessed');
 var Panel = function(dataView) {
 	this._category = [];
 	this._dataView = dataView;
+	this._history = [];
 	goog.base(this, {
 		mouse: true,
 		keys: true,
@@ -41,11 +42,19 @@ goog.inherits(Panel, BasePanel);
 
 /**
  * @param {} dataView
- * @protected
  */
 Panel.prototype.setDataView = function(dataView) {
-	this._dataView = dataView;
-	this._loadData();
+	this._history.push(this._dataView);
+	this._setDataView(dataView);
+};
+
+
+/**
+ * @protected
+ */
+Panel.prototype.back = function() {
+	var dataView = this._history.pop();
+	this._setDataView(dataView);
 };
 
 
@@ -54,6 +63,16 @@ Panel.prototype.setDataView = function(dataView) {
  */
 Panel.prototype._init = function() {
 	goog.base(this, '_init');
+	this._loadData();
+};
+
+
+/**
+ * @param {} dataView
+ * @protected
+ */
+Panel.prototype._setDataView = function(dataView) {
+	this._dataView = dataView;
 	this._loadData();
 };
 
@@ -99,6 +118,13 @@ Panel.prototype._clickHandler = function(eventName, select, selectNumber) {
  * @type {Array.<Panel.Category>}
  */
 Panel.prototype._category;
+
+
+/**
+ * @type {Array.<IDataView>}
+ * @protected
+ */
+Panel.prototype._history;
 
 
 module.exports = Panel;
