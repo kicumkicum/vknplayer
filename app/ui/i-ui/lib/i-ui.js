@@ -1,12 +1,13 @@
 /**
  * @param config
  * @param api
+ * @param dataViews
  * @param player
  * @param playlist
  * @constructor
  * @interface
  */
-var IUI = function(config, api, player, playlist) {};
+var IUI = function(config, dataViews, api, player, playlist) {};
 
 
 /**
