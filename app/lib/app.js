@@ -14,6 +14,7 @@ Vknp.prototype.start = function() {
 	this._config = this.service.config.getConfig();
 
 	this._initApi(this._config.api);
+	this._initDataView(this._config.api);
 	this._initUI(this._config.ui);
 
 	this.api.vk.initStats();
@@ -227,8 +228,17 @@ Vknp.prototype._initService = function() {
 };
 
 
+/**
+ * @param config
+ * @protected
+ */
+Vknp.prototype._initDataView = function(config) {
+	this._dataViews = new vknp.dataViews.Service(config);
+};
+
+
 Vknp.prototype._initUI = function(config) {
-	this.ui = new vknp.UI(config, this.service, this.api);
+	this.ui = new vknp.UI(config, this._dataViews, this.service, this.api);
 	this.ui.init();
 };
 
@@ -303,6 +313,17 @@ Vknp.prototype.api;
  * }}
  */
 Vknp.prototype.ui;
+
+
+/**
+ * @typedef {{
+ *      player: Player,
+ *      playListManager: PlayListManager,
+ *      config: Config,
+ *      radio:
+ * }}
+ */
+Vknp.prototype.service;
 
 
 /**
