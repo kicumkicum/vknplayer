@@ -36,6 +36,8 @@ var Panel = function(dataView) {
 			}
 		}
 	});
+
+	this._data.on(this._data.EVENT_ITEMS_ADDED, app.ui.console.render.bind(app.ui.console));
 };
 goog.inherits(Panel, BasePanel);
 
