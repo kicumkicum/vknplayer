@@ -10,12 +10,24 @@ var Service = function(config) {
 	this._config = config;
 
 	if (config.vk.enable) {
-		this.vk = new dataViews.services.VK;
+		this.vk = new dataViews.VK;
 	}
 	if (config.yandexMusic.enable) {
-		this.yandexMusic = new dataViews.services.YandexMusic;
+		this.yandexMusic = new dataViews.YandexMusic;
 	}
 };
+
+
+/**
+ * @type {ServiceVK}
+ */
+Service.prototype.vk;
+
+
+/**
+ * @type {ServiceYandexMusic}
+ */
+Service.prototype.yandexMusic;
 
 
 /**
