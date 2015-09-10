@@ -7,13 +7,14 @@ var ui = {
 
 /**
  * @param {models.Config} config
- * @param {vknp.service} service
+ * @param {} dataViews
+ * @param {app.service} service
  * @param {vknp.api} api
  * @constructor
  */
-var UI = function(config, service, api) {
+var UI = function(config, dataViews, service, api) {
 	if (config.console && config.console.enabled) {
-		this.console = new Console(config.console, service, api);
+		this.console = new Console(config.console, dataViews, api, service.player, service.playListManager);
 	}
 };
 
