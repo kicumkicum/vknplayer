@@ -7,17 +7,21 @@ var util = require('util');
 
 /**
  * @param config
- * @param service
+ * @param dataViews
  * @param api
+ * @param player
+ * @param playlist
  * @constructor
+ * @implements {IUI}
  */
-var Console = function(config, service, api) {
-	this._api = api;
+var Console = function(config, dataViews, api, player, playlist) {
 	this._config = config;
+	this._dataViews = dataViews;
+	this._api = api;
 	this._panels = {};
 	this._widgets = {};
-	this.player = service.player;
-	this.playlist = service.playlist;
+	this.player = player;
+	this.playlist = playlist;
 };
 goog.inherits(Console, events.EventEmitter);
 
@@ -44,18 +48,13 @@ Console.prototype.init = function() {
 	this._widgets.input = this._createInput();
 	this._widgets.loading = new vknp.ui.console.widgets.Loading;
 	this._panels.slavePL = new vknp.ui.console.panels.SlavePL;
-	this._panels.home = new vknp.ui.console.panels.Home();
-	this._panels.vk = new vknp.ui.console.panels.VK;
-	this._panels.news = new vknp.ui.console.panels.News;
 	this._panels.mainPL = new vknp.ui.console.panels.MainPL;
-	this._panels.friends = new vknp.ui.console.panels.Friends;
 	this._widgets.playBar = new vknp.ui.console.widgets.PlayBar;
 	this._widgets.infoBar = new vknp.ui.console.widgets.InfoBar;
 	this._widgets.controls = new vknp.ui.console.widgets.Controls;
-	this._panels.groups = new vknp.ui.console.panels.Groups;
-	this._panels.albums = new vknp.ui.console.panels.Albums;
+	this._panels.vkNew = new vknp.ui.console.panels.Panel(this._dataViews.vk);
 
-	this._visiblePanels.left = this._panels.home;
+	this._visiblePanels.left = this._panels.vkNew;
 	this._visiblePanels.right = this._panels.mainPL;
 	this.activePanel = this._visiblePanels.left;
 
@@ -146,10 +145,11 @@ Console.prototype._addToHistory = function(panel) {
 /**
  */
 Console.prototype.back = function() {
-	var panel = this._history.pop();
-	if (panel) {
-		this._show(panel);
-	}
+	this.activePanel.back();
+	//var panel = this._history.pop();
+	//if (panel) {
+	//	this._show(panel);
+	//}
 };
 
 
@@ -416,14 +416,9 @@ Console.prototype._openPopUps;
 
 /**
  * @type {{
- *	    albums: console.panels.Albums,
- *	    friends: console.panels.Friends,
- *	    groups: console.panels.Groups,
- *	    home: console.panels.Home,
  *	    mainPL: console.panels.MainPL,
- *	    news: console.panels.News,
  *      slavePL: console.panels.SlavePL,
- *	    vk: console.panels.VK
+ *	    panel: console.panels.Panel
  * }}
  */
 Console.prototype._panels;
