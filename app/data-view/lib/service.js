@@ -9,7 +9,7 @@ var dataViews = require('../');
 var Service = function(config) {
 	this._config = config;
 
-	if (config.vk.enable) {
+	if (config.vk.enabled) {
 		this.vk = new dataViews.VK;
 	}
 	if (config.yandexMusic.enable) {
