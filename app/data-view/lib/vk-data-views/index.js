@@ -4,7 +4,7 @@ var vkDataViews = {};
 module.exports = vkDataViews;
 
 
-vkDataViews.Abstract = require('../../../abstract');
+vkDataViews.Abstract = require('../abstract');
 vkDataViews.Bookmarks = require('./lib/bookmarks');
 vkDataViews.Friend = require('./lib/friend');
 vkDataViews.Friends = require('./lib/friends');

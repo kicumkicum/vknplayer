@@ -6,41 +6,23 @@ var dataViews = require('../');
  *
  * @constructor
  */
-var Service = function(type) {
-	this._type = type;
-	switch (this._type) {
-		case Service.Type.VK:
-			return new dataViews.services.VK;
-			break;
-		case Service.Type.YANDEX_MUSIC:
-			return new dataViews.services.YandexMusic;
-			break;
+var Service = function(config) {
+	this._config = config;
+
+	if (config.vk.enable) {
+		this.vk = new dataViews.services.VK;
+	}
+	if (config.yandexMusic.enable) {
+		this.yandexMusic = new dataViews.services.YandexMusic;
 	}
 };
-goog.inherits(Service, dataViews.Abstract);
 
 
 /**
- * @return {Promise.<Array>}
- */
-Service.prototype.getChild = function() {
-
-};
-
-
-/**
- * @return {string}
- */
-Service.prototype.toString = function() {
-	return this._type;
-};
-
-
-/**
- * @type {string}
+ * @type {Object}
  * @protected
  */
-Service.prototype._type;
+Service.prototype._config;
 
 
 /**
