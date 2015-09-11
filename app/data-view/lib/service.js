@@ -8,13 +8,30 @@ var dataViews = require('../');
  */
 var Service = function(config) {
 	this._config = config;
+	this._children = [];
 
 	if (config.vk.enabled) {
 		this.vk = new dataViews.VK;
+		this._children.push(this.vk);
 	}
+
 	if (config.yandexMusic.enable) {
 		this.yandexMusic = new dataViews.YandexMusic;
+		this._children.push(this.yandexMusic);
 	}
+};
+goog.inherits(Service, dataViews.Abstract);
+
+
+Service.prototype.getChild = function() {
+	return new vknp.Promise(function(resolve, reject) {
+		resolve(this._children);
+	}.bind(this));
+};
+
+
+Service.prototype.toString = function() {
+	return 'Main';
 };
 
 
@@ -35,6 +52,13 @@ Service.prototype.yandexMusic;
  * @protected
  */
 Service.prototype._config;
+
+
+/**
+ * @type {Array.<dataView.Abstract>}
+ * @protected
+ */
+Service.prototype._children;
 
 
 /**
