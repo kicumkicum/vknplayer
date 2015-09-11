@@ -70,7 +70,7 @@ BaseUI.prototype._onApiVKStopRequest = function() {};
 
 
 /**
- * @type {Service}
+ * @type {Main}
  */
 BaseUI.prototype._dataViews;
 

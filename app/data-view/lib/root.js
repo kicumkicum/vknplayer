@@ -10,14 +10,14 @@ var utilites = require('../utils');
  */
 var Root = function(services) {
 	this._childs = services.map(function(service) {
-		return new dataViews.Service(service);
+		return new dataViews.Main(service);
 	});
 };
 goog.inherits(Root, dataViews.Abstract);
 
 
 /**
- * @return {Promise.<Array.<Service>>}
+ * @return {Promise.<Array.<Main>>}
  */
 Root.prototype.getChild = function() {
 	return new vknp.Promise(function(resolve, reject) {
@@ -35,7 +35,7 @@ Root.prototype.toString = function() {
 
 
 /**
- * @type {Array.<Service>}
+ * @type {Array.<Main>}
  */
 Root.prototype._childs;
 

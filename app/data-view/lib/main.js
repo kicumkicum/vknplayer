@@ -6,7 +6,7 @@ var dataViews = require('../');
  *
  * @constructor
  */
-var Service = function(config) {
+var Main = function(config) {
 	this._config = config;
 	this._children = [];
 
@@ -20,54 +20,54 @@ var Service = function(config) {
 		this._children.push(this.yandexMusic);
 	}
 };
-goog.inherits(Service, dataViews.Abstract);
+goog.inherits(Main, dataViews.Abstract);
 
 
-Service.prototype.getChild = function() {
+Main.prototype.getChild = function() {
 	return new vknp.Promise(function(resolve, reject) {
 		resolve(this._children);
 	}.bind(this));
 };
 
 
-Service.prototype.toString = function() {
+Main.prototype.toString = function() {
 	return 'Main';
 };
 
 
 /**
- * @type {ServiceVK}
+ * @type {MainVK}
  */
-Service.prototype.vk;
+Main.prototype.vk;
 
 
 /**
- * @type {ServiceYandexMusic}
+ * @type {MainYandexMusic}
  */
-Service.prototype.yandexMusic;
+Main.prototype.yandexMusic;
 
 
 /**
  * @type {Object}
  * @protected
  */
-Service.prototype._config;
+Main.prototype._config;
 
 
 /**
  * @type {Array.<dataView.Abstract>}
  * @protected
  */
-Service.prototype._children;
+Main.prototype._children;
 
 
 /**
  * @enum {string}
  */
-Service.Type = {
+Main.Type = {
 	VK: 'vk',
 	YANDEX_MUSIC: 'yandex-music'
 };
 
 
-module.exports = Service;
+module.exports = Main;

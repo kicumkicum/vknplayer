@@ -233,7 +233,7 @@ Vknp.prototype._initService = function() {
  * @protected
  */
 Vknp.prototype._initDataView = function(config) {
-	this._dataViews = new vknp.dataViews.Service(config);
+	this._dataViews = new vknp.dataViews.Main(config);
 };
 
 
