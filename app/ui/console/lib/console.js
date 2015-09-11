@@ -35,7 +35,7 @@ Console.prototype.init = function() {
 //		grabKeys: true
 	});
 	this._api.vk.on('error', this._apiVKErrorHandler.bind(this));
-	this._api.vk//todo move to app
+	this._api.vk//todo move to app or api
 		.getUserId()
 		.then(function(userId) {
 			this.userId = userId;
@@ -52,9 +52,9 @@ Console.prototype.init = function() {
 	this._widgets.playBar = new vknp.ui.console.widgets.PlayBar;
 	this._widgets.infoBar = new vknp.ui.console.widgets.InfoBar;
 	this._widgets.controls = new vknp.ui.console.widgets.Controls;
-	this._panels.vkNew = new vknp.ui.console.panels.Panel(this._dataViews.vk);
+	this._panels.panel = new vknp.ui.console.panels.Panel(this._dataViews);
 
-	this._visiblePanels.left = this._panels.vkNew;
+	this._visiblePanels.left = this._panels.panel;
 	this._visiblePanels.right = this._panels.mainPL;
 	this.activePanel = this._visiblePanels.left;
 
