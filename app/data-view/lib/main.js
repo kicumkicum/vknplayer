@@ -16,9 +16,12 @@ var Main = function(config) {
 	}
 
 	if (config.yandexMusic.enable) {
-		this.yandexMusic = new dataViews.YandexMusic;
-		this._children.push(this.yandexMusic);
+		//this.yandexMusic = new dataViews.YandexMusic;
+		//this._children.push(this.yandexMusic);
 	}
+
+	this.radio = new dataViews.Radio;
+	this._children.push(this.radio);
 };
 goog.inherits(Main, dataViews.Abstract);
 
