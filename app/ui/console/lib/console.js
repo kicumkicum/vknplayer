@@ -1,4 +1,5 @@
 BlessedConst = new (require('./blessed-const'));
+var BaseUI = require('../../base-ui');
 
 var blessed = require('blessed');
 var events = require('events');
@@ -15,15 +16,14 @@ var util = require('util');
  * @implements {IUI}
  */
 var Console = function(config, dataViews, api, player, playlist) {
-	this._config = config;
-	this._dataViews = dataViews;
-	this._api = api;
+	goog.base(this, config, dataViews, api, player, playlist);
+
 	this._panels = {};
 	this._widgets = {};
-	this.player = player;
-	this.playlist = playlist;
+	this.player = this._player;// todo for compatible. need fix
+	this.playlist = this._playlist;
 };
-goog.inherits(Console, events.EventEmitter);
+goog.inherits(Console, BaseUI);
 
 
 /**

@@ -13,22 +13,22 @@ var events = require('events');
  * @implements {IUI}
  */
 var BaseUI = function(config, dataViews, api, player, playlist) {
-	this._dataViews = dataViews;// init in app
-	this._config = config;
 	this._api = api;
+	this._config = config;
+	this._dataViews = dataViews;
 	this._player = player;
 	this._playlist = playlist;
 };
-goog.inherits(Console, events.EventEmitter);
+goog.inherits(BaseUI, events.EventEmitter);
 
 
 /**
  * @inheritDoc
  */
 BaseUI.prototype.init = function() {
-	this._api.vk.on(this._api.vk.EVENT_START_REQUEST, this._onApiVKStartRequest.bind(this));// todo move to application.
-	this._api.vk.on(this._api.vk.EVENT_STOP_REQUEST, this._onApiVKStopRequest.bind(this));
-	this._api.vk.on('error', this._apiVKErrorHandler.bind(this));
+	//this._api.vk.on(this._api.vk.EVENT_START_REQUEST, this._onApiVKStartRequest.bind(this));// todo this._api.on...
+	//this._api.vk.on(this._api.vk.EVENT_STOP_REQUEST, this._onApiVKStopRequest.bind(this));
+	//this._api.vk.on(this.EVENT_ERROR, this._onApiVkError.bind(this));
 };
 
 
@@ -67,6 +67,12 @@ BaseUI.prototype._onApiVKStartRequest = function() {};
  * @protected
  */
 BaseUI.prototype._onApiVKStopRequest = function() {};
+
+
+/**
+ * @protected
+ */
+BaseUI.prototype._onApiVkError = function() {};
 
 
 /**
