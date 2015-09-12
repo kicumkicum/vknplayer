@@ -88,7 +88,7 @@ Panel.prototype._loadData = function() {
 	this._dataView.getChild().then(function(child) {
 		this._category = [].concat(child);
 		if (child.length && child[0] instanceof vknp.models.AudioTrack) {
-			app.ui.console._panels.mainPL.setContent(child);
+			app.ui.console._panels.slavePL.setContent(child);
 		} else {
 			this.setData(this._category);
 		}
