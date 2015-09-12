@@ -16,4 +16,13 @@ goog.inherits(ServiceYandexMusic, dataViews.Abstract);
 ServiceYandexMusic.prototype.getChild = function() {};
 
 
+/**
+ * @inheritDoc
+ */
+ServiceYandexMusic.prototype.toString = function() {
+	return 'Yandex Music';
+};
+
+
+
 module.exports = ServiceYandexMusic;

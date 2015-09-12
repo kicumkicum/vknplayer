@@ -30,7 +30,7 @@ ServiceVK.prototype.getChild = function() {
  * @inheritDoc
  */
 ServiceVK.prototype.toString = function() {
-	return 'VK';
+	return 'Vkontakte';
 };
 
 
