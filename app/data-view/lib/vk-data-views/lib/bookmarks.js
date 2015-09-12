@@ -6,7 +6,9 @@ var dataViews = require('../');
  *
  * @constructor
  */
-var Bookmarks = function() {};
+var Bookmarks = function() {
+	goog.base(this);
+};
 goog.inherits(Bookmarks, dataViews.Abstract);
 
 

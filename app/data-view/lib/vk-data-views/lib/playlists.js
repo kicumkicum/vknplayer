@@ -7,7 +7,7 @@ var dataViews = require('../');
  * @constructor
  */
 var Playlists = function(group) {
-	this._data = group;
+	goog.base(this, group);
 };
 goog.inherits(Playlists, dataViews.Abstract);
 

@@ -5,7 +5,9 @@ var dataViews = require('../');
 /**
  * @constructor
  */
-var Groups = function() {};
+var Groups = function() {
+	goog.base(this);
+};
 goog.inherits(Groups, dataViews.Abstract);
 
 

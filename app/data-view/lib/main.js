@@ -22,6 +22,8 @@ var Main = function(config) {
 
 	this.radio = new dataViews.Radio;
 	this._children.push(this.radio);
+
+	goog.base(this, this._children);
 };
 goog.inherits(Main, dataViews.Abstract);
 
