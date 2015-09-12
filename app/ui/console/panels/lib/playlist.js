@@ -296,7 +296,7 @@ PlayList.prototype._makeSpace = function(node, track, index) {
  */
 PlayList.prototype._isActivePlaylist = function(child, track) {
 	//todo is huewiy check. need good check
-	return child.content.indexOf(track.artist) > -1 && child.content.indexOf(track.title) > -1;
+	return child.content.indexOf(track.toString()) !== -1;
 };
 
 
