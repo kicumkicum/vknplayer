@@ -14,6 +14,8 @@ var ui = {
  * @constructor
  */
 var UI = function(config, dataViews, service, api) {
+	// todo create dataViews here
+	// todo move code to lib/ui
 	var historyManager = new HistoryManager;
 	if (config.console && config.console.enabled) {
 		this.console = new Console(config.console, dataViews, api, service.player, service.playListManager, historyManager);
