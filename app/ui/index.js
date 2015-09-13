@@ -1,4 +1,5 @@
 var Console = require('./console');
+var HistoryManager = require('./history-manager');
 
 var ui = {
 	console: Console.namespace
@@ -13,8 +14,9 @@ var ui = {
  * @constructor
  */
 var UI = function(config, dataViews, service, api) {
+	var historyManager = new HistoryManager;
 	if (config.console && config.console.enabled) {
-		this.console = new Console(config.console, dataViews, api, service.player, service.playListManager);
+		this.console = new Console(config.console, dataViews, api, service.player, service.playListManager, historyManager);
 	}
 };
 

@@ -9,15 +9,17 @@ var events = require('events');
  * @param dataViews
  * @param player
  * @param playlist
+ * @param historyManager
  * @constructor
  * @implements {IUI}
  */
-var BaseUI = function(config, dataViews, api, player, playlist) {
+var BaseUI = function(config, dataViews, api, player, playlist, historyManager) {
 	this._api = api;
 	this._config = config;
 	this._dataViews = dataViews;
 	this._player = player;
 	this._playlist = playlist;
+	this._historyManager = historyManager;
 };
 goog.inherits(BaseUI, events.EventEmitter);
 
@@ -79,6 +81,12 @@ BaseUI.prototype._onApiVkError = function() {};
  * @type {Main}
  */
 BaseUI.prototype._dataViews;
+
+
+/**
+ * @type {HistoryManager}
+ */
+BaseUI.prototype._historyManager;
 
 
 module.exports = BaseUI;
