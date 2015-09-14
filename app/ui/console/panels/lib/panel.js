@@ -97,16 +97,9 @@ Panel.prototype._clickHandler = function(eventName, select, selectNumber) {
 
 
 /**
- * @type {Array.<Panel.Category>}
+ * @type {DataView}
  */
-Panel.prototype._category;
-
-
-/**
- * @type {Array.<IDataView>}
- * @protected
- */
-Panel.prototype._history;
+Panel.prototype._dataView;
 
 
 module.exports = Panel;
