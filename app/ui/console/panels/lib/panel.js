@@ -12,9 +12,7 @@ var blessed = require('blessed');
  * @extends {BasePanel}
  */
 var Panel = function(dataView) {
-	this._category = [];
 	this._dataView = dataView;
-	this._history = [];
 	goog.base(this, {
 		mouse: true,
 		keys: true,
@@ -46,17 +44,8 @@ goog.inherits(Panel, BasePanel);
  * @param {} dataView
  */
 Panel.prototype.setDataView = function(dataView) {
-	this._history.push(this._dataView);
-	this._setDataView(dataView);
-};
-
-
-/**
- * @protected
- */
-Panel.prototype.back = function() {
-	var dataView = this._history.pop();
-	this._setDataView(dataView);
+	this._dataView = dataView;
+	this._loadData();
 };
 
 
@@ -65,17 +54,6 @@ Panel.prototype.back = function() {
  */
 Panel.prototype._init = function() {
 	goog.base(this, '_init');
-	this._loadData();
-};
-
-
-/**
- * @param {} dataView
- * @protected
- */
-Panel.prototype._setDataView = function(dataView) {
-	this._dataView = dataView;
-	this._loadData();
 };
 
 
@@ -86,13 +64,13 @@ Panel.prototype._loadData = function() {
 	goog.base(this, '_loadData');
 
 	this._dataView
-		.getChild()
-		.then(function(children) {
-			var data = [].concat(children);
-			if (data[0] instanceof vknp.models.AudioTrack) {
-				app.ui.console._panels.slavePL.setContent(data);
+		.getChildren()
+		.then(function(dataViews) {
+			dataViews = [].concat(dataViews);
+			if (dataViews[0] instanceof vknp.models.AudioTrack) {
+				app.ui.console._panels.slavePL.setContent(/** @type {Array.<AudioTrack>} */(dataViews));
 			} else {
-				this.setData(data);
+				this.setData(dataViews);
 			}
 		}.bind(this));
 };
