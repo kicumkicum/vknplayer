@@ -15,7 +15,7 @@ var IDataView = function(params) {
 /**
  * @return {Promise.<Array.<dataViews.Abstract>>}
  */
-IDataView.prototype.getChild = function() {};
+IDataView.prototype.getChildren = function() {};
 
 
 /**

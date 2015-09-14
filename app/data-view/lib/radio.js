@@ -16,7 +16,7 @@ goog.inherits(Radio, dataViews.Abstract);
 /**
  * @return {Promise.<Array.<Main>>}
  */
-Radio.prototype.getChild = function() {
+Radio.prototype.getChildren = function() {
 	return app.service.radio.parse('http://2kom.tv/channels/radio.m3u');
 };
 

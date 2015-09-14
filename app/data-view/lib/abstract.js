@@ -15,7 +15,7 @@ var Abstract = function(opt_data) {
 /**
  * @return {Promise.<Array>}
  */
-Abstract.prototype.getChild = function() {};
+Abstract.prototype.getChildren = function() {};
 
 
 /**

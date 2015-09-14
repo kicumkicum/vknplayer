@@ -15,7 +15,7 @@ goog.inherits(Friends, dataViews.Abstract);
 /**
  * @return {Promise.<Array.<dataViews.Friend>>}
  */
-Friends.prototype.getChild = function() {
+Friends.prototype.getChildren = function() {
 	return app.api.vk
 		.getFriends(300)
 		.then(function(friends) {

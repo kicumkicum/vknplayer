@@ -13,7 +13,7 @@ goog.inherits(ServiceVK, dataViews.Abstract);
 /**
  * @return {Promise.<Array>}
  */
-ServiceVK.prototype.getChild = function() {
+ServiceVK.prototype.getChildren = function() {
 	return new vknp.Promise(function(resolve, reject) {
 		resolve([
 			new dataViews.Bookmarks,

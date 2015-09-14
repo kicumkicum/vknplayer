@@ -15,7 +15,7 @@ goog.inherits(NewsItem, dataViews.Abstract);
 /**
  * @return {Promise.<Playlist>}
  */
-NewsItem.prototype.getChild = function() {
+NewsItem.prototype.getChildren = function() {
 	return app.api.vk
 		.getNews({
 			listIds: this._data.id,

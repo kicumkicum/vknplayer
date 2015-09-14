@@ -15,7 +15,7 @@ goog.inherits(Playlist, dataViews.Abstract);
 /**
  * @return {Promise.<Array.<AudioTrack>>}
  */
-Playlist.prototype.getChild = function() {
+Playlist.prototype.getChildren = function() {
 	var promise = null;
 
 	if (this._isAlbum()) {

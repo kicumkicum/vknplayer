@@ -15,7 +15,7 @@ goog.inherits(News, dataViews.Abstract);
 /**
  * @return {Promise.<Array>}
  */
-News.prototype.getChild = function() {
+News.prototype.getChildren = function() {
 	return app.api.vk
 		.getListNews()
 		.then(function(news) {

@@ -15,7 +15,7 @@ goog.inherits(Bookmarks, dataViews.Abstract);
 /**
  * @return {Promise.<Array.<>>}
  */
-Bookmarks.prototype.getChild = function() {
+Bookmarks.prototype.getChildren = function() {
 	return app.api.vk
 		.getListNewsFeed({count: 100})
 		.then(function(feed) {// todo check result

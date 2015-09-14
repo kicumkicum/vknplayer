@@ -16,7 +16,7 @@ goog.inherits(Friend, dataViews.Abstract);
 /**
  * @return {Promise.<Array.<dataViews.Playlists>>}
  */
-Friend.prototype.getChild = function() {
+Friend.prototype.getChildren = function() {
 	var playlists = [];
 	return app.api.vk
 		.getAudio(this._data.id, 300)

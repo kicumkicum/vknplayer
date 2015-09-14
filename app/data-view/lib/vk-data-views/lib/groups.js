@@ -14,7 +14,7 @@ goog.inherits(Groups, dataViews.Abstract);
 /**
  * @return {Promise.<Array>}
  */
-Groups.prototype.getChild = function() {
+Groups.prototype.getChildren = function() {
 	return app.api.vk
 		.getGroups()
 		.then(function(groups) {
