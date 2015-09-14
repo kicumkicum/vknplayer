@@ -31,7 +31,7 @@ HistoryManager.prototype._history;
 
 /**
  * @typedef {{
- *      data: *
+ *      data: dataView.Abstract
  * }}
  */
 HistoryManager.Item;
