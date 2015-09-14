@@ -19,7 +19,7 @@ var Panel = function(dataView) {
 		mouse: true,
 		keys: true,
 		scrollable: true,
-		hidden: !true,
+		hidden: true,
 
 		left: 0,
 		top:  2,
@@ -85,14 +85,16 @@ Panel.prototype._setDataView = function(dataView) {
 Panel.prototype._loadData = function() {
 	goog.base(this, '_loadData');
 
-	this._dataView.getChild().then(function(child) {
-		this._category = [].concat(child);
-		if (child.length && child[0] instanceof vknp.models.AudioTrack) {
-			app.ui.console._panels.slavePL.setContent(child);
-		} else {
-			this.setData(this._category);
-		}
-	}.bind(this));
+	this._dataView
+		.getChild()
+		.then(function(children) {
+			var data = [].concat(children);
+			if (data[0] instanceof vknp.models.AudioTrack) {
+				app.ui.console._panels.slavePL.setContent(data);
+			} else {
+				this.setData(data);
+			}
+		}.bind(this));
 };
 
 
