@@ -1,5 +1,6 @@
 BlessedConst = new (require('./blessed-const'));
 var BaseUI = require('../../base-ui');
+var HistoryManager = require('../../history-manager');
 
 var blessed = require('blessed');
 var events = require('events');
@@ -12,11 +13,12 @@ var util = require('util');
  * @param api
  * @param player
  * @param playlist
+ * @param historyManager
  * @constructor
  * @implements {IUI}
  */
-var Console = function(config, dataViews, api, player, playlist) {
-	goog.base(this, config, dataViews, api, player, playlist);
+var Console = function(config, dataViews, api, player, playlist, historyManager) {
+	goog.base(this, config, dataViews, api, player, playlist, historyManager);
 
 	this._panels = {};
 	this._widgets = {};
@@ -52,11 +54,12 @@ Console.prototype.init = function() {
 	this._widgets.playBar = new vknp.ui.console.widgets.PlayBar;
 	this._widgets.infoBar = new vknp.ui.console.widgets.InfoBar;
 	this._widgets.controls = new vknp.ui.console.widgets.Controls;
-	this._panels.panel = new vknp.ui.console.panels.Panel(this._dataViews);
+	this._panels.panel = new vknp.ui.console.panels.Panel(this._dataViews, new HistoryManager);
 
 	this._visiblePanels.left = this._panels.panel;
 	this._visiblePanels.right = this._panels.mainPL;
 	this.activePanel = this._visiblePanels.left;
+	this.show(this._panels.panel);
 
 	this.screen.key(['tab'], this.changeFocusPanel.bind(this));
 	this.screen.on(BlessedConst.event.KEY_PRESS, function(ch, key) {
@@ -96,7 +99,7 @@ Console.prototype.changeFocusPanel = function() {
  */
 Console.prototype.show = function(panel) {
 	if (panel.isHidden()) {
-		this._addToHistory(this.activePanel);
+		//this._addToHistory(this.activePanel);
 	}
 	this._show(panel);
 };
@@ -145,11 +148,9 @@ Console.prototype._addToHistory = function(panel) {
 /**
  */
 Console.prototype.back = function() {
-	this.activePanel.back();
-	//var panel = this._history.pop();
-	//if (panel) {
-	//	this._show(panel);
-	//}
+	if (this.activePanel instanceof vknp.ui.console.panels.SlavePL) {
+		this.show(this._panels.panel);
+	}
 };
 
 
