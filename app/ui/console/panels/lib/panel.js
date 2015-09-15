@@ -54,6 +54,11 @@ Panel.prototype._init = function() {
 	goog.base(this, '_init');
 };
 
+
+/**
+ * @param {} dataView
+ * @protected
+ */
 Panel.prototype._setDataView = function(dataView) {
 	this._dataView = dataView;
 	this._loadData();
