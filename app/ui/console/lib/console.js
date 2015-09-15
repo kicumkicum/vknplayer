@@ -3,8 +3,7 @@ var BaseUI = require('../../base-ui');
 var HistoryManager = require('../../history-manager');
 
 var blessed = require('blessed');
-var events = require('events');
-var util = require('util');
+
 
 
 /**
