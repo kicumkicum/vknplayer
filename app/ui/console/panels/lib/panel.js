@@ -1,9 +1,5 @@
 goog.provide('Panel');
-
 var BasePanel = require('./base-panel');
-var Node = require('../../lib/node');//todo for inherits. check it
-
-var blessed = require('blessed');
 
 
 
