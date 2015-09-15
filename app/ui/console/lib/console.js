@@ -99,17 +99,6 @@ Console.prototype.changeFocusPanel = function() {
  */
 Console.prototype.show = function(panel) {
 	if (panel.isHidden()) {
-		//this._addToHistory(this.activePanel);
-	}
-	this._show(panel);
-};
-
-
-/**
- * @param {Object} panel
- */
-Console.prototype._show = function(panel) {
-	if (panel.isHidden()) {
 		this._setTopPanel(panel);
 	} else {
 		this.activePanel = panel;
@@ -132,16 +121,6 @@ Console.prototype._setTopPanel = function(panel) {
 	panel.getNode().show();
 	panel.getNode().focus();
 	this.render();
-};
-
-
-/**
- */
-Console.prototype._addToHistory = function(panel) {
-	if (this._history.length > 10) {
-		this._history.shift();
-	}
-	this._history.push(panel);
 };
 
 
