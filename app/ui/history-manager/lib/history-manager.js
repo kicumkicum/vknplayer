@@ -19,7 +19,7 @@ HistoryManager.prototype.add = function(item) {
  * @return {HistoryManager.Item}
  */
 HistoryManager.prototype.back = function() {
-	return this._history.shift();
+	return this._history.pop();
 };
 
 
