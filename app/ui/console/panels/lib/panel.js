@@ -11,8 +11,10 @@ var blessed = require('blessed');
  * @constructor
  * @extends {BasePanel}
  */
-var Panel = function(dataView) {
+var Panel = function(dataView, historyManager) {
+	this._historyManager = historyManager;
 	this._dataView = dataView;
+
 	goog.base(this, {
 		mouse: true,
 		keys: true,
@@ -44,8 +46,8 @@ goog.inherits(Panel, BasePanel);
  * @param {} dataView
  */
 Panel.prototype.setDataView = function(dataView) {
-	this._dataView = dataView;
-	this._loadData();
+	this._historyManager.add(this._dataView);
+	this._setDataView(dataView);
 };
 
 
@@ -54,6 +56,11 @@ Panel.prototype.setDataView = function(dataView) {
  */
 Panel.prototype._init = function() {
 	goog.base(this, '_init');
+};
+
+Panel.prototype._setDataView = function(dataView) {
+	this._dataView = dataView;
+	this._loadData();
 };
 
 
@@ -75,6 +82,16 @@ Panel.prototype._loadData = function() {
 		}.bind(this));
 };
 
+
+/**
+ * @protected
+ */
+Panel.prototype._back = function() {
+	var dataView = this._historyManager.back();
+	if (dataView) {
+		this._setDataView(dataView);
+	}
+};
 
 /**
  * @param {*} select
