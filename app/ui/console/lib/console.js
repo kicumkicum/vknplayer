@@ -110,20 +110,6 @@ Console.prototype.show = function(panel) {
 
 
 /**
- * @param {Object} panel
- */
-Console.prototype._setTopPanel = function(panel) {
-	this.emit(this.EVENT_SET_TOP, panel, this._visiblePanels.left);
-	this._visiblePanels.left.getNode().hide();
-	this._visiblePanels.left = panel;
-	this.activePanel = panel;
-	panel.getNode().show();
-	panel.getNode().focus();
-	this.render();
-};
-
-
-/**
  */
 Console.prototype.back = function() {
 	if (this.activePanel instanceof vknp.ui.console.panels.SlavePL) {
@@ -246,6 +232,20 @@ Console.prototype._createInput = function() {
 	});
 
 	return input;
+};
+
+
+/**
+ * @param {Object} panel
+ */
+Console.prototype._setTopPanel = function(panel) {
+	this.emit(this.EVENT_SET_TOP, panel, this._visiblePanels.left);
+	this._visiblePanels.left.getNode().hide();
+	this._visiblePanels.left = panel;
+	this.activePanel = panel;
+	panel.getNode().show();
+	panel.getNode().focus();
+	this.render();
 };
 
 
