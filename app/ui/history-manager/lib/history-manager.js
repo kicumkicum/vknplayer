@@ -8,10 +8,10 @@ goog.inherits(HistoryManager, events.EventEmitter);
 
 
 /**
- * @param {HistoryManager.Item} item
+ * @param {HistoryManager.Item} data
  */
-HistoryManager.prototype.add = function(item) {
-	this._history.push(item);
+HistoryManager.prototype.add = function(data) {
+	this._history.push(data);
 };
 
 
@@ -31,7 +31,9 @@ HistoryManager.prototype._history;
 
 /**
  * @typedef {{
- *      data: dataView.Abstract
+ *      dataView: dataView.Abstract,
+ *      children: Array.<dataView.Abstract>,
+ *      selected: number
  * }}
  */
 HistoryManager.Item;
