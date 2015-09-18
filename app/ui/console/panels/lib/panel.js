@@ -48,14 +48,27 @@ Panel.prototype.setDataView = function(dataView) {
 		selected: this.getSelectedChildIndex()
 	});
 	this._setDataView(dataView);
+	this._recoveryDefaultState();
 };
 
 
 /**
- * @protected
+ * @inheritDoc
  */
 Panel.prototype._init = function() {
 	goog.base(this, '_init');
+};
+
+
+/**
+ * @inheritDoc
+ */
+Panel.prototype._recoveryDefaultState = function() {
+	if (!(this._dataView.toString() === 'Root')) {
+		goog.base(this, '_recoveryDefaultState');
+	} else {
+		this._setOffset(0);
+	}
 };
 
 
@@ -79,7 +92,7 @@ Panel.prototype._setDataView = function(dataView, opt_state) {
 
 
 /**
- * @protected
+ * @inheritDoc
  */
 Panel.prototype._loadData = function() {
 	goog.base(this, '_loadData');
@@ -98,7 +111,7 @@ Panel.prototype._loadData = function() {
 
 
 /**
- * @protected
+ * @inheritDoc
  */
 Panel.prototype._back = function() {
 	var snapshot = this._historyManager.back();
@@ -111,23 +124,19 @@ Panel.prototype._back = function() {
 	}
 };
 
+
 /**
  * @param {*} select
  * @param {number} selectNumber
- * @protected
+ * @inheritDoc
  */
 Panel.prototype._clickHandler = function(eventName, select, selectNumber) {
-	if (selectNumber === 0) {
-		this._back();
-		return;
-	}
-
 	var item = this._getDataItem(selectNumber);
-	if (!item) {
-		return;
+	if (item) {
+		this.setDataView(item);
+	} else {
+		this._back();
 	}
-
-	this.setDataView(item);
 };
 
 
