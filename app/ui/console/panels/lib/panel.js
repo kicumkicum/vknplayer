@@ -39,10 +39,14 @@ goog.inherits(Panel, BasePanel);
 
 
 /**
- * @param {} dataView
+ * @param {dataView.Abstract} dataView
  */
 Panel.prototype.setDataView = function(dataView) {
-	this._historyManager.add(this._dataView);
+	this._historyManager.add({
+		dataView: this._dataView,
+		children: app.helper.clone(this._data.toArray()),
+		selected: this._data.currentIndex()
+	});
 	this._setDataView(dataView);
 };
 
@@ -56,12 +60,21 @@ Panel.prototype._init = function() {
 
 
 /**
- * @param {} dataView
+ * @param {dataView.Abstract} dataView
+ * @param {{
+ *      children: Array.<dataView.Abstract>,
+ *      selected: number
+ * }=} opt_state
  * @protected
  */
-Panel.prototype._setDataView = function(dataView) {
+Panel.prototype._setDataView = function(dataView, opt_state) {
 	this._dataView = dataView;
-	this._loadData();
+	if (!opt_state) {
+		this._loadData();
+	} else {
+		this.setData(opt_state.children);
+		this._data.selectAt(opt_state.selected)
+	}
 };
 
 
@@ -88,9 +101,13 @@ Panel.prototype._loadData = function() {
  * @protected
  */
 Panel.prototype._back = function() {
-	var dataView = this._historyManager.back();
-	if (dataView) {
-		this._setDataView(dataView);
+	var snapshot = this._historyManager.back();
+
+	if (snapshot) {
+		this._setDataView(snapshot.dataView, {
+			children: snapshot.children,
+			selected: snapshot.selected
+		});
 	}
 };
 
