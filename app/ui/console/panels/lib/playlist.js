@@ -2,7 +2,6 @@
  * Created by oleg on 02.06.14.
  */
 var blessed = require('blessed');
-var helper = new (require('../../../../../helper/index'));
 var util = require('util');
 
 var BasePanel = require('./base-panel');
@@ -253,12 +252,12 @@ PlayList.prototype._move = function(chunkStart, chunkHowMany, offset, goUp) {
  */
 PlayList.prototype._colorizePlayingTrack = function(track, position) {
 	if (this._prevSelected && this.getPlaylist().itemAt(this._prevSelected)) {
-		this.getChild(this._prevSelected).style = helper.clone(this.defaultStyle);
+		this.getChild(this._prevSelected).style = app.helper.clone(this.defaultStyle);
 	}
 
 	var child = this.getChild(position);
 	if (child && this._isActivePlaylist(child, track)) {
-		this.defaultStyle = helper.clone(child.style);
+		this.defaultStyle = app.helper.clone(child.style);
 		this._prevSelected = position;
 		child.style.fg = this.activeTrackColor;
 		this.selectElement(position);

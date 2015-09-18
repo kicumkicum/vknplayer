@@ -2,7 +2,7 @@
  * Created by oleg on 05.06.14.
  */
 
-Helper = function() {
+var Helper = function() {
 	return this;
 };
 

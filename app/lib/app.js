@@ -10,6 +10,7 @@ var Vknp = function() {};
 
 
 Vknp.prototype.start = function() {
+	this.helper = new vknp.helper;
 	this._initService();
 	this._config = this.service.config.getConfig();
 
