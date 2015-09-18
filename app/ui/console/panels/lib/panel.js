@@ -45,7 +45,7 @@ Panel.prototype.setDataView = function(dataView) {
 	this._historyManager.add({
 		dataView: this._dataView,
 		children: app.helper.clone(this._data.toArray()),
-		selected: this._data.currentIndex()
+		selected: this.getSelectedChildIndex()
 	});
 	this._setDataView(dataView);
 };
@@ -73,7 +73,7 @@ Panel.prototype._setDataView = function(dataView, opt_state) {
 		this._loadData();
 	} else {
 		this.setData(opt_state.children);
-		this._data.selectAt(opt_state.selected)
+		this.selectElement(opt_state.selected)
 	}
 };
 
