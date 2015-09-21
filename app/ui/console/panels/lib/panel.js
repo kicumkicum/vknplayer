@@ -64,7 +64,7 @@ Panel.prototype._init = function() {
  * @inheritDoc
  */
 Panel.prototype._recoveryDefaultState = function() {
-	if (!(this._dataView.toString() === 'Root')) {
+	if (this._dataView.toString() !== 'Root') {
 		goog.base(this, '_recoveryDefaultState');
 	} else {
 		this._setOffset(0);
