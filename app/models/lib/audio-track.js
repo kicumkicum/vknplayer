@@ -90,10 +90,10 @@ AudioTrack.prototype._parseYandexMusic = function(data) {
 
 AudioTrack.prototype._parseOther = function(data) {
 	/** @type {string} */
-	this.artist = data.artist || '';
+	this.artist = (data.artist || '').trim();
 
 	/** @type {string} */
-	this.title = data.title || '';
+	this.title = (data.title || '').trim();
 
 	/** @type {?number} */
 	this.id = data.id || null;
