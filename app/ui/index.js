@@ -1,4 +1,5 @@
 var Console = require('./console');
+var Web = require('./web');
 var HistoryManager = require('./history-manager');
 
 var ui = {
@@ -20,6 +21,7 @@ var UI = function(config, dataViews, service, api) {
 	if (config.console && config.console.enabled) {
 		this.console = new Console(config.console, dataViews, api, service.player, service.playListManager, historyManager);
 	}
+	this.web = new Web(config.console, dataViews, api, service.player, service.playListManager, historyManager);
 };
 
 
