@@ -42,7 +42,11 @@ goog.inherits(Panel, BasePanel);
  * @param {dataView.Abstract} dataView
  */
 Panel.prototype.setDataView = function(dataView) {
-	this._historyManager.add({// ПРОБЛЕМА ГДЕ ТО ТУТ
+	if (this._getGlobalRequestId()) {
+		this._historyManager.back();
+	}
+
+	this._historyManager.add({
 		dataView: this._dataView,
 		children: app.helper.clone(this._data.toArray()),
 		selected: this.getSelectedChildIndex()
@@ -97,11 +101,21 @@ Panel.prototype._setDataView = function(dataView, opt_state) {
 Panel.prototype._loadData = function() {
 	goog.base(this, '_loadData');
 
+	var requestId = this._generateRequestId();
+	this._setGlobalRequestId(requestId);
+
 	this._dataView
 		.getChildren()
 		.then(function(dataViews) {
+			if (!this._isActualRequest(requestId)) {
+				return;
+			}
+
+			this._resetGlobalRequestId();
 			dataViews = [].concat(dataViews);
+
 			if (dataViews[0] instanceof vknp.models.AudioTrack) {
+				this._historyManager.back();
 				app.ui.console._panels.slavePL.setContent(/** @type {Array.<AudioTrack>} */(dataViews));
 			} else {
 				this.setData(dataViews);
@@ -122,6 +136,51 @@ Panel.prototype._back = function() {
 			selected: snapshot.selected
 		});
 	}
+};
+
+
+/**
+ * @return {string}
+ * @protected
+ */
+Panel.prototype._generateRequestId = function() {
+	return '' + Math.random + Date.now();
+};
+
+
+/**
+ * @param {?string} requestId
+ * @protected
+ */
+Panel.prototype._setGlobalRequestId = function(requestId) {
+	this._globalRequestId = requestId;
+};
+
+
+/**
+ * @return {?string}
+ * @protected
+ */
+Panel.prototype._getGlobalRequestId = function() {
+	return this._globalRequestId;
+};
+
+
+/**
+ * @protected
+ */
+Panel.prototype._resetGlobalRequestId = function() {
+	this._setGlobalRequestId(null);
+};
+
+
+/**
+ * @param {string} promiseId
+ * @return {boolean}
+ * @protected
+ */
+Panel.prototype._isActualRequest = function(promiseId) {
+	return this._globalRequestId === promiseId;
 };
 
 
