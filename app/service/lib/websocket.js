@@ -37,25 +37,27 @@ Server.prototype._setupWebServer = function() {
 };
 
 /**
- * @param {string} stringMessage
+ * @param {Server.Message} stringMessage
  * @private
  */
 Server.prototype._onMessage = function(stringMessage) {
-	var message = /** @type {Server.Message} */(JSON.parse(stringMessage));
-
-	if (message.type === Server.MessageType.EVENT) {
-		switch (message.name) {
-			case 'play':
-				break;
-			case 'resume':
-				break;
-			case 'stop':
-				break;
-			case 'prev':
-				break;
-			case 'next':
-				break;
-		}
+	var message = stringMessage;
+	switch (message) {
+		case 'play':
+			app.service.player.play();
+			break;
+		case 'resume':
+			app.service.player.resume();
+			break;
+		case 'stop':
+			app.service.player.stop();
+			break;
+		case 'prev':
+			app.service.player.prev();
+			break;
+		case 'next':
+			app.service.player.next();
+			break;
 	}
 };
 
