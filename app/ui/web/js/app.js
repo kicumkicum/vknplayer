@@ -1,6 +1,6 @@
 $(function() {
 	var apiEntryPoint = '/';
-var socket = new WebSocket("ws://localhost:8081/ws");
+	var socket = new WebSocket("ws://kicum:8081/ws");
 	
 	socket.onopen = function() {
 		console.log("Соединение установлено.");

@@ -44,12 +44,12 @@ Server.prototype._onMessage = function(stringMessage) {
 	var message = stringMessage;
 	switch (message) {
 		case 'play':
-			app.service.player.play();
+			app.service.player.resume();
 			break;
 		case 'resume':
 			app.service.player.resume();
 			break;
-		case 'stop':
+		case 'pause':
 			app.service.player.stop();
 			break;
 		case 'prev':
