@@ -42,13 +42,13 @@ goog.inherits(Panel, BasePanel);
  * @param {dataView.Abstract} dataView
  */
 Panel.prototype.setDataView = function(dataView) {
-	this._historyManager.add({
+	this._historyManager.add({// ПРОБЛЕМА ГДЕ ТО ТУТ
 		dataView: this._dataView,
 		children: app.helper.clone(this._data.toArray()),
 		selected: this.getSelectedChildIndex()
 	});
+
 	this._setDataView(dataView);
-	this._recoveryDefaultState();
 };
 
 
@@ -64,10 +64,10 @@ Panel.prototype._init = function() {
  * @inheritDoc
  */
 Panel.prototype._recoveryDefaultState = function() {
-	if (this._dataView.toString() !== 'Root') {
-		goog.base(this, '_recoveryDefaultState');
-	} else {
+	if (this._dataView.toString() === 'Root') {
 		this._setOffset(0);
+	} else {
+		goog.base(this, '_recoveryDefaultState');
 	}
 };
 
