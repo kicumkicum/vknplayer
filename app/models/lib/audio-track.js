@@ -65,17 +65,10 @@ AudioTrack.prototype.toString = function() {
 
 
 AudioTrack.prototype._parseVK = function(data) {
-	/** @type {string} */
-	this.artist = data.artist || '';
-
-	/** @type {string} */
-	this.title = data.title || '';
+	this._parseOther(data);
 
 	/** @type {string} */
 	this.duration = data.durationMillis || data.durationMs || 0;
-
-	/** @type {?number} */
-	this.id = data.id || null;
 
 	this.url = (function() {
 		var index = data.url.indexOf('?');
@@ -85,17 +78,10 @@ AudioTrack.prototype._parseVK = function(data) {
 
 
 AudioTrack.prototype._parseYandexMusic = function(data) {
-	/** @type {string} */
-	this.artist = data.artist || '';
-
-	/** @type {string} */
-	this.title = data.title || '';
+	this._parseOther(data);
 
 	/** @type {string} */
 	this.duration = data.duration || 0;
-
-	/** @type {?number} */
-	this.id = data.id || null;
 
 	/** @type {string} */
 	this.storageDir = data.storageDir;
@@ -104,10 +90,13 @@ AudioTrack.prototype._parseYandexMusic = function(data) {
 
 AudioTrack.prototype._parseOther = function(data) {
 	/** @type {string} */
-	this.title = data.title || '';
+	this.artist = data.artist || '';
 
 	/** @type {string} */
-	this.url = data.url;
+	this.title = data.title || '';
+
+	/** @type {?number} */
+	this.id = data.id || null;
 };
 
 
