@@ -29,7 +29,7 @@ var Input = function(params) {
 
 		this._node.clearValue();
 		app.ui.console.render();
-		app.ui.console.exec(command);
+		this.exec(command);
 	}.bind(this));
 
 	this._node.key(BlessedConst.button.ESCAPE, function(ch, key) {
@@ -119,6 +119,89 @@ Input.prototype._isArrow = function(key) {
  */
 Input.prototype._isBreak = function(key) {
 	return key.ctrl && key.name === 'c';
+};
+
+
+/**
+ * @param {string} cmd
+ */
+Input.prototype.exec = function(cmd) {
+	var commandList = {//todo add clear
+		clear: ['clear'],
+		exit: ['exit', 'quit', 'q'],
+		forward: ['forward', 'fwd'],//todo not supported stupid-player
+		help: ['help', 'h'],
+		next: ['next'],
+		pause: ['pause', 'p'],//todo not supported stupid-player
+		play: ['play'],
+		radio: ['radio', 'r'],
+		reward: ['reward', 'rwd'],//todo not supported stupid-player
+		prev: ['prev'],
+		search: ['search', 's'],
+		stop: ['stop']
+	};
+
+	if (cmd.indexOf('\n') > -1) {
+		var position = cmd.indexOf('\n');
+		cmd = cmd.substr(0, position);
+	}
+	var args = cmd.split(' ');
+	var command = args.shift();
+
+	args = args.join(' ');
+	var currentCommand = this._searchCommand(commandList, command);
+
+	switch (currentCommand) {
+		case commandList.clear:
+			app.ui.console._visiblePanels.right.clear();
+			app.ui.console.render();
+			break;
+		case commandList.help:
+			app.ui.console.help();
+			break;
+		case commandList.play:
+			app.play(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
+			break;
+		case commandList.pause:
+			app.pause();
+			break;
+		case commandList.stop:
+			app.stop();
+			break;
+		case commandList.search:
+			app.search(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
+			break;
+		case commandList.next:
+			app.next();
+			break;
+		case commandList.radio:
+			app.radio(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
+			break;
+		case commandList.exit:
+			process.exit(0);
+			break;
+		default:
+		//todo
+	}
+};
+
+
+/**
+ * @param {Object} commandList
+ * @param {string} cmd
+ * @return {string|undefined}
+ * @private
+ */
+Input.prototype._searchCommand = function(commandList, cmd) {
+	for(var i in commandList) {
+		if(commandList.hasOwnProperty(i)) {
+			for(var j = 0; j < commandList[i].length; j++) {
+				if(cmd == commandList[i][j]) {
+					return commandList[i];
+				}
+			}
+		}
+	}
 };
 
 

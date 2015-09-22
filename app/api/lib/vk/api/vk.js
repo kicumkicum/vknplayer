@@ -31,7 +31,7 @@ goog.inherits(VK, AbstractApi);
  */
 VK.prototype._requestWrapper = function(body) {
 	if (!this._token) {
-		this.emit('error', 5);
+		this.emit(this.EVENT_ERROR, 5);
 	}
 	var header = 'https://api.vk.com/method/';
 	var tail = (this.VERSION ? '&v=' + this.VERSION : '') + (this._token ? '&access_token=' + this._token : '');
@@ -42,7 +42,7 @@ VK.prototype._requestWrapper = function(body) {
 		.then(function(response) {
 			response = JSON.parse(response);
 			if (response['error']) {
-				this.emit('error', response['error']);
+				this.emit(this.EVENT_ERROR, response['error']);
 			}
 			return response['response'];
 		}.bind(this));
@@ -396,7 +396,7 @@ VK.prototype.getListNews = function() {
  *      count: (number|undefined)
  *      extended: (number|undefined),
  * }} params
- * @return {Promise.<>}
+ * @return {Promise.<models.News>}
  */
 VK.prototype.getListNewsFeed = function(params) {
 	var body = 'fave.getPosts?' +
@@ -630,6 +630,13 @@ VK.prototype.EVENT_START_REQUEST = 'start-request';
  * @const {string}
  */
 VK.prototype.EVENT_AUTHORIZATION_FAILED = 'authorization-failed';
+
+
+/**
+ * Fired with: none
+ * @const {string}
+ */
+VK.prototype.EVENT_ERROR = 'error';
 
 
 /**

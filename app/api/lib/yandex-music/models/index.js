@@ -19,3 +19,11 @@ models.SearchResults = require('./lib/search-results');
 models.Subscription = require('./lib/subscription');
 models.Track = require('./lib/track');
 models.Tracks = require('./lib/tracks');
+
+
+/**
+ * @typedef {{
+ *      Day: Day
+ * }}
+ */
+models.Type;
