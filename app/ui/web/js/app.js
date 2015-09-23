@@ -1,7 +1,7 @@
 $(function() {
 	var apiEntryPoint = '/';
 	var socket = new WebSocket("ws://kicum:8081/ws");
-	
+
 	socket.onopen = function() {
 		console.log("Соединение установлено.");
 	};
@@ -17,6 +17,7 @@ $(function() {
 
 	socket.onmessage = function(event) {
 		console.log("Получены данные " + event.data);
+		update(JSON.parse(event.data));
 	};
 
 	socket.onerror = function(error) {
@@ -26,6 +27,10 @@ $(function() {
 	var api = {
 		resume: function() {
 			socket.send('resume');
+			return api._call('video/resume');
+		},
+		play: function(id) {
+			socket.send(JSON.stringify({play: id}));
 			return api._call('video/resume');
 		},
 		pause: function() {
@@ -40,21 +45,9 @@ $(function() {
 			socket.send('prev');
 			console.log('prev');
 		},
-		getVideoList: function() {
-			return api._call('video/all');
-		},
-		playVideo: function(url) {
-			socket.send('play');
-			return api._call('video/play/' + encodeURIComponent(url));
-		},
-		getLayouts: function() {
-			return api._call('layout/all');
-		},
-		setLayout: function(layoutName) {
-			return api._call('layout/set/' + encodeURIComponent(layoutName));
-		},
-		getCurrentLayout: function() {
-			return api._call('layout');
+		getCurrentList: function() {
+			socket.send('get-list');
+			console.log('get-list');
 		},
 		_call: function(method, opt_args) {
 			return $.ajax({
@@ -66,12 +59,25 @@ $(function() {
 	};
 	window.api = api;
 
+	var update = function(audioTracks) {
+		var $list = $('.js-video-list');
+				$list.empty();
+				audioTracks.forEach(function(item) {
+					var $row = $('<tr><td></td></tr>');
+					$row.find('td').text(item.artist + ' - ' + item.title);
+					$row.data('url', item.id);
+					$list.append($row);
+				});
+	};
+	update();
+	setInterval(api.getCurrentList.bind(api), 10 * 1000);
+
 	//var updateVideoList = function() {
-	//	api.getVideoList()
-	//		.then(function(videos) {
+	//	api.getCurrentList()
+	//		.then(function(audioTracks) {
 	//			var $list = $('.js-video-list');
 	//			$list.empty();
-	//			videos.forEach(function(item) {
+	//			audioTracks.forEach(function(item) {
 	//				var $row = $('<tr><td></td></tr>');
 	//				$row.find('td').text(item);
 	//				$row.data('url', item);
@@ -81,8 +87,7 @@ $(function() {
 	//};
 
 	//updateVideoList();
-	//
-	//setInterval(updateVideoList, 1000);
+
 
 	//var updateLayoutList = function() {
 	//	$.when(api.getLayouts(), api.getCurrentLayout())
@@ -129,7 +134,7 @@ $(function() {
 	});
 
 	$('.js-video-list').on('click', 'tr', function() {
-		api.playVideo($(this).data('url'));
+		api.play($(this).data('url'));
 	});
 
 	$('.js-layout-list').on('click', '.col-xs-6', function() {
