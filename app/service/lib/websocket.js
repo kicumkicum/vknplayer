@@ -22,6 +22,7 @@ var Server = function() {
 Server.prototype._setupWebSocket = function() {
 	var socket = new WebSocketServer({port: 8081});
 	socket.on('connection', function(ws) {
+		this._ws = ws;
 		ws.on('message', this._onMessage.bind(this));
 	}.bind(this));
 };
@@ -58,6 +59,20 @@ Server.prototype._onMessage = function(stringMessage) {
 		case 'next':
 			app.service.player.next();
 			break;
+		case 'get-list':
+			var list = app.service.playListManager.getActivePlaylist().toArray();
+			this._ws.send(JSON.stringify(list));
+			console.log(list[0].toString())
+			break;
+		default:
+			var mes = JSON.parse(message);
+	}
+	if (mes && mes.play) {
+		var current = app.service.playListManager.getActivePlaylist().toArray().filter(function(item) {
+			return item.id === mes.play;
+		})[0];
+		app.service.playListManager.getActivePlaylist().select(current);
+		app.service.player.play(app.service.playListManager.getActivePlaylistId());
 	}
 };
 
