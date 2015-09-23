@@ -69,7 +69,6 @@ $(function() {
 					$list.append($row);
 				});
 	};
-	update();
 	setInterval(api.getCurrentList.bind(api), 10 * 1000);
 
 	//var updateVideoList = function() {
