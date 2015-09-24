@@ -90,6 +90,9 @@ AudioTrack.prototype._parseYandexMusic = function(data) {
 
 AudioTrack.prototype._parseOther = function(data) {
 	/** @type {string} */
+	this.url = data.url;
+
+	/** @type {string} */
 	this.artist = (data.artist || '').trim();
 
 	/** @type {string} */

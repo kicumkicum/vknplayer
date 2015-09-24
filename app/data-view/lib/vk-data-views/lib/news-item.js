@@ -26,7 +26,7 @@ NewsItem.prototype.getChildren = function() {
 			return news
 				.getAudioAttachments()
 				.map(function(track) {
-					return new vknp.models.AudioTrack(track);
+					return new vknp.api.vk.models.AudioTrack(track);
 				});
 		}.bind(this));
 };

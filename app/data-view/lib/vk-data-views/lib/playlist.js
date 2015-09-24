@@ -23,13 +23,13 @@ Playlist.prototype.getChildren = function() {
 			.getAudio(this._data.ownerId, 300, this._data.albumId)
 			.then(function(tracks) {
 				return tracks.map(function(track) {
-					return new vknp.models.AudioTrack(track);
+					return new vknp.api.vk.models.AudioTrack(track);
 				});
 			});
 	} else {
 		promise = new vknp.Promise(function(resolve, reject) {
 			var tracks = this._data.map(function(track) {
-				return new vknp.models.AudioTrack(track);
+				return new vknp.api.vk.models.AudioTrack(track);
 			});
 			resolve(tracks);
 		}.bind(this));
