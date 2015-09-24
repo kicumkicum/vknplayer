@@ -321,7 +321,7 @@ Vknp.prototype.ui;
  *      player: Player,
  *      playListManager: PlayListManager,
  *      config: Config,
- *      radio:
+ *      radio: Radio
  * }}
  */
 Vknp.prototype.service;
