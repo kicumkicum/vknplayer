@@ -74,9 +74,12 @@ Web.prototype._onMessage = function(stringMessage) {
 	}
 
 	if (mes && mes.play) {
-		var current = app.service.playListManager.getActivePlaylist().toArray().filter(function(item) {
-			return item.id === mes.play;
-		})[0];
+		var current = app.service.playListManager
+			.getActivePlaylist()
+			.toArray()
+			.filter(function(item) {
+				return item.id === mes.play;
+			})[0];
 
 		app.service.playListManager.getActivePlaylist().select(current);
 		app.service.player.play(app.service.playListManager.getActivePlaylistId());
