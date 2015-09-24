@@ -89,6 +89,12 @@ Web.prototype._onMessage = function(stringMessage) {
 
 
 /**
+ * @type {WebSocket}
+ */
+Web.prototype._ws;
+
+
+/**
  * @enum {string}
  */
 Web.MessageType = {
