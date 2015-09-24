@@ -64,8 +64,9 @@ Web.prototype._onMessage = function(stringMessage) {
 			app.service.player.next();
 			break;
 		case 'get-list':
-			var list = app.service.playListManager.getActivePlaylist().toArray();
-			if (list) {
+			var currentPlaylist = app.service.playListManager.getActivePlaylist();
+			if (currentPlaylist) {
+				var list = currentPlaylist.toArray();
 				this._ws.send(JSON.stringify(list));
 			}
 			break;
