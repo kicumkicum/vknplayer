@@ -9,12 +9,12 @@ var BasePopUp = require('./base');
  */
 var SimplePopUp = function(param) {
 	this._init({
-		title: param.title,
-		message: param.message,
-		left: param.left,
-		top: param.top,
-		width: param.width,
-		height: param.height
+		title: param.title || '',
+		message: '\n{center}' + param.message || '' + '{center}',
+		left: param.left || 5,
+		top: param.top || 5,
+		width: param.width || 80,
+		height: param.height || 80
 	});
 };
 goog.inherits(SimplePopUp, BasePopUp);

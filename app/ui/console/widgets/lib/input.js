@@ -138,7 +138,8 @@ Input.prototype.exec = function(cmd) {
 		reward: ['reward', 'rwd'],//todo not supported stupid-player
 		prev: ['prev'],
 		search: ['search', 's'],
-		stop: ['stop']
+		stop: ['stop'],
+		shuffle: ['shuffle', 'sh']
 	};
 
 	if (cmd.indexOf('\n') > -1) {
@@ -157,7 +158,13 @@ Input.prototype.exec = function(cmd) {
 			app.ui.console.render();
 			break;
 		case commandList.help:
-			app.ui.console.help();
+			app.ui.console.openPopUp(vknp.ui.console.popups.Simple,
+				{
+					title: 'Help',
+					message: 'Help in http://github.com/kicumkicum/vknplayer\n' +
+						'Read README.md or create issue with your ask'
+
+				});
 			break;
 		case commandList.play:
 			app.play(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
@@ -170,6 +177,13 @@ Input.prototype.exec = function(cmd) {
 			break;
 		case commandList.search:
 			app.search(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
+			break;
+		case commandList.shuffle:
+			var panel = app.ui.console.activePanel;
+			if (panel instanceof vknp.ui.console.panels.PlayList) {
+				var id = panel.getPlaylistId();
+				app.service.playListManager.shufflePlaylist(id);
+			}
 			break;
 		case commandList.next:
 			app.next();

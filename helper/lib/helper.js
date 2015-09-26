@@ -76,4 +76,13 @@ Helper.prototype.parseArray = function(array, itemClass) {
 };
 
 
+/**
+ * @param {Array.<*>} array
+ */
+Helper.prototype.shuffleArray = function(array) {
+	for (var j, x, i = array.length; i; j = parseInt(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
+    return array;
+};
+
+
 module.exports = Helper;

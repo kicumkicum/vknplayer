@@ -211,6 +211,7 @@ Console.prototype.openPopUp = function(PopUp, opt_params) {
 	}.bind(this));
 
 	popup.focus();
+	this.render();
 	return popup;
 };
 
