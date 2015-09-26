@@ -220,6 +220,16 @@ PlayListManager.prototype.select = function(position) {
 };
 
 
+/**
+ * @param {number} id
+ */
+PlayListManager.prototype.shufflePlaylist = function(id) {
+	var playlist = this.getPlayList(id);
+	var tracks = app.helper.clone(playlist.toArray());
+	tracks = app.helper.shuffleArray(tracks);
+	playlist.setItems(tracks);
+};
+
 ///**
 // * @param playlist
 // * @param track
