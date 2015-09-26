@@ -158,7 +158,13 @@ Input.prototype.exec = function(cmd) {
 			app.ui.console.render();
 			break;
 		case commandList.help:
-			app.ui.console.help();
+			app.ui.console.openPopUp(vknp.ui.console.popups.Simple,
+				{
+					title: 'Help',
+					message: 'Help in http://github.com/kicumkicum/vknplayer\n' +
+						'Read README.md or create issue with your ask'
+
+				});
 			break;
 		case commandList.play:
 			app.play(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
