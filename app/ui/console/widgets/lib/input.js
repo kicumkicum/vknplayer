@@ -138,7 +138,8 @@ Input.prototype.exec = function(cmd) {
 		reward: ['reward', 'rwd'],//todo not supported stupid-player
 		prev: ['prev'],
 		search: ['search', 's'],
-		stop: ['stop']
+		stop: ['stop'],
+		shuffle: ['shuffle', 'sh']
 	};
 
 	if (cmd.indexOf('\n') > -1) {
@@ -170,6 +171,13 @@ Input.prototype.exec = function(cmd) {
 			break;
 		case commandList.search:
 			app.search(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
+			break;
+		case commandList.shuffle:
+			var panel = app.ui.console.activePanel;
+			if (panel instanceof vknp.ui.console.panels.PlayList) {
+				var id = panel.getOpenPlaylistId();
+				app.service.playListManager.shufflePlaylist(id);
+			}
 			break;
 		case commandList.next:
 			app.next();
