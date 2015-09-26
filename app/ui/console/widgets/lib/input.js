@@ -181,7 +181,7 @@ Input.prototype.exec = function(cmd) {
 		case commandList.shuffle:
 			var panel = app.ui.console.activePanel;
 			if (panel instanceof vknp.ui.console.panels.PlayList) {
-				var id = panel.getOpenPlaylistId();
+				var id = panel.getPlaylistId();
 				app.service.playListManager.shufflePlaylist(id);
 			}
 			break;
