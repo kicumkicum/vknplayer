@@ -139,7 +139,8 @@ Input.prototype.exec = function(cmd) {
 		prev: ['prev'],
 		search: ['search', 's'],
 		stop: ['stop'],
-		shuffle: ['shuffle', 'sh']
+		shuffle: ['shuffle', 'sh'],
+		volume: ['volume', 'v']
 	};
 
 	if (cmd.indexOf('\n') > -1) {
@@ -190,6 +191,9 @@ Input.prototype.exec = function(cmd) {
 			break;
 		case commandList.radio:
 			app.radio(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
+			break;
+		case commandList.volume:
+			app.service.player.setVolume(args);
 			break;
 		case commandList.exit:
 			process.exit(0);

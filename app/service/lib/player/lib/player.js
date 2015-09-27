@@ -144,6 +144,8 @@ Player.prototype.reward = function() {};
  * @param {number} value 0..100
  */
 Player.prototype.setVolume = function(value) {
+	value = value < 0 ? 0 :
+		(value > 100 ? 100 : value);
 	if (this._player) {
 		this._volume = value;
 		return this._player.setVolume(value / 100);
