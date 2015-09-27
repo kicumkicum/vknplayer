@@ -3,7 +3,7 @@
   "version": "0.0.42",
   "description": "console audio player for listen music from vk.com and on-line radio",
   "dependencies": {
-    "blessed": "^0.0.47",
+    "blessed": "0.0.47",
     "connect": "^2.19.4",
     "m3u8": "0.0.6",
     "nclosure": "^0.4.3",
