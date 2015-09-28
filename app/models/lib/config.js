@@ -46,8 +46,13 @@ Config = function(data) {
 	this.ui.console = {};
 	this.ui.console.enabled = data['ui']['console']['enabled'] || 0;
 	this.ui.console.mode = data['ui']['console']['mode'] || 'full';
+
 	this.ui.web = {};
 	this.ui.web.enabled = data['ui']['web']['enabled'] || 0;
+	this.ui.web.ports = {
+		webSocket: data['ui']['web']['ports']['webSocket'],
+		webServer: data['ui']['web']['ports']['webServer']
+	};
 };
 
 
