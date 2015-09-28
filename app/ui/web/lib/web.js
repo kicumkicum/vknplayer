@@ -13,17 +13,18 @@ var path = require('path');
 var Web = function(config, dataViews, api, player, playlist, historyManager) {
 	goog.base(this, config, dataViews, api, player, playlist, historyManager);
 
-	this._createWebSocket();
-	this._createWebServer();
+	this._createWebSocket(config.ports.webSocket);
+	this._createWebServer(config.ports.webServer);
 };
 goog.inherits(Web, BaseUI);
 
 
 /**
+ * @param {number} port
  * @protected
  */
-Web.prototype._createWebSocket = function() {
-	var socket = new WebSocketServer({port: 8081});
+Web.prototype._createWebSocket = function(port) {
+	var socket = new WebSocketServer({port: port});
 	socket.on('connection', function(ws) {
 		ws.on('message', this._onMessage.bind(this));
 		this._ws = ws;
@@ -32,12 +33,13 @@ Web.prototype._createWebSocket = function() {
 
 
 /**
+ * @param {number} port
  * @protected
  */
-Web.prototype._createWebServer = function() {
+Web.prototype._createWebServer = function(port) {
 	connect()
 		.use(connect.static(path.join(__dirname, '..')))
-		.listen(1337);
+		.listen(port);
 };
 
 
