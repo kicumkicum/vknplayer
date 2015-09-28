@@ -41,7 +41,11 @@
 			"__comment": "mode value is full, minimal or daemon"
 		},
 		"web": {
-			"enabled": 0
+			"enabled": 0,
+			"ports": {
+			 	"webSocket": 8081,
+				"webServer": 1337
+			}
 		}
 	}
 }
