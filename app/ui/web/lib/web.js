@@ -13,8 +13,10 @@ var path = require('path');
 var Web = function(config, dataViews, api, player, playlist, historyManager) {
 	goog.base(this, config, dataViews, api, player, playlist, historyManager);
 
-	this._createWebSocket();
-	this._createWebServer();
+	if (config.enabled) {
+		this._createWebSocket();
+		this._createWebServer();
+	}
 };
 goog.inherits(Web, BaseUI);
 

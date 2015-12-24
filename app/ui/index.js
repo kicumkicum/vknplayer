@@ -21,7 +21,7 @@ var UI = function(config, dataViews, service, api) {
 	if (config.console && config.console.enabled) {
 		this.console = new Console(config.console, dataViews, api, service.player, service.playListManager, historyManager);
 	}
-	this.web = new Web(config.console, dataViews, api, service.player, service.playListManager, historyManager);
+	this.web = new Web(config.web, dataViews, api, service.player, service.playListManager, historyManager);
 };
 
 
