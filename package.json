@@ -3,7 +3,7 @@
   "version": "0.0.42",
   "description": "console audio player for listen music from vk.com and on-line radio",
   "dependencies": {
-    "blessed": "0.0.47",
+    "blessed": "^0.1.81",
     "connect": "^2.19.4",
     "m3u8": "0.0.6",
     "node-xml-lite": "^0.0.4",
@@ -13,10 +13,6 @@
     "stupid-player": "^0.1.0",
     "ws": "^0.4.31",
     "yandex-music-api": "^0.0.3"
-  },
-  "engineStrict": true,
-  "engines": {
-    "node": ">=0.10.0 <0.11"
   },
   "bin": {
     "vknplayer": "./vknplayer.js"
