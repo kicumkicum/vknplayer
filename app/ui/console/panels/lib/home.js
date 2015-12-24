@@ -2,7 +2,6 @@
  * Created by oleg on 21.06.14.
  */
 var pl = require('../../../../../radio/playlist.json');
-var blessed = require('blessed');
 var util = require('util');
 
 var BasePanel = require('./base-panel');
