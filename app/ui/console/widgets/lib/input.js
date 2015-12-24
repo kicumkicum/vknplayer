@@ -76,7 +76,7 @@ Input.prototype._init = function(params) {
  */
 Input.prototype._createNode = function(params) {
 	params.style = params.style || {};
-	return blessed.textarea({
+	var input = blessed.textarea({
 		'parent': params.parent,
 		'keys': true,
 		'mouse': true,
@@ -89,6 +89,84 @@ Input.prototype._createNode = function(params) {
 			'bg': params.style.bg
 		}
 	});
+
+	// Revert https://github.com/chjj/blessed/commit/b42308c7cc3e544821254a0095082d22b60f5af9
+	// For fix double-input
+	input.readInput = function(callback) {
+		var self = this
+			, focused = this.screen.focused === this;
+
+		if (this._reading) return;
+		this._reading = true;
+
+		this._callback = callback;
+
+		if (!focused) {
+			this.screen.saveFocus();
+			this.focus();
+		}
+
+		this.screen.grabKeys = true;
+
+		this._updateCursor();
+		this.screen.program.showCursor();
+		//this.screen.program.sgr('normal');
+
+		this._done = function fn(err, value) {
+			if (!self._reading) return;
+
+			if (fn.done) return;
+			fn.done = true;
+
+			self._reading = false;
+
+			delete self._callback;
+			delete self._done;
+
+			self.removeListener('keypress', self.__listener);
+			delete self.__listener;
+
+			self.removeListener('blur', self.__done);
+			delete self.__done;
+
+			self.screen.program.hideCursor();
+			self.screen.grabKeys = false;
+
+			if (!focused) {
+				self.screen.restoreFocus();
+			}
+
+			if (self.options.inputOnFocus) {
+				self.screen.rewindFocus();
+			}
+
+			// Ugly
+			if (err === 'stop') return;
+
+			if (err) {
+				self.emit('error', err);
+			} else if (value != null) {
+				self.emit('submit', value);
+			} else {
+				self.emit('cancel', value);
+			}
+			self.emit('action', value);
+
+			if (!callback) return;
+
+			return err
+				? callback(err)
+				: callback(null, value);
+		};
+
+		this.__listener = this._listener.bind(this);
+		this.on('keypress', this.__listener);
+
+		this.__done = this._done.bind(this, null, null);
+		this.on('blur', this.__done);
+	};
+
+	return input;
 };
 
 
