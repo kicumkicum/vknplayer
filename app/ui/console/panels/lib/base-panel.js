@@ -2,7 +2,6 @@
  * Created by oleg on 08.06.14.
  */
 
-var blessed = require('blessed');
 var BlessedConst = new (require('../../lib/blessed-const'));
 var DataList = require('../../../../../helper/data-list');
 var Node = require('../../lib/node');

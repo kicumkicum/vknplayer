@@ -1,7 +1,6 @@
 /**
  * Created by oleg on 22.08.14.
  */
-var blessed = require('blessed');
 var PlayList = require('./playlist');
 var BasePanel = require('./base-panel');
 

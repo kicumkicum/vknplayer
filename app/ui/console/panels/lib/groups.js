@@ -2,7 +2,6 @@
  * Created by oleg on 08.06.14.
  */
 
-var blessed = require('blessed');
 var models = require('blessed');
 var BasePanel = require('./base-panel');
 var helper = new (require('../../../../../helper/index'));

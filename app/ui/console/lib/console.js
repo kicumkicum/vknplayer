@@ -35,7 +35,7 @@ Console.prototype.init = function() {
 	this.screen = blessed.screen({
 //		grabKeys: true
 	});
-	this._api.vk.on(this.EVENT_ERROR, this._apiVKErrorHandler.bind(this));
+	this._api.vk.on(this._api.vk.EVENT_ERROR, this._apiVKErrorHandler.bind(this));
 	this._api.vk//todo move to app or api
 		.getUserId()
 		.then(function(userId) {

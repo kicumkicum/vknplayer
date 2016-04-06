@@ -2,7 +2,6 @@
  * Created by oleg on 27.05.14.
  */
 
-var blessed = require('blessed');
 var events = require("events");
 var util = require('util');
 
