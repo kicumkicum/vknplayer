@@ -3,15 +3,18 @@
  */
 
 
-var Q = require('q');
+var Promise = require('promise');
+var events = require('events');
 var request = require('request');
 var util = require('util');
-var events = require('events');
 
 
-
+/**
+ * @constructor
+ */
 var AbstractApi = function() {};
 goog.inherits(AbstractApi, events.EventEmitter);
+
 
 /**
  * @param {string} url
@@ -19,13 +22,17 @@ goog.inherits(AbstractApi, events.EventEmitter);
  * @protected
  */
 AbstractApi.prototype._request = function(url) {
-	var d = Q.defer();
-	this.emit('start-request');
-	request(url, function(error, response, body) {
-		this.emit('stop-request');
-		return d.resolve(body);
+	return new Promise(function(resolve, reject) {
+		this.emit('start-request');
+		request(url, function(error, response, body) {
+			this.emit('stop-request');
+			if (error) {
+				return reject(error);
+			} else {
+				return resolve(body);
+			}
+		}.bind(this));
 	}.bind(this));
-	return d.promise;
 };
 
 
