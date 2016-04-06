@@ -6,10 +6,13 @@ var Input = require('../../widgets/lib/universal-input');
 var SimplePopUp = require('./simple');
 
 
+/**
+ * @constructor
+ */
 var HardAuth = function() {
 	this._init({
 		title: 'Hard Authorization VK.COM',
-		message: '{center}Для авторизации на сайте VK.COM{/center}\n1. пройдите по ссылке ' + app.api.vk.getAuthUrl(true) + '\n' +
+		message: '{center}Для авторизации на сайте VK.COM{/center}\on1. пройдите по ссылке ' + app.api.vk.getAuthUrl(true) + '\n' +
 		'2. скопируйте содержимое адресной строки браузера в это поле ввода.\n3. нажмите ENTER\n4. перезапустите приложение \nПусть вас не смущает предуперждение. С теми правами, которые использует это приложение, это не возможно',
 		left: 15,
 		top: 15,
