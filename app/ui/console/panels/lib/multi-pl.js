@@ -38,6 +38,32 @@ MultiPL.prototype.setContent = function(tracks) {
 };
 
 
+/**
+ * @return {number}
+ */
+MultiPL.prototype.getOpenPlaylistId = function() {
+	return this._openPlaylistId;
+};
+
+
+/**
+ * @return {number}
+ */
+MultiPL.prototype.getPlayedPlaylistId = function() {
+	return this._playedPlaylistId;
+};
+
+
+
+/**
+ * @inheritDoc
+ */
+MultiPL.prototype.getPlaylistId = function() {
+	return this.getOpenPlaylistId();
+};
+
+
+
 /** @inheritDoc */
 MultiPL.prototype._loadData = function() {
 	goog.base(this, '_loadData');

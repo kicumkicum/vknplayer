@@ -1,13 +1,12 @@
 {
 	"app": {
-		"clientId": "4072914",
-		"redirectServer": "http://109.227.206.91:8888"
+		"clientId": "4072914"
 	},
 	"api": {
 		"vk": {
 			"enabled": 1,
-			"externalAuthServer": "http://109.227.206.91:3000/",
-			"shortAuthUrl": "http://vk.cc/3yMxJ9",
+			"externalAuthServer": "http://vknplayer.ru/auth/",
+			"shortAuthUrl": "https://vk.cc/50Qcg3",
 			"authServer": "https://oauth.vk.com/authorize",
 			"client_id": 4072914,
 			"scope": "audio,offline,wall,friends",
@@ -15,6 +14,11 @@
 			"display": "page",
 			"response_type": "token",
 			"token": ""
+		},
+		"yandexMusic": {
+			"enable": 0,
+			"login": "",
+			"password": ""
 		},
 		"gmusic": {
 			"enabled": 0,

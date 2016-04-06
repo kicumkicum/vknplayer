@@ -7,8 +7,8 @@
  * To change this template use File | Settings | File Templates.
  */
 
-require('nclosure').nclosure();
-goog.require('goog.structs.Trie');
+global.goog = require('./polyfill').goog;
+
 var App = require('./app/');
 
 global.appPath = __dirname;

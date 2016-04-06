@@ -1,8 +1,6 @@
 /**
  * Created by oleg on 02.06.14.
  */
-var blessed = require('blessed');
-var helper = new (require('../../../../../helper/index'));
 var util = require('util');
 
 var BasePanel = require('./base-panel');
@@ -43,9 +41,13 @@ goog.inherits(PlayList, BasePanel);
 
 
 /**
- * @param {DataList.<AudioTrack>} tracks
+ * @param {Array.<vknp.api.yandexMusic.models.Track|vknp.api.vk.models.AudioTrack>} tracks
  */
 PlayList.prototype.setContent = function(tracks) {
+	tracks = tracks.map(function(track) {
+		return new vknp.models.AudioTrack(track);
+	});
+
 	var playlist = this.getPlaylist();
 	if (playlist) {
 		playlist.setItems(tracks);
@@ -249,12 +251,12 @@ PlayList.prototype._move = function(chunkStart, chunkHowMany, offset, goUp) {
  */
 PlayList.prototype._colorizePlayingTrack = function(track, position) {
 	if (this._prevSelected && this.getPlaylist().itemAt(this._prevSelected)) {
-		this.getChild(this._prevSelected).style = helper.clone(this.defaultStyle);
+		this.getChild(this._prevSelected).style = app.helper.clone(this.defaultStyle);
 	}
 
 	var child = this.getChild(position);
 	if (child && this._isActivePlaylist(child, track)) {
-		this.defaultStyle = helper.clone(child.style);
+		this.defaultStyle = app.helper.clone(child.style);
 		this._prevSelected = position;
 		child.style.fg = this.activeTrackColor;
 		this.selectElement(position);
@@ -292,7 +294,7 @@ PlayList.prototype._makeSpace = function(node, track, index) {
  */
 PlayList.prototype._isActivePlaylist = function(child, track) {
 	//todo is huewiy check. need good check
-	return child.content.indexOf(track.artist) > -1 && child.content.indexOf(track.title) > -1;
+	return child.content.indexOf(track.toString()) !== -1;
 };
 
 

@@ -2,7 +2,7 @@
  * Created by oleg on 05.06.14.
  */
 
-Helper = function() {
+var Helper = function() {
 	return this;
 };
 
@@ -62,5 +62,27 @@ Helper.prototype.clone = function(item) {
 	}
 	return result;
 };
+
+
+/**
+ * @param {Array.<Object>} array
+ * @param {function(...*):TYPE} itemClass
+ * @return {Array.<TYPE>}
+ */
+Helper.prototype.parseArray = function(array, itemClass) {
+	return (array || []).map(function(item) {
+		return new itemClass(item);
+	});
+};
+
+
+/**
+ * @param {Array.<*>} array
+ */
+Helper.prototype.shuffleArray = function(array) {
+	for (var j, x, i = array.length; i; j = parseInt(Math.random() * i), x = array[--i], array[i] = array[j], array[j] = x);
+    return array;
+};
+
 
 module.exports = Helper;

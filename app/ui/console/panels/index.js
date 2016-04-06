@@ -8,7 +8,8 @@ var panels = {
 	News: require('./lib/news'),
 	PlayList: require('./lib/playlist'),
 	SlavePL: require('./lib/multi-pl'),
-	VK: require('./lib/vk')
+	VK: require('./lib/vk'),
+	Panel: require('./lib/panel')
 };
 
 module.exports = panels;

@@ -1,7 +1,6 @@
 /**
  * Created by oleg on 22.08.14.
  */
-var blessed = require('blessed');
 var PlayList = require('./playlist');
 var BasePanel = require('./base-panel');
 
@@ -58,17 +57,8 @@ News.prototype._clickHandler = function(eventName, select, selectNumber) {
 			filter: 'post',
 			count: '100'
 		})
-		.then(function(items) {
-			var tracks = [];
-			items.news.forEach(function(item) {
-				if (item.attachments) {
-					item.attachments.forEach(function(attachment) {
-						if (attachment.audio) {
-							tracks.push(attachment.audio);
-						}
-					})
-				}
-			});
+		.then(function(news) {
+			var tracks = news.getAudioAttachments();
 			app.ui.console._panels.slavePL.setContent(tracks);//todo make datalist
 		}.bind(this));
 };

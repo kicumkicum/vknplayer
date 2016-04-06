@@ -6,7 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 
-var p = (require('../stupid-player/index'));
+var StupidPlayer = require('stupid-player');
 var events = require('events');
 var util = require('util');
 
@@ -14,9 +14,15 @@ var util = require('util');
  * @constructor
  */
 Player = function() {
-	this._player = null;
+	this._player = new StupidPlayer;
+
 	this._state = this.state.STOP;
 	this._realStop = false;
+	this._volume = 100;
+
+	this._afterStop = this._afterStop.bind(this);
+	this._player.on(this._player.EVENT_STOP, this._afterStop);
+	this._player.on(this._player.EVENT_ERROR, this._afterStop);
 };
 goog.inherits(Player, events.EventEmitter);
 
@@ -135,14 +141,57 @@ Player.prototype.reward = function() {};
 
 
 /**
- * @private
+ * @param {number} value 0..100
+ */
+Player.prototype.setVolume = function(value) {
+	value = value < 0 ? 0 :
+		(value > 100 ? 100 : value);
+	if (this._player) {
+		this._volume = value;
+		return this._player.setVolume(value / 100);
+	} else {
+		return vknp.Promise.reject();
+	}
+};
+
+
+/**
+ * @return {number} 0..100
+ */
+Player.prototype.getVolume = function() {
+	return this._volume;
+};
+
+
+/**
+ */
+Player.prototype.volumeUp = function() {
+	var volume = this.getVolume() + 10;
+	if (volume > 100) {
+		volume = 100;
+	}
+	return this.setVolume(volume);
+};
+
+
+/**
+ */
+Player.prototype.volumeDown = function() {
+	var volume = this.getVolume() - 10;
+	if (volume < 0) {
+		volume = 0;
+	}
+	return this.setVolume(volume);
+};
+
+
+/**
+ * @return {Promise.<undefined>|undefined}
+ * @protected
  */
 Player.prototype._play = function() {
 	if (global.gc) {
 		global.gc();
-	}
-	if (this._state === this.state.PLAY || this._state === this.state.PAUSE) {
-		this.stop();
 	}
 
     var track = app.service.playListManager.getCurrentTrack();
@@ -150,20 +199,21 @@ Player.prototype._play = function() {
     if (!track) {
         return;
     }
-	if (this._player) {
-		this._player.deinit();
-	}
-	this._player = new p(track.url);
-	this._state = this.state.PLAY;
-	this.emit(this.EVENT_PLAY, {
-		track: playlist.current(),
-		position: playlist.currentIndex(),
-		playlistId: app.service.playListManager.getActivePlaylistId(),
-		isStream: this._player._isStream()
-	});
 
-	this._player.on(this._player.EVENT_STOP, this._afterStop.bind(this));
-	this._player.on(this._player.EVENT_ERROR, this._afterStop.bind(this));
+	return track.getUrl()
+		.then(function(url) {
+			this._state = this.state.PLAY;
+			this.emit(this.EVENT_PLAY, {
+				track: playlist.current(),
+				position: playlist.currentIndex(),
+				playlistId: app.service.playListManager.getActivePlaylistId(),
+				isStream: true
+			});
+			return this._player.play(url);
+		}.bind(this))
+		.then(function() {
+			return this.setVolume(this._volume);
+		}.bind(this));
 };
 
 
@@ -199,6 +249,12 @@ Player.prototype._state;
  * @param {boolean}
  */
 Player.prototype._realStop;
+
+
+/**
+ * @type {number}
+ */
+Player.prototype._volume;
 
 
 /**

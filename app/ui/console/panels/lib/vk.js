@@ -5,7 +5,6 @@ goog.provide('VK');
 //goog.require('Node');
 var Node = require('../../lib/node');//todo for inherits. check it
 
-var blessed = require('blessed');
 var BasePanel = require('./base-panel');
 
 
@@ -122,6 +121,9 @@ VK.prototype._showAlbums = function() {
 	app.api.vk
 		.getAudioAlbums(null, 100)
 		.then(function(albums) {
+			albums = albums.map(function(album) {
+				return new vknp.models.Album(album);
+			});
 			app.ui.console._panels.albums.updatePanel(albums, app.ui.console.userId);
 		});
 };
@@ -157,21 +159,10 @@ VK.prototype._showBookmarks = function() {
 		.getListNewsFeed({
 			count: 100
 		})
-		.then(function(list) {
-			var tracks = [];
-			var news = list.items;
-			news.forEach(function(item) {
-				if (item.attachments) {
-					item.attachments.forEach(function(attachment) {
-						if (attachment.audio) {
-							tracks.push(attachment.audio);
-						}
-					})
-				}
-			});
+		.then(function(feed) {
+			var tracks = feed.getAudioAttachments();
 			app.ui.console._panels.slavePL.setContent(tracks);
-
-		})
+		});
 };
 
 

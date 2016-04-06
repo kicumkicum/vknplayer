@@ -1,4 +1,3 @@
-var blessed = require('blessed');
 var request = require('request');
 var util = require('util');
 

@@ -3,6 +3,7 @@
  */
 
 
+
 /**
  * @param {Object} data
  * @constructor
@@ -23,6 +24,11 @@ Config = function(data) {
 	this.api.vk.display = data['api']['vk']['display'];
 	this.api.vk.responseType = data['api']['vk']['response_type'];
 	this.api.vk.token = data['api']['vk']['token'];
+
+	this.api.yandexMusic = {};
+	this.api.yandexMusic.enable = data['api']['yandexMusic']['enable'];
+	this.api.yandexMusic.login = data['api']['yandexMusic']['login'];
+	this.api.yandexMusic.password = data['api']['yandexMusic']['password'];
 
 	this.api.gmusic = {};
 	this.api.gmusic.enabled = data['api']['gmusic']['enabled'] || 0;
