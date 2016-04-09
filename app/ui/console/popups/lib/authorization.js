@@ -1,10 +1,13 @@
+var BasePopUp = require('./base');
 var request = require('request');
 var util = require('util');
 
-var BasePopUp = require('./base');
-var Input = require('../../widgets/lib/universal-input');
-var SimplePopUp = require('./simple');
 
+
+/**
+ * @constructor
+ * @extends {BasePopUp}
+ */
 var AuthPopUp = function() {
 	this._openSimpleAuth = this._openSimpleAuth.bind(this);
 	this._openHardAuth = this._openHardAuth.bind(this);
@@ -31,6 +34,9 @@ AuthPopUp.prototype.getNode = function() {
 };
 
 
+/**
+ * @protected
+ */
 AuthPopUp.prototype._getId = function() {
 	var url = app.api.vk.getAuthUrl();
 	request(url + 'id', function(err, res, body) {
@@ -44,6 +50,10 @@ AuthPopUp.prototype._getId = function() {
 };
 
 
+/**
+ * @param {string} id
+ * @protected
+ */
 AuthPopUp.prototype._getTokenById = function(id) {
 	var url = app.api.vk.getAuthUrl();
 	var interval = setInterval(function() {
@@ -59,6 +69,9 @@ AuthPopUp.prototype._getTokenById = function(id) {
 };
 
 
+/**
+ * @protected
+ */
 AuthPopUp.prototype._addButtons = function() {
 	var simpleMessage = 'Simple\nПростая авторизация. Требует минимум усилий,\nно часть функционала не доступно';
 	var hardMessage = '{center}Hard\nЧуть менее удобный способ,\nно доступен весь функционал приложения{/center}';
@@ -80,14 +93,23 @@ AuthPopUp.prototype._addButtons = function() {
 };
 
 
+/**
+ * @protected
+ */
 AuthPopUp.prototype._openSimpleAuth = function() {
 	app.ui.console.openPopUp(vknp.ui.console.popups.SimpleAuth);
 };
 
 
+/**
+ * @protected
+ */
 AuthPopUp.prototype._openHardAuth = function() {
 	app.ui.console.openPopUp(vknp.ui.console.popups.HardAuth);
 };
 
 
+/**
+ * @type {AuthPopUp}
+ */
 module.exports = AuthPopUp;
