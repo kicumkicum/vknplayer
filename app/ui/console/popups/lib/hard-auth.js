@@ -1,8 +1,7 @@
-var request = require('request');
-
 var BasePopUp = require('./base');
 var Input = require('../../widgets/lib/universal-input');
-var SimplePopUp = require('./simple');
+var request = require('request');
+
 
 
 /**
@@ -93,6 +92,9 @@ HardAuth.prototype._createInput = function() {
 };
 
 
+/**
+ * @protected
+ */
 HardAuth.prototype._readInput = function() {
 	var inputValue = this._input.getValue();
 	var token;
@@ -103,6 +105,7 @@ HardAuth.prototype._readInput = function() {
 	token = this._parseToken(inputValue);
 	app.setConfig(['api', 'vk', 'token'], token);
 };
+
 
 /**
  * @param {string} query
@@ -117,4 +120,7 @@ HardAuth.prototype._parseToken = function(query) {
 };
 
 
+/**
+ * @type {HardAuth}
+ */
 module.exports = HardAuth;
