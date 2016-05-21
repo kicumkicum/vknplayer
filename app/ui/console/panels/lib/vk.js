@@ -5,7 +5,6 @@ goog.provide('VK');
 //goog.require('Node');
 var Node = require('../../lib/node');//todo for inherits. check it
 
-var blessed = require('blessed');
 var BasePanel = require('./base-panel');
 
 

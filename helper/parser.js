@@ -1,7 +1,4 @@
 var m3u8 = require('m3u8');
-var Helper = require('./index');
-var helper = new Helper;
-
 
 var Parser = {};
 /**
@@ -11,7 +8,7 @@ Parser.createM3u8 = function() {
 	var M3u8 = function() {
 		goog.base(this);
 		this.on('m3u', function(m3u) {
-			var result = helper.clone(m3u['items']);
+			var result = app.helper.clone(m3u['items']);
 			Parser._eraseM3U(m3u);//иначе остается результат от предыдущего парсинга
 			this.emit(Parser.EVENT_DONE, result);
 		});

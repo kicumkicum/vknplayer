@@ -31,18 +31,6 @@ PlayListManager.prototype.createEmpty = function() {
 
 
 /**
- * @param {DataList} playlist
- * @return {number}
- */
-PlayListManager.prototype._push = function(playlist) {
-	this._pack.push(playlist);
-	var id = this._pack.length - 1;
-	this.emit(this.EVENT_ADD_PLAYLIST, id);
-	return id;
-};
-
-
-/**
  * @param {number} id
  * @return {DataList}
  */
@@ -232,6 +220,16 @@ PlayListManager.prototype.select = function(position) {
 };
 
 
+/**
+ * @param {number} id
+ */
+PlayListManager.prototype.shufflePlaylist = function(id) {
+	var playlist = this.getPlayList(id);
+	var tracks = app.helper.clone(playlist.toArray());
+	tracks = app.helper.shuffleArray(tracks);
+	playlist.setItems(tracks);
+};
+
 ///**
 // * @param playlist
 // * @param track
@@ -246,9 +244,22 @@ PlayListManager.prototype.select = function(position) {
 
 
 /**
+ * @param {DataList} playlist
+ * @return {number}
+ * @protected
+ */
+PlayListManager.prototype._push = function(playlist) {
+	this._pack.push(playlist);
+	var id = this._pack.length - 1;
+	this.emit(this.EVENT_ADD_PLAYLIST, id);
+	return id;
+};
+
+
+/**
  * @param {number} playlistId
  * @return {boolean}
- * @private
+ * @protected
  */
 PlayListManager.prototype._isId = function(playlistId) {
 	return !!(this._pack[playlistId] && this._pack[playlistId].size());

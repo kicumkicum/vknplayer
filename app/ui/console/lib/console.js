@@ -1,25 +1,30 @@
 BlessedConst = new (require('./blessed-const'));
+var BaseUI = require('../../base-ui');
+var HistoryManager = require('../../history-manager');
 
 var blessed = require('blessed');
-var events = require('events');
-var util = require('util');
+
 
 
 /**
  * @param config
- * @param service
+ * @param dataViews
  * @param api
+ * @param player
+ * @param playlist
+ * @param historyManager
  * @constructor
+ * @implements {IUI}
  */
-var Console = function(config, service, api) {
-	this._api = api;
-	this._config = config;
+var Console = function(config, dataViews, api, player, playlist, historyManager) {
+	goog.base(this, config, dataViews, api, player, playlist, historyManager);
+
 	this._panels = {};
 	this._widgets = {};
-	this.player = service.player;
-	this.playlist = service.playlist;
+	this.player = this._player;// todo for compatible. need fix
+	this.playlist = this._playlist;
 };
-goog.inherits(Console, events.EventEmitter);
+goog.inherits(Console, BaseUI);
 
 
 /**
@@ -30,8 +35,8 @@ Console.prototype.init = function() {
 	this.screen = blessed.screen({
 //		grabKeys: true
 	});
-	this._api.vk.on('error', this._apiVKErrorHandler.bind(this));
-	this._api.vk//todo move to app
+	this._api.vk.on(this._api.vk.EVENT_ERROR, this._apiVKErrorHandler.bind(this));
+	this._api.vk//todo move to app or api
 		.getUserId()
 		.then(function(userId) {
 			this.userId = userId;
@@ -44,20 +49,16 @@ Console.prototype.init = function() {
 	this._widgets.input = this._createInput();
 	this._widgets.loading = new vknp.ui.console.widgets.Loading;
 	this._panels.slavePL = new vknp.ui.console.panels.SlavePL;
-	this._panels.home = new vknp.ui.console.panels.Home();
-	this._panels.vk = new vknp.ui.console.panels.VK;
-	this._panels.news = new vknp.ui.console.panels.News;
 	this._panels.mainPL = new vknp.ui.console.panels.MainPL;
-	this._panels.friends = new vknp.ui.console.panels.Friends;
 	this._widgets.playBar = new vknp.ui.console.widgets.PlayBar;
 	this._widgets.infoBar = new vknp.ui.console.widgets.InfoBar;
 	this._widgets.controls = new vknp.ui.console.widgets.Controls;
-	this._panels.groups = new vknp.ui.console.panels.Groups;
-	this._panels.albums = new vknp.ui.console.panels.Albums;
+	this._panels.panel = new vknp.ui.console.panels.Panel(this._dataViews, new HistoryManager);
 
-	this._visiblePanels.left = this._panels.home;
+	this._visiblePanels.left = this._panels.panel;
 	this._visiblePanels.right = this._panels.mainPL;
 	this.activePanel = this._visiblePanels.left;
+	this.show(this._panels.panel);
 
 	this.screen.key(['tab'], this.changeFocusPanel.bind(this));
 	this.screen.on(BlessedConst.event.KEY_PRESS, function(ch, key) {
@@ -97,17 +98,6 @@ Console.prototype.changeFocusPanel = function() {
  */
 Console.prototype.show = function(panel) {
 	if (panel.isHidden()) {
-		this._addToHistory(this.activePanel);
-	}
-	this._show(panel);
-};
-
-
-/**
- * @param {Object} panel
- */
-Console.prototype._show = function(panel) {
-	if (panel.isHidden()) {
 		this._setTopPanel(panel);
 	} else {
 		this.activePanel = panel;
@@ -120,120 +110,13 @@ Console.prototype._show = function(panel) {
 
 
 /**
- * @param {Object} panel
- */
-Console.prototype._setTopPanel = function(panel) {
-	this.emit(this.EVENT_SET_TOP, panel, this._visiblePanels.left);
-	this._visiblePanels.left.getNode().hide();
-	this._visiblePanels.left = panel;
-	this.activePanel = panel;
-	panel.getNode().show();
-	panel.getNode().focus();
-	this.render();
-};
-
-
-/**
- */
-Console.prototype._addToHistory = function(panel) {
-	if (this._history.length > 10) {
-		this._history.shift();
-	}
-	this._history.push(panel);
-};
-
-
-/**
  */
 Console.prototype.back = function() {
-	var panel = this._history.pop();
-	if (panel) {
-		this._show(panel);
+	if (this.activePanel instanceof vknp.ui.console.panels.SlavePL) {
+		this.show(this._panels.panel);
 	}
 };
 
-
-/**
- * @param {string} cmd
- */
-Console.prototype.exec = function(cmd) {
-	var commandList = {//todo add clear
-		clear: ['clear'],
-		exit: ['exit', 'quit', 'q'],
-		forward: ['forward', 'fwd'],//todo not supported stupid-player
-		help: ['help', 'h'],
-		next: ['next'],
-		pause: ['pause', 'p'],//todo not supported stupid-player
-		play: ['play'],
-		radio: ['radio', 'r'],
-		reward: ['reward', 'rwd'],//todo not supported stupid-player
-		prev: ['prev'],
-		search: ['search', 's'],
-		stop: ['stop']
-	};
-
-	if (cmd.indexOf('\n') > -1) {
-		var position = cmd.indexOf('\n');
-		cmd = cmd.substr(0, position);
-	}
-	var args = cmd.split(' ');
-	var command = args.shift();
-
-	args = args.join(' ');
-	var currentCommand = this._searchCommand(commandList, command);
-
-	switch (currentCommand) {
-		case commandList.clear:
-			this._visiblePanels.right.clear();
-			this.render();
-			break;
-		case commandList.help:
-			this.help();
-			break;
-		case commandList.play:
-			app.play(this._panels.mainPL.getPlaylistId(), 300, args);
-			break;
-		case commandList.pause:
-			app.pause();
-			break;
-		case commandList.stop:
-			app.stop();
-			break;
-		case commandList.search:
-			app.search(this._panels.mainPL.getPlaylistId(), 300, args);
-			break;
-		case commandList.next:
-			app.next();
-			break;
-		case commandList.radio:
-			app.radio(this._panels.mainPL.getPlaylistId(), 300, args);
-			break;
-		case commandList.exit:
-			process.exit(0);
-			break;
-		default:
-		//todo
-	}
-};
-
-
-/**
- * @param {Object} commandList
- * @param {string} cmd
- * @return {string|undefined}
- * @private
- */
-Console.prototype._searchCommand = function(commandList, cmd) {
-	for(var i in commandList) {
-		if(commandList.hasOwnProperty(i)) {
-			for(var j = 0; j < commandList[i].length; j++) {
-				if(cmd == commandList[i][j]) {
-					return commandList[i];
-				}
-			}
-		}
-	}
-};
 
 
 /**
@@ -328,6 +211,7 @@ Console.prototype.openPopUp = function(PopUp, opt_params) {
 	}.bind(this));
 
 	popup.focus();
+	this.render();
 	return popup;
 };
 
@@ -349,6 +233,20 @@ Console.prototype._createInput = function() {
 	});
 
 	return input;
+};
+
+
+/**
+ * @param {Object} panel
+ */
+Console.prototype._setTopPanel = function(panel) {
+	this.emit(this.EVENT_SET_TOP, panel, this._visiblePanels.left);
+	this._visiblePanels.left.getNode().hide();
+	this._visiblePanels.left = panel;
+	this.activePanel = panel;
+	panel.getNode().show();
+	panel.getNode().focus();
+	this.render();
 };
 
 
@@ -416,14 +314,9 @@ Console.prototype._openPopUps;
 
 /**
  * @type {{
- *	    albums: console.panels.Albums,
- *	    friends: console.panels.Friends,
- *	    groups: console.panels.Groups,
- *	    home: console.panels.Home,
  *	    mainPL: console.panels.MainPL,
- *	    news: console.panels.News,
  *      slavePL: console.panels.SlavePL,
- *	    vk: console.panels.VK
+ *	    panel: console.panels.Panel
  * }}
  */
 Console.prototype._panels;

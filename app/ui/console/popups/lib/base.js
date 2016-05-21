@@ -29,7 +29,7 @@ BasePopUp.prototype._init = function(param) {
 	this._node = this._createNode(param);
 	app.ui.console.append(this._node);
 	this._cancel = this._createButton('cancel', {
-		right: 1,
+		right: 3,
 		bottom: 1
 	});
 
@@ -124,19 +124,20 @@ BasePopUp.prototype._createNode = function(param) {
  * @return {Button}
  * @protected
  */
-BasePopUp.prototype._createButton = function(title, indent) {
+BasePopUp.prototype._createButton = function(message, indent) {
 	return blessed.button({
 		parent: this._node,
 		mouse: true,
 		keys: true,
 		shrink: true,
 		tags: true,
-
+		top: indent.top,
+		width: indent.width,
+		height: indent.height,
 		right: indent.right,
 		left: indent.left,
 		bottom: indent.bottom,
-		name: title,
-		content: title,
+		content: message,
 
 		border: {
 			type: 'line'

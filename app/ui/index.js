@@ -1,4 +1,6 @@
 var Console = require('./console');
+var Web = require('./web');
+var HistoryManager = require('./history-manager');
 
 var ui = {
 	console: Console.namespace
@@ -7,14 +9,19 @@ var ui = {
 
 /**
  * @param {models.Config} config
- * @param {vknp.service} service
+ * @param {} dataViews
+ * @param {app.service} service
  * @param {vknp.api} api
  * @constructor
  */
-var UI = function(config, service, api) {
+var UI = function(config, dataViews, service, api) {
+	// todo create dataViews here
+	// todo move code to lib/ui
+	var historyManager = new HistoryManager;
 	if (config.console && config.console.enabled) {
-		this.console = new Console(config.console, service, api);
+		this.console = new Console(config.console, dataViews, api, service.player, service.playListManager, historyManager);
 	}
+	this.web = new Web(config.web, dataViews, api, service.player, service.playListManager, historyManager);
 };
 
 

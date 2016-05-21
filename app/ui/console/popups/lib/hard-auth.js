@@ -1,16 +1,20 @@
-var blessed = require('blessed');
-var request = require('request');
-
 var BasePopUp = require('./base');
 var Input = require('../../widgets/lib/universal-input');
-var SimplePopUp = require('./simple');
+var request = require('request');
 
 
+
+/**
+ * @constructor
+ */
 var HardAuth = function() {
 	this._init({
-		title: 'Hard Authorization VK.COM',
-		message: '{center}Для авторизации на сайте VK.COM{/center}\n1. пройдите по ссылке ' + app.api.vk.getAuthUrl(true) + '\n' +
-		'2. скопируйте содержимое адресной строки браузера в это поле ввода.\n3. нажмите ENTER\n4. перезапустите приложение \nПусть вас не смущает предуперждение. С теми правами, которые использует это приложение, это не возможно',
+		title: 'Full',
+		message: '{center}Для авторизации{/center}\n' +
+			'1. пройдите по ссылке ' + app.api.vk.getAuthUrl(true) + '\n' +
+			'2. скопируйте содержимое адресной строки браузера в это поле ввода.\n' +
+			'3. нажмите ENTER\n' +
+			'4. перезапустите приложение \n',
 		left: 15,
 		top: 15,
 		width: 80,
@@ -87,6 +91,9 @@ HardAuth.prototype._createInput = function() {
 };
 
 
+/**
+ * @protected
+ */
 HardAuth.prototype._readInput = function() {
 	var inputValue = this._input.getValue();
 	var token;
@@ -97,6 +104,7 @@ HardAuth.prototype._readInput = function() {
 	token = this._parseToken(inputValue);
 	app.setConfig(['api', 'vk', 'token'], token);
 };
+
 
 /**
  * @param {string} query
@@ -111,4 +119,7 @@ HardAuth.prototype._parseToken = function(query) {
 };
 
 
+/**
+ * @type {HardAuth}
+ */
 module.exports = HardAuth;

@@ -29,7 +29,7 @@ var Input = function(params) {
 
 		this._node.clearValue();
 		app.ui.console.render();
-		app.ui.console.exec(command);
+		this.exec(command);
 	}.bind(this));
 
 	this._node.key(BlessedConst.button.ESCAPE, function(ch, key) {
@@ -76,7 +76,7 @@ Input.prototype._init = function(params) {
  */
 Input.prototype._createNode = function(params) {
 	params.style = params.style || {};
-	return blessed.textarea({
+	var input = blessed.textarea({
 		'parent': params.parent,
 		'keys': true,
 		'mouse': true,
@@ -89,6 +89,84 @@ Input.prototype._createNode = function(params) {
 			'bg': params.style.bg
 		}
 	});
+
+	// Revert https://github.com/chjj/blessed/commit/b42308c7cc3e544821254a0095082d22b60f5af9
+	// For fix double-input
+	input.readInput = function(callback) {
+		var self = this
+			, focused = this.screen.focused === this;
+
+		if (this._reading) return;
+		this._reading = true;
+
+		this._callback = callback;
+
+		if (!focused) {
+			this.screen.saveFocus();
+			this.focus();
+		}
+
+		this.screen.grabKeys = true;
+
+		this._updateCursor();
+		this.screen.program.showCursor();
+		//this.screen.program.sgr('normal');
+
+		this._done = function fn(err, value) {
+			if (!self._reading) return;
+
+			if (fn.done) return;
+			fn.done = true;
+
+			self._reading = false;
+
+			delete self._callback;
+			delete self._done;
+
+			self.removeListener('keypress', self.__listener);
+			delete self.__listener;
+
+			self.removeListener('blur', self.__done);
+			delete self.__done;
+
+			self.screen.program.hideCursor();
+			self.screen.grabKeys = false;
+
+			if (!focused) {
+				self.screen.restoreFocus();
+			}
+
+			if (self.options.inputOnFocus) {
+				self.screen.rewindFocus();
+			}
+
+			// Ugly
+			if (err === 'stop') return;
+
+			if (err) {
+				self.emit('error', err);
+			} else if (value != null) {
+				self.emit('submit', value);
+			} else {
+				self.emit('cancel', value);
+			}
+			self.emit('action', value);
+
+			if (!callback) return;
+
+			return err
+				? callback(err)
+				: callback(null, value);
+		};
+
+		this.__listener = this._listener.bind(this);
+		this.on('keypress', this.__listener);
+
+		this.__done = this._done.bind(this, null, null);
+		this.on('blur', this.__done);
+	};
+
+	return input;
 };
 
 
@@ -119,6 +197,107 @@ Input.prototype._isArrow = function(key) {
  */
 Input.prototype._isBreak = function(key) {
 	return key.ctrl && key.name === 'c';
+};
+
+
+/**
+ * @param {string} cmd
+ */
+Input.prototype.exec = function(cmd) {
+	var commandList = {//todo add clear
+		clear: ['clear'],
+		exit: ['exit', 'quit', 'q'],
+		forward: ['forward', 'fwd'],//todo not supported stupid-player
+		help: ['help', 'h'],
+		next: ['next'],
+		pause: ['pause', 'p'],//todo not supported stupid-player
+		play: ['play'],
+		radio: ['radio', 'r'],
+		reward: ['reward', 'rwd'],//todo not supported stupid-player
+		prev: ['prev'],
+		search: ['search', 's'],
+		stop: ['stop'],
+		shuffle: ['shuffle', 'sh'],
+		volume: ['volume', 'v']
+	};
+
+	if (cmd.indexOf('\n') > -1) {
+		var position = cmd.indexOf('\n');
+		cmd = cmd.substr(0, position);
+	}
+	var args = cmd.split(' ');
+	var command = args.shift();
+
+	args = args.join(' ');
+	var currentCommand = this._searchCommand(commandList, command);
+
+	switch (currentCommand) {
+		case commandList.clear:
+			app.ui.console._visiblePanels.right.clear();
+			app.ui.console.render();
+			break;
+		case commandList.help:
+			app.ui.console.openPopUp(vknp.ui.console.popups.Simple,
+				{
+					title: 'Help',
+					message: 'Help in http://github.com/kicumkicum/vknplayer\n' +
+						'Read README.md or create issue with your ask'
+
+				});
+			break;
+		case commandList.play:
+			app.play(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
+			break;
+		case commandList.pause:
+			app.pause();
+			break;
+		case commandList.stop:
+			app.stop();
+			break;
+		case commandList.search:
+			app.search(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
+			break;
+		case commandList.shuffle:
+			var panel = app.ui.console.activePanel;
+			if (panel instanceof vknp.ui.console.panels.PlayList) {
+				var id = panel.getPlaylistId();
+				app.service.playListManager.shufflePlaylist(id);
+			}
+			break;
+		case commandList.next:
+			app.next();
+			break;
+		case commandList.radio:
+			app.radio(app.ui.console._panels.mainPL.getPlaylistId(), 300, args);
+			break;
+		case commandList.volume:
+			app.service.player.setVolume(args);
+			break;
+		case commandList.exit:
+			process.exit(0);
+			break;
+		default:
+		//todo
+	}
+};
+
+
+/**
+ * @param {Object} commandList
+ * @param {string} cmd
+ * @return {string|undefined}
+ * @private
+ */
+Input.prototype._searchCommand = function(commandList, cmd) {
+	for(var i in commandList) {
+		if(commandList.hasOwnProperty(i)) {
+			for(var j = 0; j < commandList[i].length; j++) {
+				if(cmd == commandList[i][j]) {
+					return commandList[i];
+				}
+			}
+		}
+	}
 };
 
 
