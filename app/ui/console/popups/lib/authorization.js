@@ -110,6 +110,27 @@ AuthPopUp.prototype._openHardAuth = function() {
 
 
 /**
+ * @return {Promise.<number>}
+ * @protected
+ */
+AuthPopUp.prototype._pingAuthServer = function() {
+	return new vknp.Promise(function(resolve, reject) {
+		var timeout = 5 * 1000;
+		var timeoutId = setTimeout(function() {
+			reject('Auth server not allowed');
+		}, timeout);
+
+		var url = app.api.vk.getExternalAuthUrl();
+		var startPing = Date.now();
+		request('http://ya.ru/', function(err, res, body) {
+			clearTimeout(timeoutId);
+			resolve(Date.now() - startPing);
+		}.bind(this));
+	});
+};
+
+
+/**
  * @type {AuthPopUp}
  */
 module.exports = AuthPopUp;
