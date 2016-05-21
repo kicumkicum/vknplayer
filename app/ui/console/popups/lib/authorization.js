@@ -73,22 +73,43 @@ AuthPopUp.prototype._getTokenById = function(id) {
  * @protected
  */
 AuthPopUp.prototype._addButtons = function() {
+	this._pingAuthServer()
+		.then(function() {
+			this._addSimple();
+			this._addHard();
+		}.bind(this), function() {
+			this._addHard();
+		}.bind(this))
+		.then(app.ui.console.render.bind(app.ui.console));
+};
+
+
+/**
+ * @protected
+ */
+AuthPopUp.prototype._addSimple = function() {
 	var simpleMessage = 'Light\nПростая авторизация. Требует минимум усилий,\nно часть функционала не доступно';
-	var hardMessage = '{center}Full\nЧуть менее удобный способ,\nно доступен весь функционал приложения{/center}';
 	this._simpleAuthBtn = this._createButton(simpleMessage, {
 		left: 3,
 		bottom: 7,
 		width: '40%',
 		height: '40%'
 	});
+	this._simpleAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openSimpleAuth);
+};
+
+
+/**
+ * @protected
+ */
+AuthPopUp.prototype._addHard = function() {
+	var hardMessage = '{center}Full\nЧуть менее удобный способ,\nно доступен весь функционал приложения{/center}';
 	this._hardAuthBtn = this._createButton(hardMessage, {
 		right: 3,
 		bottom: 7,
 		width: '40%',
 		height: '40%'
 	});
-
-	this._simpleAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openSimpleAuth);
 	this._hardAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openHardAuth);
 };
 
@@ -115,14 +136,14 @@ AuthPopUp.prototype._openHardAuth = function() {
  */
 AuthPopUp.prototype._pingAuthServer = function() {
 	return new vknp.Promise(function(resolve, reject) {
-		var timeout = 5 * 1000;
+		var timeout = 4 * 1000;
 		var timeoutId = setTimeout(function() {
 			reject('Auth server not allowed');
 		}, timeout);
 
 		var url = app.api.vk.getExternalAuthUrl();
 		var startPing = Date.now();
-		request('http://ya.ru/', function(err, res, body) {
+		request(url, function(err, res, body) {
 			clearTimeout(timeoutId);
 			resolve(Date.now() - startPing);
 		}.bind(this));
