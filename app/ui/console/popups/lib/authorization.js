@@ -73,8 +73,8 @@ AuthPopUp.prototype._getTokenById = function(id) {
  * @protected
  */
 AuthPopUp.prototype._addButtons = function() {
-	var simpleMessage = 'Simple\nПростая авторизация. Требует минимум усилий,\nно часть функционала не доступно';
-	var hardMessage = '{center}Hard\nЧуть менее удобный способ,\nно доступен весь функционал приложения{/center}';
+	var simpleMessage = 'Light\nПростая авторизация. Требует минимум усилий,\nно часть функционала не доступно';
+	var hardMessage = '{center}Full\nЧуть менее удобный способ,\nно доступен весь функционал приложения{/center}';
 	this._simpleAuthBtn = this._createButton(simpleMessage, {
 		left: 3,
 		bottom: 7,
