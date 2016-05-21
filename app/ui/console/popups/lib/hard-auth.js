@@ -9,8 +9,8 @@ var request = require('request');
  */
 var HardAuth = function() {
 	this._init({
-		title: 'Hard Authorization VK.COM',
-		message: '{center}Для авторизации на сайте VK.COM{/center}\n' +
+		title: 'Full',
+		message: '{center}Для авторизации{/center}\n' +
 			'1. пройдите по ссылке ' + app.api.vk.getAuthUrl(true) + '\n' +
 			'2. скопируйте содержимое адресной строки браузера в это поле ввода.\n' +
 			'3. нажмите ENTER\n' +
