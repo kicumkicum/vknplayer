@@ -1,14 +1,16 @@
+var BasePopUp = require('./base');
 var request = require('request');
 var util = require('util');
 
-var BasePopUp = require('./base');
-var Input = require('../../widgets/lib/universal-input');
-var SimplePopUp = require('./simple');
 
+
+/**
+ * @constructor
+ * @extends {BasePopUp}
+ */
 var AuthPopUp = function() {
 	this._openSimpleAuth = this._openSimpleAuth.bind(this);
 	this._openHardAuth = this._openHardAuth.bind(this);
-	this._openDirectAuth = this._openDirectAuth.bind(this);
 
 	this._init({
 		title: 'Authorization VK.COM',
@@ -32,6 +34,9 @@ AuthPopUp.prototype.getNode = function() {
 };
 
 
+/**
+ * @protected
+ */
 AuthPopUp.prototype._getId = function() {
 	var url = app.api.vk.getAuthUrl();
 	request(url + 'id', function(err, res, body) {
@@ -45,6 +50,10 @@ AuthPopUp.prototype._getId = function() {
 };
 
 
+/**
+ * @param {string} id
+ * @protected
+ */
 AuthPopUp.prototype._getTokenById = function(id) {
 	var url = app.api.vk.getAuthUrl();
 	var interval = setInterval(function() {
@@ -60,46 +69,89 @@ AuthPopUp.prototype._getTokenById = function(id) {
 };
 
 
+/**
+ * @protected
+ */
 AuthPopUp.prototype._addButtons = function() {
-	this._simpleAuthBtn = this._createButton('simple', {
-		left: 1,
-		bottom: 7
-	});
-	this._hardAuthBtn = this._createButton(' hard ', {
-		left: 1,
-		bottom: 4
-	});
-	this._directAuthBtn = this._createButton('direct', {
-		left: 1,
-		bottom: 1
-	});
-
-	this._simpleAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openSimpleAuth);
-	this._hardAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openHardAuth);
-	this._directAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openDirectAuth);
+	this._pingAuthServer()
+		.then(function() {
+			this._addSimple();
+			this._addHard();
+		}.bind(this), function() {
+			this._addHard();
+		}.bind(this))
+		.then(app.ui.console.render.bind(app.ui.console));
 };
 
 
+/**
+ * @protected
+ */
+AuthPopUp.prototype._addSimple = function() {
+	var simpleMessage = 'Light\nПростая авторизация. Требует минимум усилий,\nно часть функционала не доступно';
+	this._simpleAuthBtn = this._createButton(simpleMessage, {
+		left: 3,
+		bottom: 7,
+		width: '40%',
+		height: '40%'
+	});
+	this._simpleAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openSimpleAuth);
+};
+
+
+/**
+ * @protected
+ */
+AuthPopUp.prototype._addHard = function() {
+	var hardMessage = '{center}Full\nЧуть менее удобный способ,\nно доступен весь функционал приложения{/center}';
+	this._hardAuthBtn = this._createButton(hardMessage, {
+		right: 3,
+		bottom: 7,
+		width: '40%',
+		height: '40%'
+	});
+	this._hardAuthBtn.on(BlessedConst.event.BUTTON_PRESS, this._openHardAuth);
+};
+
+
+/**
+ * @protected
+ */
 AuthPopUp.prototype._openSimpleAuth = function() {
 	app.ui.console.openPopUp(vknp.ui.console.popups.SimpleAuth);
 };
 
 
+/**
+ * @protected
+ */
 AuthPopUp.prototype._openHardAuth = function() {
 	app.ui.console.openPopUp(vknp.ui.console.popups.HardAuth);
 };
 
 
-AuthPopUp.prototype._openDirectAuth = function() {
-	app.ui.console.openPopUp(vknp.ui.console.popups.Simple, {
-		title: 'Authorization VK.COM',
-		message: '\n{center}здесь могли бы быть поля для ввода логина и пароля. но это не бесопасно. попробуйте другие способы авторизации{/center}',
-		left: 30,
-		top: 30,
-		width: 50,
-		height: 50
+/**
+ * @return {Promise.<number>}
+ * @protected
+ */
+AuthPopUp.prototype._pingAuthServer = function() {
+	return new vknp.Promise(function(resolve, reject) {
+		var timeout = 4 * 1000;
+		var timeoutId = setTimeout(function() {
+			reject('Auth server not allowed');
+		}, timeout);
+
+		var url = app.api.vk.getExternalAuthUrl();
+		var startPing = Date.now();
+		request(url, function(err, res, body) {
+			clearTimeout(timeoutId);
+			resolve(Date.now() - startPing);
+		}.bind(this));
 	});
 };
 
 
+/**
+ * @type {AuthPopUp}
+ */
 module.exports = AuthPopUp;
