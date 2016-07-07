@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 /**
  * Created with JetBrains WebStorm.
  * User: oleg
