@@ -148,7 +148,7 @@ Player.prototype.setVolume = function(value) {
 		(value > 100 ? 100 : value);
 	if (this._player) {
 		this._volume = value;
-		return this._player.setVolume(value / 100);
+		return this._player.setVolume(value);
 	} else {
 		return vknp.Promise.reject();
 	}
