@@ -5,7 +5,7 @@
  * Time: 23:28
  * To change this template use File | Settings | File Templates.
  */
-var models = require('../');
+var models = require('../index');
 
 
 

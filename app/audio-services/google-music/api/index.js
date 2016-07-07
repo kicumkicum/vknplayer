@@ -279,8 +279,7 @@ GMusic.responseType = {
 };
 
 
-
-
-
-
+/**
+ * @type {GMusic}
+ */
 module.exports = GMusic;

@@ -91,4 +91,7 @@ SoundCloud.prototype.oembed = function() {
 };
 
 
+/**
+ * @type {SoundCloud}
+ */
 module.exports = SoundCloud;
