@@ -2,10 +2,39 @@
   "name": "vknplayer",
   "version": "0.0.43",
   "description": "console audio player for listen music from vk.com and on-line radio",
+  "author": "Oleg Akinin <kicumkicum@gmail.com>",
+  "license": "MIT",
+  "keywords": [
+    "audio",
+    "banana-pi",
+    "console",
+    "mp3",
+    "music",
+    "player",
+    "radio",
+    "raspberry-pi",
+    "terminal",
+    "vk",
+    "vk.com"
+  ],
+  "homepage": "https://github.com/kicumkicum/vknplayer",
+  "bugs": {
+    "url": "https://github.com/kicumkicum/vknplayer/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:kicumkicum/vknplayer.git"
+  },
+  "main": "./vknplayer.js",
+  "bin": {
+    "vkn": "bin/vkn.sh",
+    "vknplayer": "bin/vkn.sh"
+  },
   "dependencies": {
     "blessed": "^0.1.81",
     "connect": "^2.19.4",
     "m3u8": "0.0.6",
+    "node-bin": "6.2.2",
     "node-xml-lite": "^0.0.4",
     "promise": "^7.0.4",
     "request": "^2.34.0",
@@ -13,31 +42,7 @@
     "ws": "^0.4.31",
     "yandex-music-api": "^0.0.3"
   },
-  "bin": {
-    "vknplayer": "./vknplayer.js"
-  },
-  "main": "./vknplayer.js",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:kicumkicum/vknplayer.git"
-  },
-  "keywords": [
-    "mp3",
-    "audio",
-    "music",
-    "vk",
-    "vk.com",
-    "console",
-    "terminal",
-    "player",
-    "radio",
-    "raspberry-pi",
-    "banana-pi"
-  ],
-  "author": "Oleg Akinin <kicumkicum@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/kicumkicum/vknplayer/issues"
-  },
-  "homepage": "https://github.com/kicumkicum/vknplayer"
+  "scripts": {
+    "start": "node vknplayer.js"
+  }
 }
