@@ -38,7 +38,7 @@
     "node-xml-lite": "^0.0.4",
     "promise": "^7.0.4",
     "request": "^2.34.0",
-    "stupid-player": "^0.1.0",
+    "stupid-player": "0.3.0",
     "ws": "^0.4.31",
     "yandex-music-api": "^0.0.3"
   },
