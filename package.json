@@ -6,6 +6,7 @@
     "blessed": "^0.1.81",
     "connect": "^2.19.4",
     "m3u8": "0.0.6",
+    "node-bin": "6.2.2",
     "node-xml-lite": "^0.0.4",
     "promise": "^7.0.4",
     "request": "^2.34.0",
@@ -14,7 +15,8 @@
     "yandex-music-api": "^0.0.3"
   },
   "bin": {
-    "vknplayer": "./vknplayer.js"
+    "vkn": "bin/vkn.sh",
+    "vknplayer": "bin/vkn.sh"
   },
   "main": "./vknplayer.js",
   "repository": {
@@ -39,5 +41,8 @@
   "bugs": {
     "url": "https://github.com/kicumkicum/vknplayer/issues"
   },
-  "homepage": "https://github.com/kicumkicum/vknplayer"
+  "homepage": "https://github.com/kicumkicum/vknplayer",
+  "scripts": {
+    "start": "node vknplayer.js"
+  }
 }
