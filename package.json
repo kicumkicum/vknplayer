@@ -17,13 +17,13 @@
     "vk",
     "vk.com"
   ],
-  "homepage": "https://github.com/kicumkicum/vknplayer",
+  "homepage": "https://github.com/clin-player/core",
   "bugs": {
-    "url": "https://github.com/kicumkicum/vknplayer/issues"
+    "url": "https://github.com/clin-player/core/issues"
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:kicumkicum/vknplayer.git"
+    "url": "git@github.com:clin-player/core.git"
   },
   "main": "./clin.js",
   "bin": {
