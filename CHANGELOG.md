@@ -1,4 +1,8 @@
-# v0.0.44 ()
+# v0.1.0 ()
+
+## Features
+* [#70](https://github.com/clin-player/core/issues/70)
+Rename all to clin-player
 
 ## Improvement
 * [#50](https://github.com/clin-player/core/issues/50)
