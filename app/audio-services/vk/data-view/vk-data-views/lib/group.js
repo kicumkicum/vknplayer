@@ -16,7 +16,7 @@ goog.inherits(Group, dataViews.Abstract);
  * @return {Promise.<Array.<dataViews.Playlist>>}
  */
 Group.prototype.getChildren = function() {
-	return new vknp.Promise(function(resolve, reject) {
+	return new clin.Promise(function(resolve, reject) {
 		var flag = false;
 		var playlists = [];
 

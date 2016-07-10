@@ -88,7 +88,7 @@ Player.prototype.getPlayListObject = function() {
 
 
 /**
- * @return {DataList.<vknp.models.AudioTrack>}
+ * @return {DataList.<clin.models.AudioTrack>}
  */
 Player.prototype.getActivePlayList = function() {
 	return app.service.playListManager.getActivePlaylist();
@@ -96,7 +96,7 @@ Player.prototype.getActivePlayList = function() {
 
 
 /**
- * @return {DataList.<vknp.models.AudioTrack>}
+ * @return {DataList.<clin.models.AudioTrack>}
  */
 Player.prototype.getPlayList = function(id) {
 	return app.service.playListManager.getPlayList(id);
@@ -107,7 +107,7 @@ Player.prototype.getPlayList = function(id) {
  * @param {string} commandList
  */
 Player.prototype.help = function(commandList) {
-	var helpMessage = 'This is vkNplayer\'s help. List of commands:\n' + helpMessageCommandList(commandList);
+	var helpMessage = 'This is clin-player\'s help. List of commands:\n' + helpMessageCommandList(commandList);
 	function helpMessageCommandList(cmdList) {
 		var str = '';
 		for(var i in cmdList) {
@@ -150,7 +150,7 @@ Player.prototype.setVolume = function(value) {
 		this._volume = value;
 		return this._player.setVolume(value);
 	} else {
-		return vknp.Promise.reject();
+		return clin.Promise.reject();
 	}
 };
 
@@ -269,7 +269,7 @@ Player.prototype.state = {
 
 /**
  * Fired with: {{
- *      track: vknp.models.AudioTrack,
+ *      track: clin.models.AudioTrack,
  *      position: number,
  *      playlistId: number,
  *		isStream: boolean
@@ -289,7 +289,7 @@ Player.prototype.EVENT_STOP = 'stop';
 
 
 /**
- * Fired with: Array.<vknp.models.AudioTrack>
+ * Fired with: Array.<clin.models.AudioTrack>
  * @const {string}
  */
 Player.prototype.EVENT_ADD_TRACKS = 'add-tracks';

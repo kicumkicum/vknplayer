@@ -1,13 +1,13 @@
-global.vknp = {};
+global.clin = {};
 
-vknp.api = require('./api');
-vknp.dataViews = require('./data-view');
-vknp.UI = require('./ui');
-vknp.ui = vknp.UI.namespace;
-vknp.service = require('./service');
-vknp.models = require('./models');
-vknp.helper = require('../helper');
+clin.api = require('./api');
+clin.dataViews = require('./data-view');
+clin.UI = require('./ui');
+clin.ui = clin.UI.namespace;
+clin.service = require('./service');
+clin.models = require('./models');
+clin.helper = require('../helper');
 
-vknp.Promise = require('promise');
+clin.Promise = require('promise');
 
 module.exports = require('./lib/app');

@@ -41,11 +41,11 @@ goog.inherits(PlayList, BasePanel);
 
 
 /**
- * @param {Array.<vknp.api.yandexMusic.models.Track|vknp.api.vk.models.AudioTrack>} tracks
+ * @param {Array.<clin.api.yandexMusic.models.Track|clin.api.vk.models.AudioTrack>} tracks
  */
 PlayList.prototype.setContent = function(tracks) {
 	tracks = tracks.map(function(track) {
-		return new vknp.models.AudioTrack(track);
+		return new clin.models.AudioTrack(track);
 	});
 
 	var playlist = this.getPlaylist();

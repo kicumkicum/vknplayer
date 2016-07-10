@@ -13,7 +13,7 @@ var PlayListManager = function() {
 goog.inherits(PlayListManager, events.EventEmitter);
 
 /**
- * @type {Array.<vknp.models.AudioTrack>} tracks
+ * @type {Array.<clin.models.AudioTrack>} tracks
  * @return {number}
  */
 PlayListManager.prototype.create = function(tracks) {
@@ -40,7 +40,7 @@ PlayListManager.prototype.getPlayList = function(id) {
 
 
 /**
- * @param {DataList.<vknp.models.AudioTrack>} playlist
+ * @param {DataList.<clin.models.AudioTrack>} playlist
  * @return {number}
  */
 PlayListManager.prototype.getId = function(playlist) {
@@ -69,7 +69,7 @@ PlayListManager.prototype.playlistIsEmpty = function(playlistId) {
 
 /**
  * @param {number} id
- * @param {Array.<vknp.models.AudioTrack>} tracks
+ * @param {Array.<clin.models.AudioTrack>} tracks
  * @return {?number}
  */
 PlayListManager.prototype.addItems = function(id, tracks) {
@@ -88,7 +88,7 @@ PlayListManager.prototype.addItems = function(id, tracks) {
 
 /**
  * @param {number} id
- * @param {Array.<vknp.models.AudioTrack>} tracks
+ * @param {Array.<clin.models.AudioTrack>} tracks
  * @return {?number}
  */
 PlayListManager.prototype.setItems = function(id, tracks) {
@@ -118,7 +118,7 @@ PlayListManager.prototype.removeItems = function(id, start, howMany) {
 
 /**
  * @param {number} id
- * @param {Array.<vknp.models.AudioTrack>} tracks
+ * @param {Array.<clin.models.AudioTrack>} tracks
  * @return {number}
  */
 PlayListManager.prototype.concat = function(id, tracks) {//todo нужно адаптировать под datalist
@@ -167,7 +167,7 @@ PlayListManager.prototype.getActivePlaylist = function() {
 
 
 /**
- * @return {?vknp.models.AudioTrack}
+ * @return {?clin.models.AudioTrack}
  */
 PlayListManager.prototype.getCurrentTrack = function() {
 	var playlist = this.getActivePlaylist();
@@ -179,7 +179,7 @@ PlayListManager.prototype.getCurrentTrack = function() {
 
 
 /**
- * @return {?vknp.models.AudioTrack}
+ * @return {?clin.models.AudioTrack}
  */
 PlayListManager.prototype.next = function() {
 	var activePlaylist = this.getActivePlaylist();
@@ -192,7 +192,7 @@ PlayListManager.prototype.next = function() {
 
 
 /**
- * @return {?vknp.models.AudioTrack}
+ * @return {?clin.models.AudioTrack}
  */
 PlayListManager.prototype.prev = function() {
 	var activePlaylist = this.getActivePlaylist();
@@ -206,7 +206,7 @@ PlayListManager.prototype.prev = function() {
 
 /**
  * @param {number} position
- * @return {vknp.models.AudioTrack}
+ * @return {clin.models.AudioTrack}
  */
 PlayListManager.prototype.select = function(position) {
 	var playlist = this.getActivePlaylist();
@@ -233,7 +233,7 @@ PlayListManager.prototype.shufflePlaylist = function(id) {
 ///**
 // * @param playlist
 // * @param track
-// * @return {vknp.models.AudioTrack}
+// * @return {clin.models.AudioTrack}
 // * @private
 // */
 //PlayListManager.prototype._setTrackActive = function(playlist, track) {
@@ -269,7 +269,7 @@ PlayListManager.prototype._isId = function(playlistId) {
 /**
  * @param {DataList} playlist
  * @param {boolean} isNext
- * @return {?vknp.models.AudioTrack}
+ * @return {?clin.models.AudioTrack}
  */
 PlayListManager.prototype._prevNext = function(playlist, isNext) {
 	//todo сделать очередб для DataList

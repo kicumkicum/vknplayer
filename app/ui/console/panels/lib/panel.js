@@ -114,7 +114,7 @@ Panel.prototype._loadData = function() {
 			this._resetGlobalRequestId();
 			dataViews = [].concat(dataViews);
 
-			if (dataViews[0] instanceof vknp.models.AudioTrack || dataViews[0] instanceof vknp.api.vk.models.AudioTrack) {
+			if (dataViews[0] instanceof clin.models.AudioTrack || dataViews[0] instanceof clin.api.vk.models.AudioTrack) {
 				this._historyManager.back();
 				app.ui.console._panels.slavePL.setContent(/** @type {Array.<AudioTrack>} */(dataViews));
 			} else {

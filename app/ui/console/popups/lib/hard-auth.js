@@ -42,7 +42,7 @@ HardAuth.prototype.getNode = function() {
  * @private
  */
 HardAuth.prototype._openFullUrlPopUp = function() {
-	app.ui.console.openPopUp(vknp.ui.console.popups.Simple, {
+	app.ui.console.openPopUp(clin.ui.console.popups.Simple, {
 		title: 'FULL URL',
 		message: app.api.vk.getAuthUrl(false),
 		left: 2,

@@ -26,11 +26,11 @@ goog.inherits(AudioTrack, models.AbstractModel);
 AudioTrack.prototype.parse = function(data) {
 	goog.base(this, 'parse');
 
-	if (data instanceof vknp.api.vk.models.AudioTrack) {
+	if (data instanceof clin.api.vk.models.AudioTrack) {
 		this._parseVK(data);
 		this._apiType = AudioTrack.Api.VK;
 
-	} else if (data instanceof vknp.api.yandexMusic.models.Track) {
+	} else if (data instanceof clin.api.yandexMusic.models.Track) {
 		this._parseYandexMusic(data);
 		this._apiType = AudioTrack.Api.YANDEX_MUSIC;
 
@@ -104,7 +104,7 @@ AudioTrack.prototype._parseOther = function(data) {
 
 
 AudioTrack.prototype._getVKUrl = function() {
-	return new vknp.Promise(function(resolve, reject) {
+	return new clin.Promise(function(resolve, reject) {
 		resolve(this.url);
 	}.bind(this));
 };
@@ -121,7 +121,7 @@ AudioTrack.prototype._getYandexMusicUrl = function() {
  * @protected
  */
 AudioTrack.prototype._getOtherUrl = function() {
-	return new vknp.Promise(function(resolve, reject) {
+	return new clin.Promise(function(resolve, reject) {
 		resolve(this.url);
 	}.bind(this));
 };

@@ -34,6 +34,6 @@ Permissions.prototype.parse = function(data) {
 
 
 /**
- * @type {vknp.models.yandexMusic.Permissions}
+ * @type {clin.models.yandexMusic.Permissions}
  */
 module.exports = Permissions;

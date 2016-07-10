@@ -24,7 +24,7 @@ Bookmarks.prototype.getChildren = function() {
 			return feed
 				.getAudioAttachments()
 				.map(function(track) {
-					return new vknp.api.vk.models.AudioTrack(track);
+					return new clin.api.vk.models.AudioTrack(track);
 				});
 		});
 };

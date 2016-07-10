@@ -11,7 +11,7 @@ var ui = {
  * @param {models.Config} config
  * @param {} dataViews
  * @param {app.service} service
- * @param {vknp.api} api
+ * @param {clin.api} api
  * @constructor
  */
 var UI = function(config, dataViews, service, api) {
