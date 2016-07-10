@@ -3,7 +3,7 @@ var dataViews = require('../');
 
 
 /**
- * vknp.models.Friend
+ * clin.models.Friend
  * @param {Friend} data
  * @constructor
  */

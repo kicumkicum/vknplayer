@@ -237,10 +237,10 @@ Input.prototype.exec = function(cmd) {
 			app.ui.console.render();
 			break;
 		case commandList.help:
-			app.ui.console.openPopUp(vknp.ui.console.popups.Simple,
+			app.ui.console.openPopUp(clin.ui.console.popups.Simple,
 				{
 					title: 'Help',
-					message: 'Help in http://github.com/kicumkicum/vknplayer\n' +
+					message: 'Help in http://github.com/clin-player/core/\n' +
 						'Read README.md or create issue with your ask'
 
 				});
@@ -259,7 +259,7 @@ Input.prototype.exec = function(cmd) {
 			break;
 		case commandList.shuffle:
 			var panel = app.ui.console.activePanel;
-			if (panel instanceof vknp.ui.console.panels.PlayList) {
+			if (panel instanceof clin.ui.console.panels.PlayList) {
 				var id = panel.getPlaylistId();
 				app.service.playListManager.shufflePlaylist(id);
 			}

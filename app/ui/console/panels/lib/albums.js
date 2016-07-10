@@ -26,7 +26,7 @@ goog.inherits(Albums, BasePanel);
 
 
 /**
- * @param {Array.<vknp.models.Album>} albums
+ * @param {Array.<clin.models.Album>} albums
  * @param {number} ownerId
  */
 Albums.prototype.updatePanel = function(albums, ownerId) {
@@ -50,7 +50,7 @@ Albums.prototype._clickHandler = function(eventName, item, position) {
 		app.ui.console._panels.vk.showMusic(this._currentOwnerId);
 	}
 	var album = this._getDataItem(position);
-	if (album instanceof vknp.models.Album) {
+	if (album instanceof clin.models.Album) {
 		app.api.vk
 			.getAudio(album.ownerId, 300, album.albumId)
 			.then(function(tracks) {
@@ -69,7 +69,7 @@ Albums.prototype._recoveryDefaultState = function() {
 
 
 /**
- * @type {DataList.<vknp.models.AudioTrack>}
+ * @type {DataList.<clin.models.AudioTrack>}
  */
 Albums.prototype._playlist;
 

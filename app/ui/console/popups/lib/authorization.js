@@ -118,7 +118,7 @@ AuthPopUp.prototype._addHard = function() {
  * @protected
  */
 AuthPopUp.prototype._openSimpleAuth = function() {
-	app.ui.console.openPopUp(vknp.ui.console.popups.SimpleAuth);
+	app.ui.console.openPopUp(clin.ui.console.popups.SimpleAuth);
 };
 
 
@@ -126,7 +126,7 @@ AuthPopUp.prototype._openSimpleAuth = function() {
  * @protected
  */
 AuthPopUp.prototype._openHardAuth = function() {
-	app.ui.console.openPopUp(vknp.ui.console.popups.HardAuth);
+	app.ui.console.openPopUp(clin.ui.console.popups.HardAuth);
 };
 
 
@@ -135,7 +135,7 @@ AuthPopUp.prototype._openHardAuth = function() {
  * @protected
  */
 AuthPopUp.prototype._pingAuthServer = function() {
-	return new vknp.Promise(function(resolve, reject) {
+	return new clin.Promise(function(resolve, reject) {
 		var timeout = 4 * 1000;
 		var timeoutId = setTimeout(function() {
 			reject('Auth server not allowed');

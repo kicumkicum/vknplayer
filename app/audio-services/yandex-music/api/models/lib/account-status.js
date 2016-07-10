@@ -18,10 +18,10 @@ AccountStatus.prototype.parse = function(data) {
 	/** @type {Account} */
 	this.account = new models.Account(data['account']);
 
-	/** @type {vknp.models.yandexMusic.Permissions} */
+	/** @type {clin.models.yandexMusic.Permissions} */
 	this.permissions = new models.Permissions(data['permissions']);
 
-	/** @type {vknp.models.yandexMusic.Subscription} */
+	/** @type {clin.models.yandexMusic.Subscription} */
 	this.subscription = new models.Subscription(data['subscription']);
 };
 

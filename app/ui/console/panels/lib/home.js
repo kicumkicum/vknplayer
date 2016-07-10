@@ -152,7 +152,7 @@ Home.prototype._clickHandler = function(eventName, select, selectNumber) {
 
 /**
  * @param {string} playlist
- * @return {Array.<vknp.models.AudioTrack>}
+ * @return {Array.<clin.models.AudioTrack>}
  * @private
  */
 Home.prototype._createTracks = function(playlist) {
@@ -168,7 +168,7 @@ Home.prototype._createTracks = function(playlist) {
 		track.title = artistAndTitle[1];
 
 		track.url = playlist[i + 1];
-		arr.push(new vknp.models.AudioTrack(track));
+		arr.push(new clin.models.AudioTrack(track));
 	}
 	return arr;
 };
@@ -185,7 +185,7 @@ Home.prototype.category;
 
 
 /**
- * @type {DataList.<vknp.models.AudioTrack>}
+ * @type {DataList.<clin.models.AudioTrack>}
  */
 Home.prototype._playlist;
 

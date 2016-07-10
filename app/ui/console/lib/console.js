@@ -47,13 +47,13 @@ Console.prototype.init = function() {
 	this._authPopUp = null;
 
 	this._widgets.input = this._createInput();
-	this._widgets.loading = new vknp.ui.console.widgets.Loading;
-	this._panels.slavePL = new vknp.ui.console.panels.SlavePL;
-	this._panels.mainPL = new vknp.ui.console.panels.MainPL;
-	this._widgets.playBar = new vknp.ui.console.widgets.PlayBar;
-	this._widgets.infoBar = new vknp.ui.console.widgets.InfoBar;
-	this._widgets.controls = new vknp.ui.console.widgets.Controls;
-	this._panels.panel = new vknp.ui.console.panels.Panel(this._dataViews, new HistoryManager);
+	this._widgets.loading = new clin.ui.console.widgets.Loading;
+	this._panels.slavePL = new clin.ui.console.panels.SlavePL;
+	this._panels.mainPL = new clin.ui.console.panels.MainPL;
+	this._widgets.playBar = new clin.ui.console.widgets.PlayBar;
+	this._widgets.infoBar = new clin.ui.console.widgets.InfoBar;
+	this._widgets.controls = new clin.ui.console.widgets.Controls;
+	this._panels.panel = new clin.ui.console.panels.Panel(this._dataViews, new HistoryManager);
 
 	this._visiblePanels.left = this._panels.panel;
 	this._visiblePanels.right = this._panels.mainPL;
@@ -112,7 +112,7 @@ Console.prototype.show = function(panel) {
 /**
  */
 Console.prototype.back = function() {
-	if (this.activePanel instanceof vknp.ui.console.panels.SlavePL) {
+	if (this.activePanel instanceof clin.ui.console.panels.SlavePL) {
 		this.show(this._panels.panel);
 	}
 };
@@ -128,7 +128,7 @@ Console.prototype.copy = function() {
 	var playlist = this._panels.mainPL.getPlaylist();
 
 	if (activePanel === this._panels.slavePL && item) {
-		playlist.addItems([new vknp.models.AudioTrack(item)]);
+		playlist.addItems([new clin.models.AudioTrack(item)]);
 	}
 	if (activePanel === this._panels.friends && this._panels.friends.getChild(index) && this._panels.friends.getChild(index).friend) {
 		var friend = this._panels.friends.getChildData(index);
@@ -196,7 +196,7 @@ Console.prototype.append = function(node) {
 
 
 /**
- * @param {vknp.ui.console.popups} PopUp
+ * @param {clin.ui.console.popups} PopUp
  */
 Console.prototype.openPopUp = function(PopUp, opt_params) {
 	var popup = new PopUp(opt_params);
@@ -221,7 +221,7 @@ Console.prototype.openPopUp = function(PopUp, opt_params) {
  * @private
  */
 Console.prototype._createInput = function() {
-	var input = new vknp.ui.console.widgets.Input({
+	var input = new clin.ui.console.widgets.Input({
 		'bottom': 3,
 		'left': 'center',
 		'width': '99%',
@@ -260,7 +260,7 @@ Console.prototype._apiVKErrorHandler = function(errorCode, errorMessage) {
 	}.bind(this);
 
 	if (errorCode === 5 && !this._authPopUp) {
-		this._authPopUp = this.openPopUp(vknp.ui.console.popups.Authorization);
+		this._authPopUp = this.openPopUp(clin.ui.console.popups.Authorization);
 		//this._authPopUp.setIndex(-1);
 		this._authPopUp.on('close', closeAuthPopUp);
 		setTimeout(this._authPopUp.focus.bind(this._authPopUp), 2000);//dirty hack for set focused
@@ -269,7 +269,7 @@ Console.prototype._apiVKErrorHandler = function(errorCode, errorMessage) {
 
 
 /**
- * @type {vknp.service.Player}
+ * @type {clin.service.Player}
  */
 Console.prototype.player;
 
@@ -301,13 +301,13 @@ Console.prototype.userId;//todo move to global scope
 
 
 /**
- * @type {vknp.ui.console.popups.Authorization}
+ * @type {clin.ui.console.popups.Authorization}
  */
 Console.prototype._authPopUp;
 
 
 /**
- * @type {Array.<vknp.ui.console.popups>}
+ * @type {Array.<clin.ui.console.popups>}
  */
 Console.prototype._openPopUps;
 

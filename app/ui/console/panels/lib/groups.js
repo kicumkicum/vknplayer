@@ -56,7 +56,7 @@ Groups.prototype._clickHandler = function(eventName, item, position) {
 	app.api.vk
 		.getAudioAlbums(id, 100)
 		.then(function(albums) {
-			app.ui.console._panels.albums.updatePanel(helper.parseArray(albums, vknp.models.Album), id);
+			app.ui.console._panels.albums.updatePanel(helper.parseArray(albums, clin.models.Album), id);
 		});
 };
 

@@ -82,7 +82,7 @@ Config.prototype._configure = function() {
 			return this._readConfig();
 		} catch(e) {
 			console.log('not write config', e);
-			return new vknp.models.Config(JSON.parse(defaultConfig));
+			return new clin.models.Config(JSON.parse(defaultConfig));
 		}
 	}
 };
@@ -118,7 +118,7 @@ Config.prototype._checkProp = function(obj, props, opt_value) {
  */
 Config.prototype._readConfig = function() {
 	var config = fs.readFileSync(path.join(this.CONFIG_DIR, this.CONFIG_FILE), 'utf-8');
-	return new vknp.models.Config(JSON.parse(config));
+	return new clin.models.Config(JSON.parse(config));
 };
 
 
@@ -131,7 +131,7 @@ Config.prototype._config;
 /**
  * @const {string}
  */
-Config.prototype.CONFIG_DIR = path.join(process.env.HOME, '.config', 'vknp');
+Config.prototype.CONFIG_DIR = path.join(process.env.HOME, '.config', 'clin');
 
 
 /**

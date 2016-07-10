@@ -14,7 +14,7 @@ goog.inherits(ServiceVK, dataViews.Abstract);
  * @return {Promise.<Array>}
  */
 ServiceVK.prototype.getChildren = function() {
-	return new vknp.Promise(function(resolve, reject) {
+	return new clin.Promise(function(resolve, reject) {
 		resolve([
 			new dataViews.Bookmarks,
 			new dataViews.Friends,

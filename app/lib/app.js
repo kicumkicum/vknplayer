@@ -10,7 +10,7 @@ var Vknp = function() {};
 
 
 Vknp.prototype.start = function() {
-	this.helper = new vknp.helper;
+	this.helper = new clin.helper;
 	this._initService();
 	this._config = this.service.config.getConfig();
 
@@ -195,7 +195,7 @@ Vknp.prototype.isGmusicEnabled = function() {
  */
 Vknp.prototype.makeAudioModels = function(tracks) {
 	return tracks.map(function(track) {
-		return new vknp.models.AudioTrack(track);
+		return new clin.models.AudioTrack(track);
 	});
 };
 
@@ -204,7 +204,7 @@ Vknp.prototype._initApi = function(config) {
 	this.api = {};
 
 	if (config.vk.enabled) {
-		this.api.vk = new vknp.api.vk.Api(config.vk);
+		this.api.vk = new clin.api.vk.Api(config.vk);
 	}
 	if (config.gmusic.enabled) {
 		//todo add gmusic api
@@ -213,7 +213,7 @@ Vknp.prototype._initApi = function(config) {
 		//todo add soundcloud api
 	}
 	if (config.yandexMusic.enable) {
-		this.api.yandexMusic = new vknp.api.yandexMusic.Api(config.yandexMusic);
+		this.api.yandexMusic = new clin.api.yandexMusic.Api(config.yandexMusic);
 	}
 
 };
@@ -221,10 +221,10 @@ Vknp.prototype._initApi = function(config) {
 
 Vknp.prototype._initService = function() {
 	this.service = {
-		config: new vknp.service.Config,
-		player: new vknp.service.Player,
-		playListManager: new vknp.service.PlayListManager,
-		radio: new vknp.service.Radio
+		config: new clin.service.Config,
+		player: new clin.service.Player,
+		playListManager: new clin.service.PlayListManager,
+		radio: new clin.service.Radio
 	};
 };
 
@@ -234,12 +234,12 @@ Vknp.prototype._initService = function() {
  * @protected
  */
 Vknp.prototype._initDataView = function(config) {
-	this._dataViews = new vknp.dataViews.Root(config);
+	this._dataViews = new clin.dataViews.Root(config);
 };
 
 
 Vknp.prototype._initUI = function(config) {
-	this.ui = new vknp.UI(config, this._dataViews, this.service, this.api);
+	this.ui = new clin.UI(config, this._dataViews, this.service, this.api);
 	this.ui.init();
 };
 
@@ -289,7 +289,7 @@ Vknp.prototype._prettyTitle = function(title) {
 
 
 /**
- * @type {vknp.Player}
+ * @type {clin.Player}
  */
 Vknp.prototype.player;
 

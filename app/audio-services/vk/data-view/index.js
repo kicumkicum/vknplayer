@@ -22,7 +22,7 @@ module.exports = class ServiceVK extends IDataView {
 	 * @override
 	 */
 	getChildren() {
-		return new vknp.Promise(function(resolve, reject) {
+		return new clin.Promise(function(resolve, reject) {
 			resolve([
 				new dataViews.Bookmarks(this._vkApi),
 				new dataViews.Friends,

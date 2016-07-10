@@ -29,7 +29,7 @@ goog.inherits(Root, dataViews.Abstract);
 
 
 Root.prototype.getChildren = function() {
-	return new vknp.Promise(function(resolve, reject) {
+	return new clin.Promise(function(resolve, reject) {
 		resolve(this._children);
 	}.bind(this));
 };

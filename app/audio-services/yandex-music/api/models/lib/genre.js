@@ -38,7 +38,7 @@ Genre.prototype.parse = function(data) {
 	/** @type {string} */
 	this.id = data['id'];
 
-	/** @type {vknp.models.yandexMusic.Genre} */
+	/** @type {clin.models.yandexMusic.Genre} */
 	this.subGenres = (data['subGenres'] || []).map(function(subGenre) {
 		return new models.Genre(subGenre);
 	});
