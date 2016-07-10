@@ -3,13 +3,14 @@
  */
 
 
-var AbstractApi = require('../../../lib/abstract-api');
+var AbstractApi = require('../../../api/lib/abstract-api');
 
 var util = require('util');
 var events = require('events');
-var models = require('../models');
+var models = require('../../../models');
 //"authUrl": "https://oauth.vk.com/authorize?client_id=4072914&scope=audio,offline&redirect_uri=http://109.227.206.91:8888&display=popup&v=5.21&response_type=token",
 //"authUrl": "https://oauth.vk.com/authorize?client_id=4072914&scope=audio,offline&redirect_uri=https://oauth.vk.com/blank.htm&display=popup&v=5.21&response_type=token",
+
 
 
 /**
@@ -223,8 +224,8 @@ VK.prototype.renameAudioAlbum = function(albumId, title) {
  */
 VK.prototype.moveAudioToAlbum = function(albumId, audioIds) {
 	var body = 'audio.moveToAlbum?' +
-		 'album_id=' + albumId +
-		 '&audio_ids=' + audioIds;
+		'album_id=' + albumId +
+		'&audio_ids=' + audioIds;
 	return this
 		._requestWrapper(body)
 		.then(function(result) {
@@ -293,8 +294,8 @@ VK.prototype.getRadio = function(artist, count) {
  */
 VK.prototype.getRecomendationMusic = function(count) {
 	var body = 'audio.getRecommendations?' +
-			'&count=' + count +
-			'&shuffle=' + 0;
+		'&count=' + count +
+		'&shuffle=' + 0;
 	return this
 		._requestWrapper(body)
 		.then(function(response) {
@@ -645,4 +646,7 @@ VK.prototype.EVENT_ERROR = 'error';
 VK.prototype.VERSION = '5.21';
 
 
+/**
+ * @type {VK}
+ */
 module.exports = VK;

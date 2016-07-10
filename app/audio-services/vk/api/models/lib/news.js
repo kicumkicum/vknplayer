@@ -1,7 +1,7 @@
 /**
  * Created by oleg on 22.08.14.
  */
-var models = require('../');
+var models = require('../index');
 
 
 

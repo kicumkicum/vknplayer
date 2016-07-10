@@ -1,9 +1,9 @@
-var AbstractApi = require('../../../lib/abstract-api');
+var AbstractApi = require('../../../api/lib/abstract-api');
 var Promise = require('promise');
 var YandexMusicApi = require('yandex-music-api');
 
 var events = require('events');
-var models = require('../models');
+var models = require('./models');
 var xml = require('node-xml-lite');
 
 /**
