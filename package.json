@@ -25,10 +25,9 @@
     "type": "git",
     "url": "git@github.com:kicumkicum/vknplayer.git"
   },
-  "main": "./vknplayer.js",
+  "main": "./clin.js",
   "bin": {
-    "vkn": "bin/vkn.sh",
-    "vknplayer": "bin/vkn.sh"
+    "clin": "bin/clin.sh"
   },
   "dependencies": {
     "blessed": "^0.1.81",
@@ -43,6 +42,6 @@
     "yandex-music-api": "^0.0.3"
   },
   "scripts": {
-    "start": "node vknplayer.js"
+    "start": "node clin.js"
   }
 }
