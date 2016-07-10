@@ -6,10 +6,10 @@
 /**
  * @constructor
  */
-var Vknp = function() {};
+var CLIn = function() {};
 
 
-Vknp.prototype.start = function() {
+CLIn.prototype.start = function() {
 	this.helper = new clin.helper;
 	this._initService();
 	this._config = this.service.config.getConfig();
@@ -27,7 +27,7 @@ Vknp.prototype.start = function() {
  * @param {*} param
  * @return {boolean}
  */
-Vknp.prototype.setConfig = function(prop, param) {
+CLIn.prototype.setConfig = function(prop, param) {
 	var result = this.service.config.setValue(prop, param);
 	return result !== null;
 };
@@ -37,14 +37,14 @@ Vknp.prototype.setConfig = function(prop, param) {
  * @param {Array.<string>} prop
  * @return {*}
  */
-Vknp.prototype.getConfig = function(prop) {
+CLIn.prototype.getConfig = function(prop) {
 	return this._config.getConfigValue(prop);
 };
 
 /**
  *
  */
-Vknp.prototype.play = function(playlistId, count, opt_artist) {
+CLIn.prototype.play = function(playlistId, count, opt_artist) {
 	if (opt_artist) {
 		this.search(playlistId, count, opt_artist)
 			.then(this.service.player.play.bind(this));
@@ -55,24 +55,24 @@ Vknp.prototype.play = function(playlistId, count, opt_artist) {
 
 /**
  */
-Vknp.prototype.pause = function() {};
+CLIn.prototype.pause = function() {};
 
 
 /**
  */
-Vknp.prototype.resume = function() {};
+CLIn.prototype.resume = function() {};
 
 
 /**
  */
-Vknp.prototype.stop = function() {
+CLIn.prototype.stop = function() {
 	this.service.player.stop();
 };
 
 
 /**
  */
-Vknp.prototype.toggle = function() {
+CLIn.prototype.toggle = function() {
 	this.service.player.toggle();
 };
 
@@ -80,7 +80,7 @@ Vknp.prototype.toggle = function() {
 /**
  *
  */
-Vknp.prototype.radio = function(playListId, count, opt_artist) {
+CLIn.prototype.radio = function(playListId, count, opt_artist) {
 	if (opt_artist) {
 		return this.api.vk.getRadio(opt_artist, count)
 			.then(function(tracks) {
@@ -101,7 +101,7 @@ Vknp.prototype.radio = function(playListId, count, opt_artist) {
  * @param {number} count
  * @return {Deferred.<number|null>}
  */
-Vknp.prototype.search = function(playlistId, count, query) {
+CLIn.prototype.search = function(playlistId, count, query) {
 	if (query instanceof Array) {
 		query = query.join(' ');
 	}
@@ -120,7 +120,7 @@ Vknp.prototype.search = function(playlistId, count, query) {
  * @param {boolean} replace
  * @return {Deferred.<number|null>}
  */
-Vknp.prototype.addAudioFromNews = function(playlistId, ownerId, newsId, replace) {
+CLIn.prototype.addAudioFromNews = function(playlistId, ownerId, newsId, replace) {
 	return this.api.vk
 		.getAudioFromNews(ownerId, newsId)
 		.then(function(tracks) {
@@ -132,44 +132,44 @@ Vknp.prototype.addAudioFromNews = function(playlistId, ownerId, newsId, replace)
 /**
  * @return {boolean}
  */
-Vknp.prototype.isFirstStart = function() {
+CLIn.prototype.isFirstStart = function() {
 	return ;
 };
 
 
 /**
  */
-Vknp.prototype.next = function() {
+CLIn.prototype.next = function() {
 	this.service.player.next();
 };
 
 
 /**
  */
-Vknp.prototype.prev = function() {
+CLIn.prototype.prev = function() {
 	this.service.player.prev();
 };
 
 
 /**
  */
-Vknp.prototype.forward = function() {};
+CLIn.prototype.forward = function() {};
 
 
 /**
  */
-Vknp.prototype.reward = function() {};
+CLIn.prototype.reward = function() {};
 
 
 /**
  */
-Vknp.prototype.help = function() {};
+CLIn.prototype.help = function() {};
 
 
 /**
  * @return {boolean}
  */
-Vknp.prototype.isVkEnabled = function() {
+CLIn.prototype.isVkEnabled = function() {
 	return !!this._config.api.vk.enabled;
 };
 
@@ -177,7 +177,7 @@ Vknp.prototype.isVkEnabled = function() {
 /**
  * @return {boolean}
  */
-Vknp.prototype.isYandexMusicEnabled = function() {
+CLIn.prototype.isYandexMusicEnabled = function() {
 	return !!this._config.api.yandexMusic.enable;
 };
 
@@ -185,7 +185,7 @@ Vknp.prototype.isYandexMusicEnabled = function() {
 /**
  * @return {boolean}
  */
-Vknp.prototype.isGmusicEnabled = function() {
+CLIn.prototype.isGmusicEnabled = function() {
 	return !!this._config.api.gmusic.enabled;
 };
 
@@ -193,14 +193,14 @@ Vknp.prototype.isGmusicEnabled = function() {
 /**
  * @param {Array} tracks
  */
-Vknp.prototype.makeAudioModels = function(tracks) {
+CLIn.prototype.makeAudioModels = function(tracks) {
 	return tracks.map(function(track) {
 		return new clin.models.AudioTrack(track);
 	});
 };
 
 
-Vknp.prototype._initApi = function(config) {
+CLIn.prototype._initApi = function(config) {
 	this.api = {};
 
 	if (config.vk.enabled) {
@@ -219,7 +219,7 @@ Vknp.prototype._initApi = function(config) {
 };
 
 
-Vknp.prototype._initService = function() {
+CLIn.prototype._initService = function() {
 	this.service = {
 		config: new clin.service.Config,
 		player: new clin.service.Player,
@@ -233,12 +233,12 @@ Vknp.prototype._initService = function() {
  * @param config
  * @protected
  */
-Vknp.prototype._initDataView = function(config) {
+CLIn.prototype._initDataView = function(config) {
 	this._dataViews = new clin.dataViews.Root(config);
 };
 
 
-Vknp.prototype._initUI = function(config) {
+CLIn.prototype._initUI = function(config) {
 	this.ui = new clin.UI(config, this._dataViews, this.service, this.api);
 	this.ui.init();
 };
@@ -249,7 +249,7 @@ Vknp.prototype._initUI = function(config) {
  * @param {string} query
  * @private
  */
-Vknp.prototype._scythe = function(tracks, query) {
+CLIn.prototype._scythe = function(tracks, query) {
 	var tracksObj = {};
 	tracks = tracks.filter(function(track) {
 		if (query.toLowerCase() != track.artist.toLowerCase()) {
@@ -274,7 +274,7 @@ Vknp.prototype._scythe = function(tracks, query) {
  * @return {string}
  * @private
  */
-Vknp.prototype._prettyTitle = function(title) {
+CLIn.prototype._prettyTitle = function(title) {
 	var phrase = title.split(' ');
 	phrase = phrase.map(function(word) {
 		if (word.length > 1) {
@@ -291,13 +291,13 @@ Vknp.prototype._prettyTitle = function(title) {
 /**
  * @type {clin.Player}
  */
-Vknp.prototype.player;
+CLIn.prototype.player;
 
 
 /**
  * @type {PlayListManager}
  */
-Vknp.prototype.playlist;
+CLIn.prototype.playlist;
 
 
 /**
@@ -305,7 +305,7 @@ Vknp.prototype.playlist;
  *      vk: VK
  * }}
  */
-Vknp.prototype.api;
+CLIn.prototype.api;
 
 
 /**
@@ -313,7 +313,7 @@ Vknp.prototype.api;
  *      console: Console
  * }}
  */
-Vknp.prototype.ui;
+CLIn.prototype.ui;
 
 
 /**
@@ -324,25 +324,25 @@ Vknp.prototype.ui;
  *      radio: Radio
  * }}
  */
-Vknp.prototype.service;
+CLIn.prototype.service;
 
 
 /**
  * @type {Server}
  */
-Vknp.prototype.server;
+CLIn.prototype.server;
 
 
 /**
  * @type {Config}
  */
-Vknp.prototype._config;
+CLIn.prototype._config;
 
 
 /**
  * @const {number}
  */
-Vknp.prototype.MAX_AUDIO_COUNT = 300;
+CLIn.prototype.MAX_AUDIO_COUNT = 300;
 
 
-module.exports = Vknp;
+module.exports = CLIn;
